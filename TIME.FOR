@@ -330,11 +330,10 @@ c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
      !                 RHMeanO,RHMax,RHMaxN,RHMaxO,RHMin,RHMinN,RHMinO,
      !                 RH_A,EaMean,EaMeanN,rTop,ierr)
 
-      implicit real(A-H,L-Z)
+      implicit double precision(A-H,L-Z)
       logical lMetDaily,lDayVar,lEnBal,lPrint,lHargr
       dimension rGrowth(1000,5)
       integer nGrowth,iCrop,iRelHum
-      double precision t,tInit,tMax,tAtm2,tAtm2O,tAtmN
 
       ierr=0
       if(iKod.eq.1) then
@@ -464,11 +463,10 @@ c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
 *               =1: uses LAI and Soil Cover (SC)
 *               =2; uses only SC
 
-      implicit real(A-H,L-Z)
+      implicit double precision(A-H,L-Z)
       logical lEnBal,lPrint,lHargr
       dimension rGrowth(1000,5)
       integer nGrowth
-      double precision tInit,tAtm,tAtmOld
       character*3 TheEnd
 
       PI=3.141592654
@@ -633,12 +631,12 @@ c        tMax=tAtm
      !                TempHeight,Wind_ms,Altitude,TAver,TMax,TMin,rc,
      !                raa,Ea_TMax,Ea_TMin,EaDew,ierr)
 
-      real lambda
+      implicit double precision (A-H,L-Z)
 
       dl0=0.667*CropHeight
       if(dl0.ge.WindHeight.or.dl0.ge.TempHeight) goto 901
-      AerDynRes=alog((WindHeight-dl0)/(0.123*CropHeight))*
-     !          alog((TempHeight-dl0)/(0.0123*CropHeight))/
+      AerDynRes=dlog((WindHeight-dl0)/(0.123*CropHeight))*
+     !          dlog((TempHeight-dl0)/(0.0123*CropHeight))/
      !          0.41**2                                         ! Equation 36,37,38,39
       if(Wind_ms.gt.0.) raa=AerDynRes/Wind_ms                   ! Equation 36
       AeroTCff=0.622*3.486*86400./AerDynRes/1.01                ! Equation 47b
@@ -671,7 +669,7 @@ c        tMax=tAtm
 
       subroutine RadGlobal(Ra,Latitude,DayNo,Omega,xx,yy,SC)
 
-      real Lat1,Lat2,Latitude
+      implicit double precision (A-H,L-Z)
 
       PI=3.141592654
       SC=118.08                                             ! Solar Constant MJ/m2/d
@@ -698,7 +696,7 @@ c        tMax=tAtm
       subroutine Cloudiness(CloudF,iSunSh,SunHours,Omega,LongWaveRadB,
      !                      LongWaveRadA,n_N,Cover,Tt)
 
-      implicit real(A-H,L-Z)
+      implicit real*8(A-H,L-Z)
       PI=3.141592654
 
       if(iSunSh.eq.0) then                ! sunshine hours
@@ -732,7 +730,7 @@ c        tMax=tAtm
 
       subroutine CropRes(rc,iLAI,LAI,rExtinct,iCrop,CropHeight,SCF)
 
-      real LAI
+      implicit double precision (A-H,L-Z)
       logical lCrop
 
       if(iCrop.eq.0.or.CropHeight.le.0) then
@@ -747,10 +745,10 @@ c        tMax=tAtm
         if(iLAI.eq.1) then                    ! only clipped grass
           LAI=0.24*CropHeight                                   ! Equation 35
         else if(iLAI.eq.2) then               ! alfalfa
-          LAI=1.5*alog(CropHeight)+5.5                          ! Equation 34
+          LAI=1.5*dlog(CropHeight)+5.5                          ! Equation 34
         else if(iLAI.eq.3) then               ! SCF
           if(LAI.lt.1.) then
-            LAI=-alog(1.-LAI)/amax1(rExtinct,0.1)
+            LAI=-dlog(1.-LAI)/amax1(rExtinct,0.1)
           else 
             LAI=10.
           end if
@@ -771,7 +769,7 @@ c        tMax=tAtm
       subroutine RadLongNet(Rnl,TMax,TMin,LongWaveRadA1,LongWaveRadB1,
      !                      Ea,CloudF)
 
-      real LongWaveRadA1,LongWaveRadB1
+      implicit double precision (A-H,L-Z)
 
       sigma=0.00000000245*((TMax+273.16)**4+(TMin+273.16)**4)   ! Equation 63a
       Emissivity=LongWaveRadA1+LongWaveRadB1*sqrt(Ea)           ! Equation 60
@@ -787,7 +785,7 @@ c        tMax=tAtm
       subroutine Intercept(rInterc,iInterc,LAI,aInterc,SCF,Prec,
      !                     ExcesInt,TransP)
 
-      real LAI
+      implicit real*8(A-H,L-Z)
 
       rInterc=0.
       if(iInterc.gt.0) then
@@ -918,9 +916,7 @@ c        tMax=tAtm
      !                  ShortWaveRadA,ShortWaveRadB,LongWaveRadA,
      !                  LongWaveRadB,iMetHour)
 
-      implicit real(A-H,L-Z)
-      real Lat,Latitude,n_N
-      double precision t
+      implicit double precision(A-H,L-Z)
       logical lMetDaily
 
 *     Rn      - Net radiation [MJ/m2/d]
@@ -1068,6 +1064,8 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       subroutine RadLongNet1(Rnl,TempA,RHMean,Cover,ThetaT,TkelvA,
      !                       TkelvS)
 
+      implicit double precision (A-H,L-Z)
+
       sigma=4.899e-09
       Es=0.6108*exp((17.27*TempA)/(TempA+237.3))              ! Equation 10
       Ea=RHMean/100.*Es
@@ -1088,7 +1086,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       subroutine AeroRes(r_v,TempHeight,WindHeight,Wind,TKelvS,TKelvA,
      !                   Ca,g)
 
-      real Mo
+      implicit double precision (A-H,L-Z)
 
 *     rK      - von Karman constant (=0.41)
 *     psim    - atmospheric stability factor for momentum
@@ -1110,15 +1108,15 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
       if(Wind.gt.0.) then
         if(abs(TKelvS-TKelvA).lt.0.01) then  ! The atmosphere is neutral
-          r_v=1./Wind/rK/rK*(alog((THeight-dl)/zh))*
-     !                      (alog((WHeight-dl)/zm))
+          r_v=1./Wind/rK/rK*(dlog((THeight-dl)/zh))*
+     !                      (dlog((WHeight-dl)/zm))
           goto 12  
         end if
         psim=0.0 ! The atmosphere is not neutral
         psih=0.0
         do 11 i=1,6
-          uu=Wind*rK/(alog((WHeight-dl+zm)/zm)+psim)
-          r_v=1./uu/rK*(alog((THeight-dl+zh)/zh)+psih)
+          uu=Wind*rK/(dlog((WHeight-dl+zm)/zm)+psim)
+          r_v=1./uu/rK*(dlog((THeight-dl+zh)/zh)+psih)
           if(i.eq.1) then
             rvMin= 0.1*r_v
             rvMax=10.0*r_v
@@ -1135,8 +1133,8 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
           zeta=(THeight-dl)/Mo    ! unitless height
           if(zeta.lt.0.) then     ! unstable
             xx=(max(0.,1.-16*zeta))**0.25
-                psih=-2.*alog((1+xx*xx)/2.)
-            psim=-2.*alog((1+xx)/2.)-alog((1+xx*xx)/2.)+
+                psih=-2.*dlog((1+xx*xx)/2.)
+            psim=-2.*dlog((1+xx)/2.)-dlog((1+xx*xx)/2.)+
      !           2.*atan(xx)-pi/2.
           else if(zeta.gt.0) then  ! stable
             if(zeta.lt.1) then
@@ -1229,8 +1227,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
      !                    SunHours,SunHoursN,CropHeight,CropHeightN,
      !                    Albedo,AlbedoN,LAI,LAIN,xRoot,xRootN,iCrop,
      !                    xConv,ierr)
-      implicit real(A-H,L-Z)
-      double precision t,tInit,tEnd,tAtm,tAtmN
+      implicit double precision(A-H,L-Z)
       integer iDaily,iCrop,iRelHum
 
 *     iDaily    - =1: initial, =2: update, =3: tFinal-1 (last day), =4: 0:00<t<24:00
@@ -1382,7 +1379,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
       subroutine Humidity(TMax,TMin,RHMean,iRelHum,RHMax,RHMin,EaMean)
 
-      implicit real(A-H,L-Z)
+      implicit real*8(A-H,L-Z)
       integer iRelHum
 
 *     iRelHum	- =0: Input RH, =1: Input Vapor pressure for RHMean

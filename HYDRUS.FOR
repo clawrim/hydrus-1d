@@ -33,13 +33,6 @@
           integer(2) signum
         end function
       end interface
-
-      interface
-        function hand_fpe (sigid)
-          integer(4) hand_fpe
-          integer(2)  sigid
-        end function
-      end interface
 *#######################################################################
 
       parameter (NumNPD=1001,
@@ -63,7 +56,6 @@
      !                 tPrint1,tAtm1,tAtm2,tAtmOld,tAtmN,tAtm2O,
      !                 TPrint,tPrintInt
       character cFileName*260,cDataPath*260
-      integer*2 status
       integer*2 i2,iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
 
       dimension x(NumNPD),hNew(NumNPD),hOld(NumNPD),hTemp(NumNPD),
@@ -96,14 +88,14 @@
 *-----------------------------------------------------------------------
       i4ret = SIGNAL(6, h_sig)
       i4ret = SIGNAL(3, h_sig)
-      i4ret = SIGNAL(2,   h_sig)
-      i4ret = SIGNAL(8,   hand_fpe)
+      i4ret = SIGNAL(2, h_sig)
+      i4ret = SIGNAL(8, h_sig)
 *-----------------------------------------------------------------------
 
       iCount = NARGS()
       if(iCount.gt.1) then
         i2=1
-        call GETARG(i2, cDataPath, status)
+        call GETARG(i2, cDataPath)
       else
         cFileName = 'LEVEL_01.DIR'
         open(10,file=cFileName, status='old',err=901)
@@ -893,19 +885,14 @@ c      goto 1000
             write(*,*) 'Floating point error !'
           case (3) 
             write(*,*) 'Program terminated !'
+          case (8) 
+            write(*,*) 'Floating Point Error !'
           case default
             write(*,*) 'Unknown signal handler !'
         end select
         h_sig = 1
         call CloseFiles
         stop
-      end
-
-      integer(4) function hand_fpe (signum)
-        integer(2)  signum
-        write(*,*) 'Floating Point Error !'
-        hand_fpe = 1
-        call CloseFiles
       end
 
 ************************************************************************

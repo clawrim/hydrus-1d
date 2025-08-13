@@ -20,19 +20,6 @@
       program HYDRUS
 
 *#######################################################################
-*     Procedura pro osetreni nasledujicich signalu: 
-*         - signal CTRL+C            
-*         - signal CTRK+BREAK   
-*         - abnormal termination 
-*         - floating point error 
-*-----------------------------------------------------------------------
-
-      interface
-        function h_sig (signum)
-          integer h_sig, signum
-        end function
-      end interface
-*#######################################################################
 
       parameter (NumNPD=1001,
      !           NMatD =20,
@@ -86,6 +73,7 @@
       data lStopConv,iNonConv /.true. , 0 /
 
 *-----------------------------------------------------------------------
+      external h_sig
       i4ret = SIGNAL(6, h_sig)
       i4ret = SIGNAL(3, h_sig)
       i4ret = SIGNAL(2, h_sig)

@@ -26,11 +26,9 @@
 *         - abnormal termination 
 *         - floating point error 
 *-----------------------------------------------------------------------
-!      use MSFLIB
 
       interface
         function h_sig (signum)
-          !MS$ATTRIBUTES C :: h_sig
           integer(4) h_sig
           integer(2) signum
         end function
@@ -38,7 +36,6 @@
 
       interface
         function hand_fpe (sigid)
-           !MS$ATTRIBUTES C :: hand_fpe
           integer(4) hand_fpe
           integer(2)  sigid
         end function
@@ -853,7 +850,6 @@ c      goto 1000
       subroutine CloseOutput(RTime1,NS,TopInF,BotInF,lChem,lScreen,
      !                       lMeteo,lPrint)
 
-!      use MSFLIB
       logical TopInF,BotInF,lChem,lScreen,lMeteo,lPrint
       integer*2 iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
       double precision RTime1,RTime2,RTime
@@ -887,8 +883,6 @@ c      goto 1000
 *     Signal handler routines 
 *-----------------------------------------------------------------------
       integer(4) function h_sig (signum)
-!        use MSFLIB
-        !MS$ATTRIBUTES C :: h_sig
         integer(2) signum             
         select case (signum)
           case (6)
@@ -908,8 +902,6 @@ c      goto 1000
       end
 
       integer(4) function hand_fpe (signum)
-        !MS$ATTRIBUTES C :: hand_fpe
-!        use MSFLIB
         integer(2)  signum
         write(*,*) 'Floating Point Error !'
         hand_fpe = 1

@@ -17,6 +17,7 @@
      !        lInitW,lVarBC,lPrint,lMeteo,lVapor,lCentrif,lSnow,lFlux,
      !        lActRSU,lDummy
       dimension iUnit(NUnitD)
+      integer*2 iValues(8)
 
       iVer = iGetFileVersion(30,1)
       read(30,*,err=901)
@@ -140,8 +141,12 @@ c        read(*,*)
       do 11 i=1,ii
         write(iUnit(i),*,err=903)'******* Program HYDRUS'
         write(iUnit(i),*,err=903)'******* ',Hed
-        call getdat(ii,imonth,iday)
-        call gettim(ihours,mins,isecs,ii)
+        call date_and_time(values=iValues)
+        imonth=iValues(2)
+        iday=iValues(3)
+        ihours=iValues(5)
+        mins=iValues(6)
+        isecs=iValues(7)
         write(iUnit(i),100,err=903) iday,imonth,ihours,mins,isecs
         write(iUnit(i),*,err=903)'Units: L = ',LUnit,', T = ',TUnit,
      !                                ', M = ',MUnit

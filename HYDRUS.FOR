@@ -57,6 +57,7 @@
      !                 TPrint,tPrintInt
       character cFileName*260,cDataPath*260
       integer*2 i2,iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
+      integer*2 iValues(8)
 
       dimension x(NumNPD),hNew(NumNPD),hOld(NumNPD),hTemp(NumNPD),
      !  MatNum(NumNPD),ParD(11,NMatD),TPrint(NPD),Sink(NumNPD),
@@ -380,8 +381,14 @@
      !  call Exclusion(NumNP,NMat,NSD,ParD,ChPar,ThNew,vNew,ThOld,vOld)
 
       if(lScreen) write(*,*) 'beginning of numerical solution'
-      call getdat(iYear,iMonth,iDay)
-      call gettim(iHours,iMins,iSecs,i100th)
+      call date_and_time(values=iValues)
+      iYear=iValues(1)
+      iMonth=iValues(2)
+      iDay=iValues(3)
+      iHours=iValues(5)
+      iMins=iValues(6)
+      iSecs=iValues(7)
+      i100th=iValues(8)
       Rtime1=RTime(iMonth,iDay,iHours,iMins,iSecs,i100th)
 
 *     Time stepping calculations ---------------------------------------
@@ -844,10 +851,17 @@ c      goto 1000
 
       logical TopInF,BotInF,lChem,lScreen,lMeteo,lPrint
       integer*2 iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
+      integer*2 iValues(8)
       double precision RTime1,RTime2,RTime
 
-      call getdat(iYear,iMonth,iDay)
-      call gettim(iHours,iMins,iSecs,i100th)
+      call date_and_time(values=iValues)
+      iYear=iValues(1)
+      iMonth=iValues(2)
+      iDay=iValues(3)
+      iHours=iValues(5)
+      iMins=iValues(6)
+      iSecs=iValues(7)
+      i100th=iValues(8)
       Rtime2=RTime(iMonth,iDay,iHours,iMins,iSecs,i100th)
       if(lScreen) write( *,*) 'Real time [sec]',Rtime2-RTime1
       if(lPrint) then

@@ -700,7 +700,7 @@ c        tMax=tAtm
       subroutine Cloudiness(CloudF,iSunSh,SunHours,Omega,LongWaveRadB,
      !                      LongWaveRadA,n_N,Cover,Tt)
 
-      implicit real*8(A-H,L-Z)
+      implicit double precision(A-H,L-Z)
       PI=3.141592654
 
       if(iSunSh.eq.0) then                ! sunshine hours
@@ -791,7 +791,7 @@ c        tMax=tAtm
       subroutine Intercept(rInterc,iInterc,LAI,aInterc,SCF,Prec,
      !                     ExcesInt,TransP)
 
-      implicit real*8(A-H,L-Z)
+      implicit double precision(A-H,L-Z)
 
       rInterc=0.
       if(iInterc.gt.0) then
@@ -870,7 +870,7 @@ c        tMax=tAtm
      !                    RHMean,RHMeanO,RHMeanN,SunHours,SunHoursO,
      !                    SunHoursN,lEnBal)
 
-      implicit real*8(A-H,L-Z)
+      implicit double precision(A-H,L-Z)
       logical lEnBal ! for lEnBal, there is no need to interpolate Rad and SunHours
 
       if(i.eq.1) then
@@ -1389,7 +1389,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
       subroutine Humidity(TMax,TMin,RHMean,iRelHum,RHMax,RHMin,EaMean)
 
-      implicit real*8(A-H,L-Z)
+      implicit double precision(A-H,L-Z)
       integer iRelHum
 
 *     iRelHum	- =0: Input RH, =1: Input Vapor pressure for RHMean
@@ -1442,7 +1442,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 *     Rad   - Incoming solar radiation [MJ/m2/d]
 *     Rst   - Solar radiation at current time step [MJ/m2/d]
 
-      implicit real*8(A-H,L-Z)
+      implicit double precision(A-H,L-Z)
       logical lEnBal
       dimension rGrowth(1000,5)
       integer nGrowth

@@ -570,7 +570,7 @@ c        m=Par(6)
 
       implicit double precision(A-H,O-Z)
       double precision n,m,Ks,Kr,Kk
-      real*8 S,th,Par(10)
+      double precision S,th,Par(10)
       integer PPar
 
       FKS=0
@@ -656,9 +656,9 @@ c        m=Par(6)
 
 *     Evaluate h for given theta_e for dual-porosity function
 
-      real*8 function xMualem(SE,Par,NPar)
+      double precision function xMualem(SE,Par,NPar)
 
-      implicit real*8(A-H,O-Z)
+      implicit double precision(A-H,O-Z)
       real Par
       dimension Par(NPar)
 
@@ -682,7 +682,7 @@ c        xMualem=1./hhh ! for integration
 
 *     Double porosity function - for evaluation of h for given theta_e
 
-      implicit real*8(A-H,O-Z)
+      implicit double precision(A-H,O-Z)
       real Par
       dimension Par(NPar)
 
@@ -711,7 +711,7 @@ c        xMualem=1./hhh ! for integration
 
       subroutine ZBRAK(X1,X2,XB1,XB2,SE,Par,NPar)
 
-      implicit real*8(A-H,O-Z)
+      implicit double precision(A-H,O-Z)
       real Par
       dimension Par(NPar)
 
@@ -744,9 +744,9 @@ c        xMualem=1./hhh ! for integration
 *     Brent method of finding root that lies between x1 and x2, 
 *     Numerical recepies (354)
 
-      real*8 function ZBRENT(X1,X2,SE,Par,NPar)
+      double precision function ZBRENT(X1,X2,SE,Par,NPar)
 
-      implicit real*8(A-H,O-Z)
+      implicit double precision(A-H,O-Z)
       parameter (ITMAX=100,EPS=3.E-8,TOL=1.e-6)
       real Par
       dimension Par(NPar)
@@ -829,7 +829,7 @@ c        xMualem=1./hhh ! for integration
 
 *     Purpose:  To calculate the Gamma function for positive Z
 
-      implicit real*8 (A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       if(Z.lt.33.) goto 11
       Gamma_h1d=1.d36
       return
@@ -870,7 +870,7 @@ c        xMualem=1./hhh ! for integration
 
 *     Purpose: To calculate the incomplete Beta-function
 
-      implicit real*8 (A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       dimension T(200)
       data NT/10/
       NT1=NT+1

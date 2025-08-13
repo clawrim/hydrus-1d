@@ -6,11 +6,11 @@
       subroutine Hyst(NumNP,NMatD,ParD,ParW,MatNum,Kappa,hNew,hOld,
      !                Theta,Con,Cap,IKappa,iKod)
 
-      implicit real*8(A-H,O-Z)
+      implicit double precision(A-H,O-Z)
       implicit integer*4 (I-N)
       logical lPrint
-      real*8 ParD(11,NMatD),ParW(11,NMatD),hNew(NumNP),hOld(NumNP),
-     !     Theta(NumNP),Con(NumNP),Cap(NumNP)
+      double precision ParD(11,NMatD),ParW(11,NMatD),hNew(NumNP),
+     !                 hOld(NumNP),Theta(NumNP),Con(NumNP),Cap(NumNP)
       dimension MatNum(NumNP),Kappa(NumNP)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
      !                    XNW,XMW,XXMW
@@ -121,7 +121,7 @@ c        Theta(n)=SW*(ParD(2,m)-ParD(1,m))+ParD(1,m)
 *     Written/revised by RJ Lenhard, Nov. 2004
 
       subroutine HysterIni(N)
-      implicit real*8 (A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       implicit integer*4 (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
      !                    XNW,XMW,XXMW 
@@ -238,7 +238,7 @@ c      IF( IRES .GE. 1) GO TO 210
 
       subroutine PATH(N,HW,HA)
 
-      implicit real*8 (A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       implicit integer*4 (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
      !                    XNW,XMW,XXMW 
@@ -289,7 +289,7 @@ c      IF( IRES .GE. 1) GO TO 210
 *     Written/revised by RJ Lenhard, Nov 2004
 
       subroutine HAWPATH( N,HAW )
-      implicit real*8 (A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       implicit integer*4 (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
      !                    XNW,XMW,XXMW 
@@ -441,7 +441,7 @@ c      IF( IRES .GE. 1) GO TO 210
 *     Written/revised by RJ Lenhard, Nov 2004
 
       subroutine DRAIN( N,HAW )
-      implicit real*8 (A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       implicit integer*4 (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
      !                    XNW,XMW,XXMW 
@@ -533,7 +533,7 @@ c      IF( IRES .GE. 1) GO TO 210
 
       subroutine DRY( N,HAW )
 
-      implicit real*8 (A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       implicit integer*4 (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
      !                    XNW,XMW,XXMW 
@@ -591,7 +591,7 @@ c      IF( IRES .GE. 1) GO TO 210
 *     Written/revised by RJ Lenhard, Nov 2004
 
       subroutine WET( N,HAW )
-      implicit real*8 (A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       implicit integer*4 (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
      !                    XNW,XMW,XXMW 
@@ -650,7 +650,7 @@ c      IF( IRES .GE. 1) GO TO 210
 
       subroutine UPDATEHYST(N,HW,HA)
 
-      implicit real*8 (A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       implicit integer*4 (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
      !                    XNW,XMW,XXMW 

@@ -549,7 +549,7 @@ c        tMax=tAtm
             n_N=1.-Cover
           end if
           if(iRadiation.eq.1.and.iSunSh.eq.3) then
-            Rad_cs=Ra*(ShortWaveRadA+ShortWaveRadB*1.0)         ! solar radiation of clear-sky		 
+            Rad_cs=Ra*(ShortWaveRadA+ShortWaveRadB*1.0)         ! solar radiation of clear-sky
             if(iMetHour.gt.0) then  ! Short term interval, calculate daily variation of Rad_cs
               Sum=0.
               do 10 k=1,24
@@ -560,14 +560,14 @@ c        tMax=tAtm
               sine=xx+yy*cos(2.*PI/24.*(HourNo-12.))     ! Hourly variations eq.12.8 (Basic)
               Rad_csH=max(sine*Rad_cs/Sum,0.)
               if     (Rad_csH.le.0.0001) then
-                CloudF=CloudF_Ac*0.6+CloudF_Bc                  ! average Rad/Rad_csH=0.6 in night time 	   
+                CloudF=CloudF_Ac*0.6+CloudF_Bc                  ! average Rad/Rad_csH=0.6 in night time
               else if(Rad.ge.Rad_csH) then
-                CloudF=CloudF_Ac*1.+CloudF_Bc                   ! Equation 57	   
+                CloudF=CloudF_Ac*1.+CloudF_Bc                   ! Equation 57
               else
-                CloudF=max(CloudF_Ac*Rad/Rad_csH+CloudF_Bc,0.01) ! Equation 57	        
+                CloudF=max(CloudF_Ac*Rad/Rad_csH+CloudF_Bc,0.01) ! Equation 57
               end if
             else                               ! Daily interval
-              CloudF=CloudF_Ac*Rad/Rad_cs+CloudF_Bc             ! Equation 57	   
+              CloudF=CloudF_Ac*Rad/Rad_cs+CloudF_Bc             ! Equation 57
             end if
           end if
         end if
@@ -694,8 +694,8 @@ c        tMax=tAtm
 
 *     Calculate cloudiness factor
 
-*     CloudF	- Cloudiness factor [-]
-*     Cover	  - Cloud cover fraction 
+*     CloudF    - Cloudiness factor [-]
+*     Cover     - Cloud cover fraction 
 
       subroutine Cloudiness(CloudF,iSunSh,SunHours,Omega,LongWaveRadB,
      !                      LongWaveRadA,n_N,Cover,Tt)
@@ -953,11 +953,11 @@ c        tMax=tAtm
 *     sigma   - Stephan-Boltzmann constant [5.6697e-8 J/s/m2/K4], [4.899e-9 MJ/d/m2/K4]
 *     Tt      - Transmission coefficient (either given or calculated from potential and 
 *               measured solar radiation)
-*     r_v		  - Aerodynamic resistance to vapor flow [s/m]
-*     r_h		  - Aerodynamic resistance to heat flow [s/m] (=r_v)
-*     r_s		  - Soil surface resistance [s/m]
-*     CloudF	- Cloudiness factor [-]
-*     Cover	  - Cloud cover fraction 
+*     r_v     - Aerodynamic resistance to vapor flow [s/m]
+*     r_h     - Aerodynamic resistance to heat flow [s/m] (=r_v)
+*     r_s     - Soil surface resistance [s/m]
+*     CloudF  - Cloudiness factor [-]
+*     Cover   - Cloud cover fraction 
 
       n_N=0
       Tt=0
@@ -994,7 +994,7 @@ c        tMax=tAtm
               sine=xx+yy*cos(2.*PI/24.*(HourNo-12.))
               RaH=max(SC*sine,0.)     ! Hourly variations of extraterrestorial radiation, eq.12.8 (Basic)
               if(RaH.le.0.0001) then  ! night time
-                Cover=0.6             ! average value calculated from Rad/Rad_csH=0.6 	   
+                Cover=0.6             ! average value calculated from Rad/Rad_csH=0.6
               else
                 Tt=min(Rad/RaH,1.)
                 Cover=max(0.1,min(1.,2.330-3.330*Tt))
@@ -1099,11 +1099,11 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 *     rK      - von Karman constant (=0.41)
 *     psim    - atmospheric stability factor for momentum
 *     psih    - atmospheric stability factor for heat
-*     zm		  - roughness parameter for momentum [m]
-*     zh		  - roughness parameter for heat transport [m]
-*     dl		  - displacement level for heat transport [m] (0)
-*     Mo		  - Monin-Obukhov scaling length
-*     zeta	  - Unitless height
+*     zm      - roughness parameter for momentum [m]
+*     zh      - roughness parameter for heat transport [m]
+*     dl      - displacement level for heat transport [m] (0)
+*     Mo      - Monin-Obukhov scaling length
+*     zeta    - Unitless height
 
       rK=0.41
       Pi=3.141592654
@@ -1177,7 +1177,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 *     DeltaE    - Difference of Latent heat term [kg/s3]
 *     DeltaT    - Approximate temperature change at surface [C]
 *     DeltaSens - Difference of Sensible heat term [kg/s3]
-*     rLamb	    - Thermal conductivity of soil surface [kg/m/s3/K]
+*     rLamb     - Thermal conductivity of soil surface [kg/m/s3/K]
 *     dz        - Distance between 1st and 2nd lattice [L]
 
       integer TLevel
@@ -1240,22 +1240,22 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
 *     iDaily    - =1: initial, =2: update, =3: tFinal-1 (last day), =4: 0:00<t<24:00
 *     tInit     - Initial time
-*     tEnd	    - Final time
+*     tEnd      - Final time
 *     tAtm,N    - Current time, next DOY
-*     TMax,N(O)	- Max temperature at current, next, and previous DOY
-*     TMin,N(O)	- Min temperature at current, next, and previous DOY
-*     TempA		  - Air temperature at Current Time Step
+*     TMax,N(O) - Max temperature at current, next, and previous DOY
+*     TMin,N(O) - Min temperature at current, next, and previous DOY
+*     TempA     - Air temperature at Current Time Step
 *     RHMax,N(O)- Max relative humidity at current, next, previous DOY
 *     RHMin,N(O)- Min relative humidity at current, next, previous DOY
-*     RH_A		  - Relative humidity at the current time step
+*     RH_A      - Relative humidity at the current time step
 *     EaMean,N  - Daily averaged actual vapor pressure
 *     Rad,N     - Radiation data at the current and next DOY
-*     Wind_ms,N	- Wind speed (m/s) at the current and next DOY
+*     Wind_ms,N - Wind speed (m/s) at the current and next DOY
 *     SunHours,N- Sunshine hours at the current and next DOY
 *     CropHeight,N - Crop height at the current and next DOY
 *     Albedo,N  - Albedo at the current and next DOY
-*     LAI,N		  - LAI at the current and next DOY
-*     xRoot,N	  - Root depth  at the current and next DOY
+*     LAI,N     - LAI at the current and next DOY
+*     xRoot,N   - Root depth  at the current and next DOY
 
 *     Read meteorological data from Meteo.In
 *     iDaily=1: Initialy read 1st and 2nd day's data
@@ -1341,8 +1341,8 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
       implicit double precision (A-H,L-Z)
 
-*     maxTime	- The time of maximum temperature 13:00
-*     minTime	- The time of minimum temperature 1:00
+*     maxTime   - The time of maximum temperature 13:00
+*     minTime   - The time of minimum temperature 1:00
 
       TMinA=0
       TMaxA=0
@@ -1392,10 +1392,10 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       implicit double precision (A-H,L-Z)
       integer iRelHum
 
-*     iRelHum	- =0: Input RH, =1: Input Vapor pressure for RHMean
-*     EaMean	- Average Saturation vapor pressure
-*     Es_TMax	- Maximum Saturation vapor pressure
-*     Es_TMin	- Minimum Saturation vapor pressure
+*     iRelHum   - =0: Input RH, =1: Input Vapor pressure for RHMean
+*     EaMean    - Average Saturation vapor pressure
+*     Es_TMax   - Maximum Saturation vapor pressure
+*     Es_TMin   - Minimum Saturation vapor pressure
 *     RHMax   - Estimated Max RH
 *     RHMin   - Estimated Min RH
 
@@ -1434,11 +1434,11 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
      !                     ETcomb,EvapP,TransP,Rns,Rnl,RadTerm,AeroTerm,
      !                     rInterc,Precc,ierr)
 
-*     tAtm	- Current DOY
+*     tAtm  - Current DOY
 *     TempA - Air tempeature [C]
 *     RH_A  - Air relative humidity [%]
 *     Ea    - Daily averaged vapor pressure [kPa]
-*     Es		- Saturation vapor pressure at current time step [kPa]
+*     Es    - Saturation vapor pressure at current time step [kPa]
 *     Rad   - Incoming solar radiation [MJ/m2/d]
 *     Rst   - Solar radiation at current time step [MJ/m2/d]
 
@@ -1499,7 +1499,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
         call Cloudiness(CloudF,iSunSh,SunHours,Omega,LongWaveRadB,
      !                  LongWaveRadA,n_N,Cover,Tt)
         if(iRadiation.eq.1.and.iSunSh.eq.3) then      ! measured solar radiation
-          Rad_cs=Ra*(ShortWaveRadA+ShortWaveRadB*1.0)   ! solar radiation of clear-sky		 
+          Rad_cs=Ra*(ShortWaveRadA+ShortWaveRadB*1.0)   ! solar radiation of clear-sky
           CloudF=CloudF_Ac*Rad/Rad_cs+CloudF_Bc                 ! Equation 57
         end if
 *       Net longwave radiation
@@ -1548,7 +1548,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
 ************************************************************************
 
-*	    Output for Penman-Monteith with Daily variated meteorological information
+*     Output for Penman-Monteith with Daily variated meteorological information
 
       subroutine DayMeteoOut(t,ETcomb,EvapP,TransP,Rns,Rnl,RadTerm,
      !                       AeroTerm,Precc,rInterc,ExcesInt,TempA,

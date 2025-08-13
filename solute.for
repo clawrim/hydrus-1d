@@ -1889,7 +1889,7 @@ c     write(*,*) "r_c microns", 10000.*r_c
 *     Type  =1 or -1: Rate increases or decreases with water content, respectively)
 *     Theta0 - water content at which reaction rate start increasing or decreasing  
 *     Theta1 - water content at which reaction rate stops increasing or decreasing 
-*     ReacMin	- relative minimum rate of reaction
+*     ReacMin- relative minimum rate of reaction
 
       dimension DMoist(NMatD,NSD,9,4)
 

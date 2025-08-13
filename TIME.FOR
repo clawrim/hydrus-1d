@@ -19,7 +19,7 @@
      !  dtOpt=amax1(dtMin,dMul2*dtOpt)
       dt=amin1(dtOpt,sngl(tFix-t))
       iStep=1
-      if(dt.gt.0.) iStep=anint(sngl(tFix-t)/dt)
+      if(dt.gt.0.) iStep=int(anint(sngl(tFix-t)/dt))
       if(iStep.ge.1.and.iStep.le.10) 
      !  dt=amin1(sngl(tFix-t)/iStep,dtMax)
       if(iStep.eq.1) then
@@ -47,7 +47,7 @@
       else if(iMonth.eq.2) then
         NoDay=28
       end if
-      nMonth=NoDay*24.*60.*60.
+      nMonth=NoDay*24*60*60
       RTime=nMonth+iDay*24.*60.*60.+iHours*60.*60.+iMins*60.+iSecs+
      !      i100th/100.
 
@@ -866,7 +866,7 @@ c        tMax=tAtm
      !                    RHMean,RHMeanO,RHMeanN,SunHours,SunHoursO,
      !                    SunHoursN,lEnBal)
 
-      double precision t,tAtm2O,tAtm2
+      implicit real*8(A-H,L-Z)
       logical lEnBal ! for lEnBal, there is no need to interpolate Rad and SunHours
 
       if(i.eq.1) then
@@ -1334,8 +1334,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       subroutine DailyTemp(t,dt,tInit,tEnd,tAtm,TMax,TMaxN,TMaxO,TMin,
      !                     TMinN,TMinO,TempA)
 
-      implicit real(A-H,L-Z)
-      double precision t,tInit,tEnd,tAtm
+      implicit double precision(A-H,L-Z)
 
 *     maxTime	- The time of maximum temperature 13:00
 *     minTime	- The time of minimum temperature 1:00
@@ -1436,7 +1435,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 *     Rad   - Incoming solar radiation [MJ/m2/d]
 *     Rst   - Solar radiation at current time step [MJ/m2/d]
 
-      implicit real(A-H,L-Z)
+      implicit real*8(A-H,L-Z)
       logical lEnBal
       dimension rGrowth(1000,5)
       integer nGrowth
@@ -1562,7 +1561,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       subroutine Table(n1,rTable,n,m,t,a,b,c,d)
 
       dimension rTable(n,m),y(4)
-      double precision t
+      implicit double precision (A-H,O-Z)
 
       if(t.le.rTable(1,1)) then
         do 11 i=1,m-1

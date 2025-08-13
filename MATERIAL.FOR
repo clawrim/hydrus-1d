@@ -13,7 +13,7 @@
 *     lUnBound = Unbound n and m in VG-M function.
 *                one needs to uncheck m=Par(6) in other routines as well.
 
-      real function FK(iModel,h,Par)
+      double precision function FK(iModel,h,Par)
 
       implicit double precision(A-H,O-Z)
       double precision n,m,Ks,Kr,Kk,Lambda,n2,m2,mn,mt
@@ -198,7 +198,7 @@ c            Kr=dexp(-BPar*dble(h))
 
 ************************************************************************
 
-      real function FC(iModel,h,Par)
+      double precision function FC(iModel,h,Par)
 
       implicit double precision(A-H,O-Z)
       double precision n,m,n2,m2
@@ -276,7 +276,7 @@ c        m=Par(6)
 
 ************************************************************************
 
-      real function FQ(iModel,h,Par)
+      double precision function FQ(iModel,h,Par)
 
       implicit double precision(A-H,O-Z)
       double precision n,m,n2,m2
@@ -418,7 +418,7 @@ c        m=Par(6)
 
 ************************************************************************
 
-      real function FS(iModel,h,Par)
+      double precision function FS(iModel,h,Par)
 
       implicit double precision(A-H,O-Z)
       double precision n,m,n2,m2
@@ -554,11 +554,11 @@ c        m=Par(6)
 
 ************************************************************************
 
-      real function FKS(iModel,S,Par)
+      double precision function FKS(iModel,S,Par)
 
       implicit double precision(A-H,O-Z)
       double precision n,m,Ks,Kr,Kk
-      real S,th,Par(10)
+      real*8 S,th,Par(10)
       integer PPar
 
       Qr=Par(1)

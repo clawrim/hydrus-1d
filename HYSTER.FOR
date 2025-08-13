@@ -9,7 +9,7 @@
       implicit real*8(A-H,O-Z)
       implicit integer*4 (I-N)
       logical lPrint
-      real ParD(11,NMatD),ParW(11,NMatD),hNew(NumNP),hOld(NumNP),
+      real*8 ParD(11,NMatD),ParW(11,NMatD),hNew(NumNP),hOld(NumNP),
      !     Theta(NumNP),Con(NumNP),Cap(NumNP)
       dimension MatNum(NumNP),Kappa(NumNP)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,

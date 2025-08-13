@@ -84,7 +84,7 @@ c            Kr=dexp(-BPar*dble(h))
             AA=m+mt/n
             BB=1.d0-mt/n
             if(BB.le.0.004d0) then
-              write(*,*) 1010
+              write(*,1010)
 1010          format(/5x,'Parameter N is too small, not executed!')
               stop
             end if

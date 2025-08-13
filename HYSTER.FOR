@@ -97,7 +97,6 @@ c        Theta(n)=SW*(ParD(2,m)-ParD(1,m))+ParD(1,m)
       return
 
 1000  format(//)
-1001  format(/,10X,'CURRENT PRESSURE = ',F8.3,7X,'PREVIOUS HAW = ',F8.3)
 1002  format(3X,'CONVERGED RESULTS')
 1003  format(/5X,'RASW-1 = ',F5.3,5X,'RASW-2 = ',F5.3,5X,'RASW-3 = ',
      !F5.3,5X,'RASW-4 = ',F5.3,/5X,'RASW-5 = ',F5.3,5X,'RASW-6 = ',F5.3,

@@ -93,7 +93,7 @@
 *-----------------------------------------------------------------------
 
       iCount = command_argument_count()
-      if(iCount.gt.1) then
+      if(iCount.gt.0) then
         i=1
         call GETARG(i, cDataPath)
       else

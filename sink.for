@@ -215,7 +215,7 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
             SinkS(i)=0.
           end if
 11      continue
-        if(iStep.eq.nStep.and.jS.eq.NS) 
+        if(iStep.eq.nStep.and.jS.eq.NS)
      !    write(78,100) t,SPUptake,SAUptakeP,SAUptakeA,SAUptakeAN ! the last is uncompensated
 12    continue
       return
@@ -237,7 +237,7 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
           FSAlfa=1.
         else
           FSAlfa=max(0.,1.-(cRed-c50)*P3c*0.01)
-        end if 
+        end if
       end if
       return
       end

@@ -194,7 +194,7 @@
       do 13 iLevel=1,2
         do 11 i=1,N
           if(iLevel.eq.1) then
-            if(i.eq.1) then 
+            if(i.eq.1) then
               vVGrad=(vVOld(i+1)-vVOld(i))/(x(i+1)-x(i))
             else if(i.eq.N) then
               vVGrad=(vVOld(i)-vVOld(i-1))/(x(i)-x(i-1))
@@ -203,7 +203,7 @@
             end if
             Lat=xLatent(TempO(i))/xConv/tConv/tConv
           else
-            if(i.eq.1) then 
+            if(i.eq.1) then
               vVGrad=(vVNew(i+1)-vVNew(i))/(x(i+1)-x(i))
             else if(i.eq.N) then
               vVGrad=(vVNew(i)-vVNew(i-1))/(x(i)-x(i-1))

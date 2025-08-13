@@ -7,7 +7,7 @@
 *              4: log-normal (Kosugi)
 *              5: dual-porosity (Durner)
 *             10: fractal model (Shlomo Orr)
-*     lAltern = VG model with alfa and n different for retention curve 
+*     lAltern = VG model with alfa and n different for retention curve
 *               and hydraulic conductivity function. (iModel=1)
 *               One needs to comment out line 250 in input2.for
 *     lUnBound = Unbound n and m in VG-M function.
@@ -38,7 +38,7 @@
           Qk=Qs
           Kk=Ks
         else if(iModel.eq.1) then
-          lAltern=.false.  
+          lAltern=.false.
           if(.not.lAltern) then
             Qm=Par(7)
             Qa=Par(8)
@@ -103,7 +103,7 @@ c            Kr=dexp(-BPar*dble(h))
                 Qe=1.0d0
               else if(EX.lt.10.d0) then
                 Qe=(1.+AX**n)**(-m)
-              else 
+              else
                 EX=m*EX
                 if(EX.lt.30.d0) then
                   Qe=AX**(-m*n)
@@ -488,7 +488,7 @@ c        m=Par(6)
         ha=Alfa
         D=n
         FS=1.
-        if(ha.gt.0.) 
+        if(ha.gt.0.)
      !    FS=max(min(1.,(Qs+(-h/ha)**(D-3.)-1.-Qr)/(Qs-Qr)),0.)
       end if
 
@@ -666,7 +666,7 @@ c        m=Par(6)
       x2=-1.e+6
       call ZBRAK(X1,X2,XB1,XB2,SE,Par,NPar)
       hhh=ZBRENT(XB1,XB2,SE,Par,NPar)
-      xMualem=hhh    ! for calculation hh  
+      xMualem=hhh    ! for calculation hh
       if(hhh.ne.0.) then
 c        xMualem=1./hhh ! for integration
       else
@@ -741,7 +741,7 @@ c        xMualem=1./hhh ! for integration
 
 ************************************************************************
 
-*     Brent method of finding root that lies between x1 and x2, 
+*     Brent method of finding root that lies between x1 and x2,
 *     Numerical recepies (354)
 
       double precision function ZBRENT(X1,X2,SE,Par,NPar)

@@ -405,7 +405,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
           if(lVapor) vTop=vTop-
      !             (ConVh(N)+ConVh(M))/2.*(hNew(N)-hNew(M))/dx-
      !             (ConVT(N)+ConVT(M))/2.*(Temp(N)-Temp(M))/dx
-          if(abs(vTop).gt.abs(rTop).or.vTop*rTop.le.0.) then 
+          if(abs(vTop).gt.abs(rTop).or.vTop*rTop.le.0.) then
             if(abs(KodTop).eq.4) KodTop=-4
           end if
           if(KodTop.eq.4.and.hNew(N).le.0.99*hCritA.and.rTop.lt.0.)
@@ -485,7 +485,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
         if(iModel.lt.nTabMod) then          ! Conductivity
           if(hi1.ge.hSat(M).and.hi2.ge.hSat(M)) then
             Coni=ConSat(M)
-          else if(hiM.gt.hTab(NTab(1),1).and.hiM.le.hTab(1,1).and. 
+          else if(hiM.gt.hTab(NTab(1),1).and.hiM.le.hTab(1,1).and.
      !                                                      lTable) then
             iT=int((alog10(-hiM)-alh1)/dlh)+1
             dh=(hiM-hTab(iT,1))/(hTab(iT+1,1)-hTab(iT,1))
@@ -630,13 +630,13 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
 *              the spacing
 *     zImp     adjusted coordinate of the impervious layer cm (2,3,4,5)
 *     dBot     depth to the impervious layer below the drain
-*     EqD      equilvalent depth (cm)   
+*     EqD      equilvalent depth (cm)
 *     TotRes   total drainage resistance
 *     RVer     vertical drainage resistance
 *     RHor     horizontal drainage resistance
 *     RRad     radial drainage resistance
-*     x        typical length variable 
-*     ------------------------------------------------------------------  
+*     x        typical length variable
+*     ------------------------------------------------------------------
 *     global variables
       integer iPosDr
       real GWL,zBotDr,BaseGW,rSpacing,FqDrain,KhTop,KhBot,KvTop,KvBot
@@ -655,7 +655,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
 *     contributing layer below drains limited to 1/4 L
       if(iPosDr.gt.1) then
         zImp=max(BaseGW,zBotDr-0.25*rSpacing)
-        dBot=(zBotDr-zImp)  
+        dBot=(zBotDr-zImp)
         if(dBot.lt.0.0) STOP 'Error - Bocodrb: dBot negative'
       end if
 
@@ -699,7 +699,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
 
 *     case 4: drain in bottom layer
       else if(iPosDr.eq.4) then
-        if(zBotDr.gt.zInTF) stop 'Error - check zInTF and zBotDr' 
+        if(zBotDr.gt.zInTF) stop 'Error - check zInTF and zBotDr'
         RVer=max(GWL-zInTF,0.)/KvTop +(min(zInTF,GWL)-zBotDr)/KvBot       ! Eq. 8.16
         RHor=rSpacing*rSpacing/(8.*KhBot*dBot)                            ! Eq. 8.17
         RRad=rSpacing/(pi*sqrt(KhBot*KvBot))*log(dBot/WetPer)             ! Eq. 8.18
@@ -853,7 +853,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
 
 ************************************************************************
 
-*     To calculate isothermal vapor hydraulic conductivity, and 
+*     To calculate isothermal vapor hydraulic conductivity, and
 *     thermal vapor and liquid hydraulic conductivities
 
       subroutine ConVapor(N,NMat,MatNum,hNew,Temp,Con,Theta,ths,ConLT,
@@ -992,7 +992,7 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
      !    /2.12e-5, 9.81, 0.018015, 8.314/
 
       Tau=0
-      Temp=20.   
+      Temp=20.
       h=hNew/xConv                       ! Conversion to m
       TKelv=Temp+273.15
       DiffT=Diff0*(TKelv/273.15)**2
@@ -1012,7 +1012,7 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
       real function fRo(iKod,Conc)
 
 
-*     Ratio of bulk densities (dynamic viscosities) at given and zero 
+*     Ratio of bulk densities (dynamic viscosities) at given and zero
 *     concentrations
 
       a2=0
@@ -1080,7 +1080,7 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
 
         ThNewIm(i)=max(min(ThOldIm(i)+SinkIm(i)*dt,ParD(8,M)),ParD(7,M))
 
-        if(i.ge.2) 
+        if(i.ge.2)
      !    WTransf=WTransf+(SinkIm(i-1)+SinkIm(i))/2.*(x(i)-x(i-1))
 11    continue
 

@@ -15,7 +15,7 @@
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
      !                    XNW,XMW,XXMW
       common /glob/ RHSW(1001,7),RASW(1001,7),SARW(1001),RSWAW(1001),
-     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001) 
+     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001)
       common /local/ SW,SRAW,SAT,RSW,RAW,PERMW,MPSW1,JJJH,IPSW1,ILSW,
      !               ESW,ESAT,ASW,DWW
 
@@ -71,7 +71,7 @@ c        SARWI=(ParD(2,m)-ParW(2,m))/ParD(2,m)
 
 *       subprogram for hysteretic routines
         call Path(n,hW,hA)
- 
+
 *       after convergence
         if(iKod.eq.1.or.iKod.eq.3) call UpdateHyst(n,hW,hA)
         Theta(n)=SW*ParD(2,m)
@@ -80,7 +80,7 @@ c        Theta(n)=SW*(ParD(2,m)-ParD(1,m))+ParD(1,m)
         Cap(n)=sngl(DWW)*ParD(2,m)
         if(JJH(n).eq.0) Kappa(n)=-1
         if(JJH(n).eq.1) Kappa(n)= 1
-      
+
         if(lPrint.and.iKod.eq.3) then
           write(*,1000)
           write(*,1002)
@@ -93,7 +93,7 @@ c        Theta(n)=SW*(ParD(2,m)-ParD(1,m))+ParD(1,m)
           write(*,1006) ASW,ESW,SW,ILSW,ESAT,SAT,PERMW
           write(*,1007)
         end if
-11    continue      
+11    continue
       return
 
 1000  format(//)
@@ -110,11 +110,11 @@ c        Theta(n)=SW*(ParD(2,m)-ParD(1,m))+ParD(1,m)
      !I1,9X,'MPSW1 = ',I1,/5X,'RAW = ',F5.3)
 1006  format(//5X,'ASW = ',F5.3,6X,'ESW = ',F5.3,6X,'SW = ',F5.3,5X,
      !'ILSW = ',I1,/5X'ESAT = ',F5.3,5X,'SAT = ',F5.3,6X,'PERMW = ',
-     !E12.3)  
+     !E12.3)
 1007  format(3X,'**********************************************')
- 
+
       end
-      
+
 ************************************************************************
 
 *     Initialize arrays for hysteretic saturations.
@@ -124,9 +124,9 @@ c        Theta(n)=SW*(ParD(2,m)-ParD(1,m))+ParD(1,m)
       implicit double precision (A-H,O-Z)
       implicit integer (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
-     !                    XNW,XMW,XXMW 
+     !                    XNW,XMW,XXMW
       common /glob/ RHSW(1001,7),RASW(1001,7),SARW(1001),RSWAW(1001),
-     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001) 
+     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001)
       common /local/ SW,SRAW,SAT,RSW,RAW,PERMW,MPSW1,JJJH,IPSW1,ILSW,
      !               ESW,ESAT,ASW,DWW
 
@@ -165,7 +165,7 @@ c      IF( IRES .GE. 1) GO TO 210
   190   CONTINUE
   200 CONTINUE
   210 CONTINUE
-  
+
       DO 220, I = 1,N
         RASW(I,1) = ONE
         RHSW(I,1) = ZERO
@@ -183,7 +183,7 @@ c      IF( IRES .GE. 1) GO TO 210
         GO TO 260
       ENDIF
 
-*     For hysteresis options         
+*     For hysteresis options
       IF( IHYST .EQ. 1 ) THEN
 
 *---    Starting from the main drainage branch
@@ -192,8 +192,8 @@ c      IF( IRES .GE. 1) GO TO 210
           RHSW(I,2) = ZERO
           RASW(I,2) = ONE
           JJH(I) = 0
-          PHSW(I) = ZERO 
-          RSWAW(I) = ONE   
+          PHSW(I) = ZERO
+          RSWAW(I) = ONE
           IPSW(I) = 1
   230   CONTINUE
       ELSE IF ( IHYST .EQ. 2 ) THEN
@@ -224,13 +224,13 @@ c      IF( IRES .GE. 1) GO TO 210
           IPSW(I) = 3
   250   CONTINUE
       ENDIF
-  260 CONTINUE    
+  260 CONTINUE
 
 *    End of HYINI group
 
       RETURN
       END
-      
+
 ************************************************************************
 
 *     Beginning subprogram for hysteretic routines
@@ -241,9 +241,9 @@ c      IF( IRES .GE. 1) GO TO 210
       implicit double precision (A-H,O-Z)
       implicit integer (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
-     !                    XNW,XMW,XXMW 
+     !                    XNW,XMW,XXMW
       common /glob/ RHSW(1001,7),RASW(1001,7),SARW(1001),RSWAW(1001),
-     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001) 
+     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001)
       common /local/ SW,SRAW,SAT,RSW,RAW,PERMW,MPSW1,JJJH,IPSW1,ILSW,
      !               ESW,ESAT,ASW,DWW
 
@@ -255,9 +255,9 @@ c      IF( IRES .GE. 1) GO TO 210
       IF( SARWI .EQ. ZERO ) THEN
         RAW = ZERO
         SRAW = ZERO
-      ELSE  
+      ELSE
         RAW = (ONE/SARWI) - ONE
-      ENDIF  
+      ENDIF
       HAW = MAX(ZERO,(HA-HW))
 
 *     Initializing common block variables
@@ -292,9 +292,9 @@ c      IF( IRES .GE. 1) GO TO 210
       implicit double precision (A-H,O-Z)
       implicit integer (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
-     !                    XNW,XMW,XXMW 
+     !                    XNW,XMW,XXMW
       common /glob/ RHSW(1001,7),RASW(1001,7),SARW(1001),RSWAW(1001),
-     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001) 
+     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001)
       common /local/ SW,SRAW,SAT,RSW,RAW,PERMW,MPSW1,JJJH,IPSW1,ILSW,
      !               ESW,ESAT,ASW,DWW
 
@@ -311,7 +311,7 @@ c      IF( IRES .GE. 1) GO TO 210
 
 *     For hysteresis option
 *     Main air-water drainage branch
-    
+
   100 CONTINUE
       IF( HAW .GE. RHSW(N,2) ) THEN
         CALL DRAIN( N,HAW )
@@ -325,10 +325,10 @@ c      IF( IRES .GE. 1) GO TO 210
 *     Wetting scanning paths
 
   110 CONTINUE
-      IF(((((HAW .LT. PHSW(N)) .AND. (JJJH.EQ.0)) .OR. 
-     & ((HAW .le. PHSW(N)) .AND. (JJJH.EQ.1))) .AND. (MPSW1.EQ.3)) .OR. 
+      IF(((((HAW .LT. PHSW(N)) .AND. (JJJH.EQ.0)) .OR.
+     & ((HAW .le. PHSW(N)) .AND. (JJJH.EQ.1))) .AND. (MPSW1.EQ.3)) .OR.
      & (MPSW1 .EQ. 1) .OR. ((JJJH .EQ. 1) .AND. (HAW .EQ. ZERO))) THEN
-     
+
 *       On max. sat. path, but passed reveral point and became a drying path
         IF( (IPSW1 .EQ. IPATH) .AND. (HAW .GT. RHSW(N,IPATH)) ) THEN
           MPSW1=0
@@ -345,27 +345,27 @@ c      IF( IRES .GE. 1) GO TO 210
           return
         end if
 
-*       Switching from drying to wetting paths      
+*       Switching from drying to wetting paths
         IF( (JJJH.EQ.0) .AND. (MPSW1.EQ.3) ) THEN
           IPSW1=IPSW1+1
-     
-*         Switched to max. sat. path, which is a wetting path     
+
+*         Switched to max. sat. path, which is a wetting path
           IF( IPSW1 .GE. IPATH ) THEN
             MPSW1=1
             IPSW1=IPATH
           ENDIF
         ENDIF
-        
+
 *       Evaluating the current wetting path number and whether
-*       saturation paths have closed  
+*       saturation paths have closed
         IPSW2 = IPSW1
         DO 120, L = 0,IPSW2-1,2
-          IF( (HAW .LT. RHSW(N,IPSW1-L)) .AND. 
+          IF( (HAW .LT. RHSW(N,IPSW1-L)) .AND.
      &     (HAW .GT. RHSW(N,IPSW1-1-L)) ) THEN
             IPSW1=IPSW1-L
-            IF( IPSW1 .LT. IPATH ) MPSW1=3  
+            IF( IPSW1 .LT. IPATH ) MPSW1=3
             CALL WET( N,HAW )
-            ILSW=L          
+            ILSW=L
             JJJH=1
             RETURN
           ENDIF
@@ -377,7 +377,7 @@ c      IF( IRES .GE. 1) GO TO 210
 *     Drying scanning paths
 
       ELSEIF(((((HAW .GT. PHSW(N)) .AND. (JJJH .EQ. 1)) .OR.
-     &  ((HAW .ge. PHSW(N)) .AND. (JJJH .EQ. 0))) .AND. (MPSW1 .EQ. 3))       
+     &  ((HAW .ge. PHSW(N)) .AND. (JJJH .EQ. 0))) .AND. (MPSW1 .EQ. 3))
      &  .OR. (MPSW1 .EQ. 0)) THEN
 
 *       K-S-P Relations corresponding to the main drainage branch
@@ -390,16 +390,16 @@ c      IF( IRES .GE. 1) GO TO 210
           MPSW1=3
           RETURN
         ENDIF
-        
-*       On max. sat. path, but passed reveral point and became 
-*       a wetting path        
+
+*       On max. sat. path, but passed reveral point and became
+*       a wetting path
         IF( (IPSW1 .EQ. IPATH) .AND. (HAW .LT. RHSW(N,IPATH)) ) THEN
           MPSW1=1
           IPSW1=IPATH-1
           GOTO 110
         ENDIF
-        
-*       Switching from wetting to drying paths        
+
+*       Switching from wetting to drying paths
         IF( (JJJH .EQ. 1) .AND. (MPSW1 .EQ. 3) ) THEN
           IPSW1=IPSW1+1
           IF( IPSW1 .GE. IPATH ) THEN
@@ -407,9 +407,9 @@ c      IF( IRES .GE. 1) GO TO 210
             IPSW1=IPATH
           ENDIF
         ENDIF
-        
+
 *       Evaluating the current drying path number and whether
-*       saturation paths have closed     
+*       saturation paths have closed
         IPSW2 = IPSW1
         DO 140, L = 0,IPSW2-2,2
           IF( (HAW .GT. RHSW(N,IPSW1-L)) .AND.
@@ -431,12 +431,12 @@ c      IF( IRES .GE. 1) GO TO 210
       ENDIF
   200 CONTINUE
 
-      RETURN 
-      END     
+      RETURN
+      END
 
 ************************************************************************
 
-*     Main drainage k-S-P relations 
+*     Main drainage k-S-P relations
 *     Options: nonhysteretic, fluid entrapment only, hysteretic
 *     Written/revised by RJ Lenhard, Nov 2004
 
@@ -444,9 +444,9 @@ c      IF( IRES .GE. 1) GO TO 210
       implicit double precision (A-H,O-Z)
       implicit integer (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
-     !                    XNW,XMW,XXMW 
+     !                    XNW,XMW,XXMW
       common /glob/ RHSW(1001,7),RASW(1001,7),SARW(1001),RSWAW(1001),
-     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001) 
+     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001)
       common /local/ SW,SRAW,SAT,RSW,RAW,PERMW,MPSW1,JJJH,IPSW1,ILSW,
      !               ESW,ESAT,ASW,DWW
 
@@ -461,7 +461,7 @@ c      IF( IRES .GE. 1) GO TO 210
           SRAW = (ONE-ASW)/(ONE+RAW*(ONE-ASW))
         ELSE
           SRAW = 0.D+0
-        ENDIF    
+        ENDIF
       ENDIF
       IF( IPATH .EQ. 1 ) THEN
         ESAT = SRAW*(ASW-RSW)/(ONE-RSW)
@@ -496,7 +496,7 @@ c      IF( IRES .GE. 1) GO TO 210
       ELSE
         CSATW = SRAW/(ONE-RSW)
         P3 = CSATW*(ONE-RSW**XXM)**XM
-      ENDIF  
+      ENDIF
       P0 = ONE-(ONE-CSATW)*(ONE-ASW**XXM)**XM
       PERMW = (ESW**.5)*(P0-P3)**2.
       GOTO 110
@@ -536,9 +536,9 @@ c      IF( IRES .GE. 1) GO TO 210
       implicit double precision (A-H,O-Z)
       implicit integer (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
-     !                    XNW,XMW,XXMW 
+     !                    XNW,XMW,XXMW
       common /glob/ RHSW(1001,7),RASW(1001,7),SARW(1001),RSWAW(1001),
-     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001) 
+     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001)
       common /local/ SW,SRAW,SAT,RSW,RAW,PERMW,MPSW1,JJJH,IPSW1,ILSW,
      !               ESW,ESAT,ASW,DWW
 
@@ -594,9 +594,9 @@ c      IF( IRES .GE. 1) GO TO 210
       implicit double precision (A-H,O-Z)
       implicit integer (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
-     !                    XNW,XMW,XXMW 
+     !                    XNW,XMW,XXMW
       common /glob/ RHSW(1001,7),RASW(1001,7),SARW(1001),RSWAW(1001),
-     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001) 
+     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001)
       common /local/ SW,SRAW,SAT,RSW,RAW,PERMW,MPSW1,JJJH,IPSW1,ILSW,
      !               ESW,ESAT,ASW,DWW
 
@@ -653,9 +653,9 @@ c      IF( IRES .GE. 1) GO TO 210
       implicit double precision (A-H,O-Z)
       implicit integer (I-N)
       common /properties/ ALPHAD,ALPHAI,XN,XM,XXM,SM,SARWI,IPATH,IHYST,
-     !                    XNW,XMW,XXMW 
+     !                    XNW,XMW,XXMW
       common /glob/ RHSW(1001,7),RASW(1001,7),SARW(1001),RSWAW(1001),
-     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001) 
+     !              PHSW(1001),MPSW(1001),JJH(1001),IPSW(1001)
       common /local/ SW,SRAW,SAT,RSW,RAW,PERMW,MPSW1,JJJH,IPSW1,ILSW,
      !               ESW,ESAT,ASW,DWW
 
@@ -663,7 +663,7 @@ c      IF( IRES .GE. 1) GO TO 210
       ONE =1.D+0
 
 *       HW = 'converged water pressure for the node'
-*       HA = 'converged air pressure for the node'        
+*       HA = 'converged air pressure for the node'
         HAW = MAX( ZERO,(HA-HW) )
         IF( ASW .LT. RSWAW(N) ) THEN
           RSWAW(N) = ASW
@@ -672,7 +672,7 @@ c      IF( IRES .GE. 1) GO TO 210
         ENDIF
         IF( IPATH.EQ.1 ) GOTO 200
 
-*       Setting reversal points when HAW = 0 on path 2  
+*       Setting reversal points when HAW = 0 on path 2
         IF( (HAW .EQ. ZERO) .AND. (IPSW1 .NE. 1) ) THEN
           IPSW1 = 2
           JJJH = 1
@@ -686,8 +686,8 @@ c      IF( IRES .GE. 1) GO TO 210
           RASW(N,IPSW1+1) = ASW
           PHSW(N) = HAW
         ENDIF
-        
-*       A drying scanning path has closed - resetting reversal points 
+
+*       A drying scanning path has closed - resetting reversal points
         IF( (ILSW .GT. 0) .AND. (JJJH .EQ. 0) ) THEN
           DO 120, M = IPSW1+3,IPATH,2
             RASW(N,M) = ONE
@@ -698,8 +698,8 @@ c      IF( IRES .GE. 1) GO TO 210
           RHSW(N,IPSW1+1) = HAW
           RASW(N,IPSW1+1) = ASW
           PHSW(N) = HAW
-        
-*       A wetting scanning path has closed - resetting reversal points 
+
+*       A wetting scanning path has closed - resetting reversal points
         ELSEIF( ILSW.GT.0 .AND. JJJH.EQ.1 ) THEN
           DO 122, M = IPSW1+3,IPATH,2
             RASW(N,M) = ZERO
@@ -712,8 +712,8 @@ c      IF( IRES .GE. 1) GO TO 210
           PHSW(N) = HAW
         ENDIF
 
-*       Drying scanning path closed with main drainage - resetting reversals  
-        IF( (HAW .GE. RHSW(N,2)) .AND. 
+*       Drying scanning path closed with main drainage - resetting reversals
+        IF( (HAW .GE. RHSW(N,2)) .AND.
      &    (RASW(N,3) .GT. ZERO) ) THEN
           IPSW1 = 1
           JJJH = 0
@@ -728,13 +728,13 @@ c      IF( IRES .GE. 1) GO TO 210
           PHSW(N) = HAW
         ENDIF
 
-*       Setting gobal variables from converged local variables  
+*       Setting gobal variables from converged local variables
         JJH(N) = JJJH
         IPSW(N) = IPSW1
         MPSW(N) = MPSW1
         IF( IPSW1 .EQ. IPATH ) GOTO 200
 
-*       No scanning paths closed, only continued  
+*       No scanning paths closed, only continued
         IF( (JJJH.EQ.1) .AND. (ASW .GT. RASW(N,IPSW1+1)) ) THEN
           RHSW(N,IPSW1+1) = HAW
           RASW(N,IPSW1+1) = ASW

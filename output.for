@@ -59,7 +59,7 @@
       if(vRunOff.lt.1.e-5) vRunOff=0.
       rInfil=0.
       rEvap=0.
-      if(vTop.lt.0..and.(Prec.gt.0.or.(WLayer.and.hNew(N).gt.0.))) 
+      if(vTop.lt.0..and.(Prec.gt.0.or.(WLayer.and.hNew(N).gt.0.)))
      !                             rInfil=-vTop+rSoil
       if(vTop.ge.0..and.Prec.gt.0) rInfil=Prec
       if(vTop.gt.0.)               rEvap=vTop+Prec
@@ -96,18 +96,18 @@
      !                         abs(cvChR(jS)))*dt
           if(lFlux) then
             if(jS.eq.1) then ! using flux concentration (available)
-              if(NObs.ge.1) 
+              if(NObs.ge.1)
      !          CumCh(7,jS)=CumCh(7,jS)+vNew(Node(1))*cNew(Node(1))*dt
-              if(NObs.ge.2) 
+              if(NObs.ge.2)
      !          CumCh(8,jS)=CumCh(8,jS)+vNew(Node(2))*cNew(Node(2))*dt
-              if(NObs.ge.3) 
+              if(NObs.ge.3)
      !          CumCh(9,jS)=CumCh(9,jS)+vNew(Node(3))*cNew(Node(3))*dt
             else             ! using resident concentration (flux conc unavailable)
-              if(NObs.ge.1) 
+              if(NObs.ge.1)
      !         CumCh(7,jS)=CumCh(7,jS)+vNew(Node(1))*Conc(jS,Node(1))*dt
-              if(NObs.ge.2) 
+              if(NObs.ge.2)
      !         CumCh(8,jS)=CumCh(8,jS)+vNew(Node(2))*Conc(jS,Node(2))*dt
-              if(NObs.ge.3) 
+              if(NObs.ge.3)
      !         CumCh(9,jS)=CumCh(9,jS)+vNew(Node(3))*Conc(jS,Node(3))*dt
             end if
           end if
@@ -123,7 +123,7 @@
             dx=x(j)-x(i)
             if(hNew(j).gt.0..and.iBreak.eq.0) then
               cGWL(jS)=cGWL(jS)+(Conc(jS,i)+Conc(jS,j))/2.*dx
-              dGWL=dGWL+dx          
+              dGWL=dGWL+dx
             else
               iBreak=1
             end if
@@ -237,7 +237,7 @@ c            write(71,170,err=901) t,rTop,vTopW,vTop,vTopV,vBot,(CumQ(i),
       end if
       return
 
-*     Error when writing into an output file 
+*     Error when writing into an output file
 901   ierr=1
       return
 902   ierr=2
@@ -248,8 +248,8 @@ c            write(71,170,err=901) t,rTop,vTopW,vTop,vTopV,vBot,(CumQ(i),
 110   format(/
      !'         Time ItW   ItCum  vTop    SvTop    SvRoot   SvBot   ',
      !' hTop hRoot hBot'/)
-111   format(/'          time     PrecipP      EvaporP     FluxTopP     
-     !FluxTopA     InfiltrA      EvaporA      TranspP      TranspA      
+111   format(/'          time     PrecipP      EvaporP     FluxTopP
+     !FluxTopA     InfiltrA      EvaporA      TranspP      TranspA
      !FluxBot       RunOff     Sum(PrecP)   Sum(EvapP)  Sum(FlTopP)  Sum
      !(FlTopA)   Sum(InfA)   Sum(EvapA)  Sum(TransP)  Sum(TransA)  Sum(F
      !luxBot)  Sum(RunOff)    Storage   SnowLayer      vTopW        vTop
@@ -260,14 +260,14 @@ c            write(71,170,err=901) t,rTop,vTopW,vTop,vTopV,vBot,(CumQ(i),
 123   format(e14.7,i3,i7,4e9.2,f7.2,2f5.2)
 c120   format('+',f12.3,2i3,i6,4e9.2,3f6.0)  ! writing at one line
 130   format(/
-     !'       Time          rTop        rRoot        vTop         vRoot 
+     !'       Time          rTop        rRoot        vTop         vRoot
      !       vBot       sum(rTop)   sum(rRoot)    sum(vTop)   sum(vRoot)
-     !    sum(vBot)      hTop         hRoot        hBot        RunOff   
+     !    sum(vBot)      hTop         hRoot        hBot        RunOff
      ! sum(RunOff)     Volume     sum(Infil)    sum(Evap) TLevel Cum(WTr
      !ans)  SnowLayer'/
-     !'        [T]         [L/T]        [L/T]        [L/T]        [L/T] 
-     !       [L/T]         [L]          [L]          [L]         [L]    
-     !       [L]         [L]           [L]         [L]          [L/T]   
+     !'        [T]         [L/T]        [L/T]        [L/T]        [L/T]
+     !       [L/T]         [L]          [L]          [L]         [L]
+     !       [L]         [L]           [L]         [L]          [L/T]
      !      [L]          [L]          [L]          [L]'/)
 140   format(//'    TLevel      Time          dt      Iter    ItCum  K',
      !'odT  KodB  Convergency'/)
@@ -276,12 +276,12 @@ c120   format('+',f12.3,2i3,i6,4e9.2,3f6.0)  ! writing at one line
 160   format(' All solute fluxes and cumulative solute fluxes are positi
      !ve into the region'//
      !'       Time         cvTop        cvBot      Sum(cvTop)   Sum(cvBo
-     !t)     cvCh0        cvCh1         cTop        cRoot         cBot  
+     !t)     cvCh0        cvCh1         cTop        cRoot         cBot
      !      cvRoot    Sum(cvRoot)  Sum(cvNEql) TLevel      cGWL        c
      !RunOff   Sum(cRunOff)    (cv(i),    Sum(cv(i)), i=1,NObs)'/
      !'        [T]        [M/L2/T]     [M/L2/T]      [M/L2]       [M/L2]
-     !       [M/L2]      [M/L2]        [M/L3]      [M/L3]        [M/L3] 
-     !     [M/L2/T]      [M/L2]       [M/L2]              [M/L3]        
+     !       [M/L2]      [M/L2]        [M/L3]      [M/L3]        [M/L3]
+     !     [M/L2/T]      [M/L2]       [M/L2]              [M/L3]
      ![M/L2]      [M/L3]      [M/L2/T]      [M/L2]')
 170   format(f13.4,11e13.5,2e13.5,5e13.5,i7,e13.5,f11.3)
 171   format(e14.7,11e13.5,2e13.5,5e13.5,i7,e13.5,f11.3)
@@ -307,14 +307,14 @@ c120   format('+',f12.3,2i3,i6,4e9.2,3f6.0)  ! writing at one line
       end if
       return
 
-*     Error when writing into an output file 
+*     Error when writing into an output file
 901   ierr=1
       return
 
 110   format(//
      !'   Time         sum(rTop)     sum(rRoot)    sum(vTop)     sum(vRo
      !ot)     sum(vBot)    hTop       hRoot      hBot      A-level'/
-     !'    [T]           [L]           [L]           [L]           [L]  
+     !'    [T]           [L]           [L]           [L]           [L]
      !          [L]        [L]         [L]       [L] '/)
 120   format(f12.5,5e14.6,3f11.3,i8)
 121   format(e14.7,5e14.6,3f11.3,i8)
@@ -622,18 +622,18 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
             write(76,210,err=901) jS,cTot(jS),  ( cMean(jS,i),i=1,NLay)
             if(.not.lEquil) then
               if(lMobIm(1).or.iDualPor.gt.0) then
-                write(76,201,err=901) 
+                write(76,201,err=901)
      !                       jS,ConVolIm(jS),(ConSubIm(jS,i),i=1,NLay)
-                write(76,211,err=901) 
+                write(76,211,err=901)
      !                       jS,cTotIm(jS)  ,(cMeanIm(jS,i) ,i=1,NLay)
               else
-                write(76,202,err=901) 
+                write(76,202,err=901)
      !                       jS,ConVolIm(jS),(ConSubIm(jS,i),i=1,NLay)
-                write(76,212,err=901) 
+                write(76,212,err=901)
      !                       jS,cTotIm(jS)  ,(cMeanIm(jS,i) ,i=1,NLay)
               end if
             end if
-            if(lBact.or.lDualNEq) write(76,203,err=901) 
+            if(lBact.or.lDualNEq) write(76,203,err=901)
      !                       jS,ConVolIm2(jS),(ConSubIm2(jS,i),i=1,NLay)
 19        continue
         end if
@@ -648,7 +648,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
           do 20 jS=1,NS
             cVolI(jS)=ConVol(jS)
             if(.not.lEquil)     cVolI(jS)=cVolI(jS)+ConVolIm(jS)
-            if(lBact.or.lDualNEq) 
+            if(lBact.or.lDualNEq)
      !                          cVolI(jS)=cVolI(jS)+ConVolIm2(jS)
 20        continue
         end if
@@ -680,7 +680,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
       if(lPrint) write(76,130,err=901)
       return
 
-*     Error when writing into an output file 
+*     Error when writing into an output file
 901   ierr=1
       return
 
@@ -693,7 +693,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
      !        ' Time       [T]',e15.8/
      !     '----------------------------------------------------------')
 120   format( ' Sub-region num.               ',9(I7,6x))
-130   format( 
+130   format(
      !     '----------------------------------------------------------')
 140   format( ' Area     [L]      ',e13.5,9e13.5)
 150   format( ' W-volume [L]      ',e13.5,9e13.5)
@@ -887,7 +887,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
       if(lVaporOut.and.lVapor) write(45,'(''end'')',err=901)
       return
 
-*     Error when writing into an output file 
+*     Error when writing into an output file
 901   ierr=1
       return
 
@@ -916,7 +916,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
      !'           [L]        [L]    [-]        [1/T]       [-]       [',
      !'L/T]     [M/L*3/T]        [-]      [-]      [C]      [M/L*3]'/)
 116   format(
-     !' Node    Depth        Con        ConLT        ConVh        ConVT 
+     !' Node    Depth        Con        ConLT        ConVh        ConVT
      !      vLiquid       vVapor       vTotal       vVapIso     vVapTerm
      !'/
      !'          [L]        [L/T]     [L2/K/T]       [L/T]      [L2/K/T]
@@ -1109,7 +1109,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
 221   format( x,e15.8,100(f12.2,f8.4,f9.3,12e12.4,2x))
       return
 
-*     Error when writing into an output file 
+*     Error when writing into an output file
 901   ierr=1
       return
 

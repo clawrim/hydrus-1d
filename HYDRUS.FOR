@@ -885,8 +885,6 @@ c      goto 1000
             write(*,*) 'Floating point error !'
           case (3) 
             write(*,*) 'Program terminated !'
-          case (8) 
-            write(*,*) 'Floating Point Error !'
           case default
             write(*,*) 'Unknown signal handler !'
         end select

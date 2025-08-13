@@ -1728,7 +1728,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
 
       subroutine Exclusion(NumNP,NMat,NSD,Par,ChPar,ThNew,vNew,ThOld,
      !                      vOld)
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
 
       double precision thr,ths,swr,alpha,vgn1,vgn2,vgm1,vgm2,Pc_c,
      !                 sw_c_eff,sw_c,sw,sw_eff,kr_c,krw,r_c

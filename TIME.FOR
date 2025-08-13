@@ -332,7 +332,7 @@ c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
      !                 RHMeanO,RHMax,RHMaxN,RHMaxO,RHMin,RHMinN,RHMinO,
      !                 RH_A,EaMean,EaMeanN,rTop,ierr)
 
-      implicit double precision(A-H,L-Z)
+      implicit double precision (A-H,L-Z)
       logical lMetDaily,lDayVar,lEnBal,lPrint,lHargr
       dimension rGrowth(1000,5)
       integer nGrowth,iCrop,iRelHum
@@ -465,7 +465,7 @@ c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
 *               =1: uses LAI and Soil Cover (SC)
 *               =2; uses only SC
 
-      implicit double precision(A-H,L-Z)
+      implicit double precision (A-H,L-Z)
       logical lEnBal,lPrint,lHargr
       dimension rGrowth(1000,5)
       integer nGrowth
@@ -700,7 +700,7 @@ c        tMax=tAtm
       subroutine Cloudiness(CloudF,iSunSh,SunHours,Omega,LongWaveRadB,
      !                      LongWaveRadA,n_N,Cover,Tt)
 
-      implicit double precision(A-H,L-Z)
+      implicit double precision (A-H,L-Z)
       PI=3.141592654
 
       if(iSunSh.eq.0) then                ! sunshine hours
@@ -791,7 +791,7 @@ c        tMax=tAtm
       subroutine Intercept(rInterc,iInterc,LAI,aInterc,SCF,Prec,
      !                     ExcesInt,TransP)
 
-      implicit double precision(A-H,L-Z)
+      implicit double precision (A-H,L-Z)
 
       rInterc=0.
       if(iInterc.gt.0) then
@@ -870,7 +870,7 @@ c        tMax=tAtm
      !                    RHMean,RHMeanO,RHMeanN,SunHours,SunHoursO,
      !                    SunHoursN,lEnBal)
 
-      implicit double precision(A-H,L-Z)
+      implicit double precision (A-H,L-Z)
       logical lEnBal ! for lEnBal, there is no need to interpolate Rad and SunHours
 
       if(i.eq.1) then
@@ -922,7 +922,7 @@ c        tMax=tAtm
      !                  ShortWaveRadA,ShortWaveRadB,LongWaveRadA,
      !                  LongWaveRadB,iMetHour)
 
-      implicit double precision(A-H,L-Z)
+      implicit double precision (A-H,L-Z)
       logical lMetDaily
 
 *     Rn      - Net radiation [MJ/m2/d]
@@ -1235,7 +1235,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
      !                    SunHours,SunHoursN,CropHeight,CropHeightN,
      !                    Albedo,AlbedoN,LAI,LAIN,xRoot,xRootN,iCrop,
      !                    xConv,ierr)
-      implicit double precision(A-H,L-Z)
+      implicit double precision (A-H,L-Z)
       integer iDaily,iCrop,iRelHum
 
 *     iDaily    - =1: initial, =2: update, =3: tFinal-1 (last day), =4: 0:00<t<24:00
@@ -1339,7 +1339,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       subroutine DailyTemp(t,dt,tInit,tEnd,tAtm,TMax,TMaxN,TMaxO,TMin,
      !                     TMinN,TMinO,TempA)
 
-      implicit double precision(A-H,L-Z)
+      implicit double precision (A-H,L-Z)
 
 *     maxTime	- The time of maximum temperature 13:00
 *     minTime	- The time of minimum temperature 1:00
@@ -1389,7 +1389,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
       subroutine Humidity(TMax,TMin,RHMean,iRelHum,RHMax,RHMin,EaMean)
 
-      implicit double precision(A-H,L-Z)
+      implicit double precision (A-H,L-Z)
       integer iRelHum
 
 *     iRelHum	- =0: Input RH, =1: Input Vapor pressure for RHMean
@@ -1442,7 +1442,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 *     Rad   - Incoming solar radiation [MJ/m2/d]
 *     Rst   - Solar radiation at current time step [MJ/m2/d]
 
-      implicit double precision(A-H,L-Z)
+      implicit double precision (A-H,L-Z)
       logical lEnBal
       dimension rGrowth(1000,5)
       integer nGrowth

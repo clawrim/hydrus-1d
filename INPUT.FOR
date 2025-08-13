@@ -950,7 +950,7 @@ c          if(ConSat(M).lt.ConSMax) ConSMax=ConSat(M)
      !                   lPrint,iSunSh,iRelHum,CloudF_Ac,CloudF_Bc,
      !                   lHargr,lMetDaily,xConv,ierr)
 
-      implicit real(A-H,L-Z)
+      implicit real (A-H,L-Z)
       logical lEnBal,lPrint,lHargr,lMetDaily
       dimension rGrowth(1000,5)
 

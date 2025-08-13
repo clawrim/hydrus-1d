@@ -6,7 +6,7 @@
       subroutine Hyst(NumNP,NMatD,ParD,ParW,MatNum,Kappa,hNew,hOld,
      !                Theta,Con,Cap,IKappa,iKod)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       implicit integer (I-N)
       logical lPrint
       double precision ParD(11,NMatD),ParW(11,NMatD),hNew(NumNP),

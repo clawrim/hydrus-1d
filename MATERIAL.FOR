@@ -15,7 +15,7 @@
 
       double precision function FK(iModel,h,Par)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       double precision n,m,Ks,Kr,Kk,Lambda,n2,m2,mn,mt
       real h,Par(10)
       integer PPar
@@ -202,7 +202,7 @@ c            Kr=dexp(-BPar*dble(h))
 
       double precision function FC(iModel,h,Par)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       double precision n,m,n2,m2
       real h,Par(10)
 
@@ -281,7 +281,7 @@ c        m=Par(6)
 
       double precision function FQ(iModel,h,Par)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       double precision n,m,n2,m2
       real h,Par(10)
 
@@ -353,7 +353,7 @@ c        m=Par(6)
 
       real function FH(iModel,Qe,Par)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       double precision n,m,n2,m2
       real Qe,Par(10)
 
@@ -426,7 +426,7 @@ c        m=Par(6)
 
       double precision function FS(iModel,h,Par)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       double precision n,m,n2,m2
       real h,Par(10)
 
@@ -499,7 +499,7 @@ c        m=Par(6)
 
       real function FKQ(iModel,th,Par)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       double precision n,m,Ks,Kr,Kk
       real th,Par(10)
       integer PPar
@@ -568,7 +568,7 @@ c        m=Par(6)
 
       double precision function FKS(iModel,S,Par)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       double precision n,m,Ks,Kr,Kk
       double precision S,th,Par(10)
       integer PPar
@@ -639,7 +639,7 @@ c        m=Par(6)
 
       double precision function qnorm(x)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
 
       z=abs(x/2.**0.5)
       t=1./(1.+0.5*z)
@@ -658,7 +658,7 @@ c        m=Par(6)
 
       double precision function xMualem(SE,Par,NPar)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       real Par
       dimension Par(NPar)
 
@@ -682,7 +682,7 @@ c        xMualem=1./hhh ! for integration
 
 *     Double porosity function - for evaluation of h for given theta_e
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       real Par
       dimension Par(NPar)
 
@@ -711,7 +711,7 @@ c        xMualem=1./hhh ! for integration
 
       subroutine ZBRAK(X1,X2,XB1,XB2,SE,Par,NPar)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       real Par
       dimension Par(NPar)
 
@@ -746,7 +746,7 @@ c        xMualem=1./hhh ! for integration
 
       double precision function ZBRENT(X1,X2,SE,Par,NPar)
 
-      implicit double precision(A-H,O-Z)
+      implicit double precision (A-H,O-Z)
       parameter (ITMAX=100,EPS=3.E-8,TOL=1.e-6)
       real Par
       dimension Par(NPar)

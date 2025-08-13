@@ -93,7 +93,7 @@
       i4ret = SIGNAL(8, h_sig)
 *-----------------------------------------------------------------------
 
-      iCount = NARGS()
+      iCount = command_argument_count()
       if(iCount.gt.1) then
         i2=1
         call GETARG(i2, cDataPath)

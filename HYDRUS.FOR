@@ -37,10 +37,10 @@
       end interface
 
       interface
-        function hand_fpe (sigid, except)
+        function hand_fpe (sigid)
            !MS$ATTRIBUTES C :: hand_fpe
           integer(4) hand_fpe
-          integer(2)  sigid, except
+          integer(2)  sigid
         end function
       end interface
 *#######################################################################
@@ -97,10 +97,10 @@
       data lStopConv,iNonConv /.true. , 0 /
 
 *-----------------------------------------------------------------------
-      i4ret = SIGNALQQ(SIG$ABORT, h_sig)
-      i4ret = SIGNALQQ(SIG$BREAK, h_sig)
-      i4ret = SIGNALQQ(SIG$INT,   h_sig)
-      i4ret = SIGNALQQ(SIG$FPE,   hand_fpe)
+      i4ret = SIGNAL(6, h_sig)
+      i4ret = SIGNAL(3, h_sig)
+      i4ret = SIGNAL(2,   h_sig)
+      i4ret = SIGNAL(8,   hand_fpe)
 *-----------------------------------------------------------------------
 
       iCount = NARGS()
@@ -891,13 +891,13 @@ c      goto 1000
         !MS$ATTRIBUTES C :: h_sig
         integer(2) signum             
         select case (signum)
-          case (SIG$ABORT)
+          case (6)
             write(*,*) 'Abnormal termination !'
-          case (SIG$INT) 
+          case (2) 
             write(*,*) 'Program terminated !'
-          case (SIG$FPE)
+          case (8)
             write(*,*) 'Floating point error !'
-          case (SIG$BREAK) 
+          case (3) 
             write(*,*) 'Program terminated !'
           case default
             write(*,*) 'Unknown signal handler !'
@@ -907,26 +907,11 @@ c      goto 1000
         stop
       end
 
-      function hand_fpe (signum, excnum)
+      integer(4) function hand_fpe (signum)
         !MS$ATTRIBUTES C :: hand_fpe
 !        use MSFLIB
-        integer(2)  signum, excnum
-        select case(excnum)
-          case(FPE$INVALID )
-            write(*,*) 'Floating Point Error - Invalid number !'
-          case( FPE$DENORMAL )
-            write(*,*) 'Floating Point Error - Denormalized number !'
-          case( FPE$ZERODIVIDE )
-            write(*,*) 'Floating Point Error - Zero divide !'
-          case( FPE$OVERFLOW )
-            write(*,*) 'Floating Point Error - Overflow !'
-          case( FPE$UNDERFLOW )
-            write(*,*) 'Floating Point Error - Underflow !'
-          case( FPE$INEXACT )
-            write(*,*) 'Floating Point Error - Inexact precision !'
-          case default
-            write(*,*) 'Floating Point Error - Non-IEEE type !'
-        end select
+        integer(2)  signum
+        write(*,*) 'Floating Point Error !'
         hand_fpe = 1
         call CloseFiles
       end

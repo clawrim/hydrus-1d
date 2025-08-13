@@ -1626,12 +1626,13 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
         Sink(i)=0.
         wc(i)=0.
         cTemp(i)=0.
-        do 12 jS=1,NSD
+        do 13 jS=1,NSD
           Sorb2(jS,i)=0.
+13      continue
 12    continue
-      do 13 i=1,12
+      do 14 i=1,12
         CumQ(i)=0.
-13    continue
+14    continue
 
 *     New Options - Supported by GUI
 *     lBact   - Virus transport, ka,kd concept

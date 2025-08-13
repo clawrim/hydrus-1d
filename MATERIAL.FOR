@@ -670,7 +670,8 @@ c        m=Par(6)
       if(hhh.ne.0.) then
 c        xMualem=1./hhh ! for integration
       else
-        PAUSE 'xMualem: h is equal to zero!'
+        write(*,*) 'xMualem: h is equal to zero!'
+        read(*,*)
       end if
       return
       end
@@ -756,7 +757,10 @@ c        xMualem=1./hhh ! for integration
       B=X2
       FA=DoublePor(A,SE,Par,NPar)
       FB=DoublePor(B,SE,Par,NPar)
-      IF(FB*FA.GT.0.) PAUSE 'Root must be bracketed for ZBRENT.'
+      IF(FB*FA.GT.0.) then
+        write(*,*) 'Root must be bracketed for ZBRENT.'
+        read(*,*)
+      end if
       FC=FB
       DO 11 ITER=1,ITMAX
         IF(FB*FC.GT.0.) THEN
@@ -812,7 +816,8 @@ c        xMualem=1./hhh ! for integration
         ENDIF
         FB=DoublePor(B,SE,Par,NPar)
 11    CONTINUE
-      PAUSE 'ZBRENT exceeding maximum iterations.'
+      write(*,*) 'ZBRENT exceeding maximum iterations.'
+      read(*,*)
       ZBRENT=B
 
       RETURN
@@ -904,7 +909,8 @@ c        xMualem=1./hhh ! for integration
         s(j+1)=s(j)
         h(j+1)=0.25*h(j)
 11    continue
-      pause 'too many steps in qromb'
+      write(*,*) 'too many steps in qromb'
+      read(*,*)
       end
 
 ***********************************************************************
@@ -960,7 +966,10 @@ c        xMualem=1./hhh ! for integration
           hp=xa(i+m)-x
           w=c(i+1)-d(i)
           den=ho-hp
-          if(den.eq.0.)pause 'failure in polint'
+          if(den.eq.0.) then
+            write(*,*) 'failure in polint'
+            read(*,*)
+          end if
           den=w/den
           d(i)=hp*den
           c(i)=ho*den

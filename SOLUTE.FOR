@@ -2060,7 +2060,10 @@ c     write(*,*) "r_c microns", 10000.*r_c
       B=X2
       FA=SolMass(A,xMass,Par,NPar)
       FB=SolMass(B,xMass,Par,NPar)
-      IF(FB*FA.GT.0.) PAUSE 'Root must be bracketed for ZBRENT1.'
+      IF(FB*FA.GT.0.) then
+        write(*,*) 'Root must be bracketed for ZBRENT1.'
+        read(*,*)
+      end if
       FC=FB
       DO 11 ITER=1,ITMAX
         IF(FB*FC.GT.0.) THEN
@@ -2116,7 +2119,8 @@ c     write(*,*) "r_c microns", 10000.*r_c
         ENDIF
         FB=SolMass(B,xMass,Par,NPar)
 11    CONTINUE
-      PAUSE 'ZBRENT1 exceeding maximum iterations.'
+      write(*,*) 'ZBRENT1 exceeding maximum iterations.'
+      read(*,*)
       ZBRENT1=B
 
       RETURN

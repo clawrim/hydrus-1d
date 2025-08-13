@@ -275,7 +275,13 @@ c        read(*,*)
         end if
 1     continue
 
-      if(j-n) 13,18,14
+      if(j-n.lt.0) then
+        goto 13
+      else if(j-n.eq.0) then
+        goto 18
+      else
+        goto 14
+      end if
 13    write(*,*)'ERROR in NodInf at node =', n
       stop
 14    continue

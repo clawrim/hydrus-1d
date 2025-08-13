@@ -830,12 +830,26 @@ c        xMualem=1./hhh ! for integration
       return
 11    X=Z
       Gamma_h1d=1.0
-      if(X-2.0) 14,14,13
-12    if(X-2.0) 16,16,13
+      if(X-2.0.le.0) then
+        goto 14
+      else
+        goto 13
+      end if
+12    if(X-2.0.le.0) then
+        goto 16
+      else
+        goto 13
+      end if
 13    X=X-1.0
       Gamma_h1d=Gamma_h1d*X
       goto 12
-14    if(X-1.0) 15,17,16
+14    if(X-1.0.lt.0) then
+        goto 15
+      else if(X-1.0.eq.0) then
+        goto 17
+      else
+        goto 16
+      end if
 15    Gamma_h1d=Gamma_h1d/X
       X=X+1.0
 16    Y=X-1.0

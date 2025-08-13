@@ -21,6 +21,8 @@
       integer PPar
       logical lAltern,lUnBound
 
+      FK=0
+      Kr=0
       Qr=Par(1)
       Qs=Par(2)
       Alfa=Par(3)
@@ -204,6 +206,7 @@ c            Kr=dexp(-BPar*dble(h))
       double precision n,m,n2,m2
       real h,Par(10)
 
+      FC=0
       Qr=Par(1)
       Qs=Par(2)
       Alfa=Par(3)
@@ -282,6 +285,7 @@ c        m=Par(6)
       double precision n,m,n2,m2
       real h,Par(10)
 
+      FQ=0
       Qr=Par(1)
       Qs=Par(2)
       Alfa=Par(3)
@@ -353,6 +357,8 @@ c        m=Par(6)
       double precision n,m,n2,m2
       real Qe,Par(10)
 
+      FH=0
+      p=0
       Qr=Par(1)
       Qs=Par(2)
       Alfa=Par(3)
@@ -424,6 +430,7 @@ c        m=Par(6)
       double precision n,m,n2,m2
       real h,Par(10)
 
+      FS=0
       Qr=Par(1)
       Qs=Par(2)
       Alfa=Par(3)
@@ -497,6 +504,11 @@ c        m=Par(6)
       real th,Par(10)
       integer PPar
 
+      FKQ=0
+      Kk=0
+      Qa=0
+      Qk=0
+      Qm=0
       Qr=Par(1)
       Qs=Par(2)
       Alfa=Par(3)
@@ -561,6 +573,11 @@ c        m=Par(6)
       real*8 S,th,Par(10)
       integer PPar
 
+      FKS=0
+      Kk=0
+      Qa=0
+      Qk=0
+      Qm=0
       Qr=Par(1)
       Qs=Par(2)
       Alfa=Par(3)
@@ -733,6 +750,8 @@ c        xMualem=1./hhh ! for integration
       real Par
       dimension Par(NPar)
 
+      C=0
+      E=0
       A=X1
       B=X2
       FA=DoublePor(A,SE,Par,NPar)

@@ -346,6 +346,8 @@ c120   format('+',f12.3,2i3,i6,4e9.2,3f6.0)  ! writing at one line
      !          ConSubIm(11,10),cMeanIm(11,10),cTotIm(11),ConVolIm2(11),
      !          ConSubIm2(11,10),cPrev(N)
 
+      vNewi=0
+      vNewImi=0
       fRE=1.
       Grav=CosAlf
       ATot=0.
@@ -732,6 +734,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
      !        lDualNEq,lVaporOut
       double precision TPrint
 
+      ConSN=0
       fRE=1.
       Grav=CosAlf
       xS=xSurf+Radius

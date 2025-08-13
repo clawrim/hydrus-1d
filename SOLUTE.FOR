@@ -261,6 +261,20 @@ c              ierr=1
      !          DMoist(NMatD,NSD,13,6),WDep(2+NMatD,NSD*9)
 
 *     Inicialization
+      cPrev=0
+      fExpP=0
+      fExpO=0
+      GamG1P=0
+      GamL1P=0
+      GamS1P=0
+      Henryi=0
+      Henryj=0
+      HenryP=0
+      jj1=0
+      TTi=0
+      TTj=0
+      xNuP=0
+      xNuO=0
       jjj=(jS-1)*16
       if(jS.gt.1) jj1=jjj-16
       Peclet=0.
@@ -1220,6 +1234,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
      !          ThIm(N),ThOIm(N),SinkIm(N),STrans(N),
      !          DMoist(NMatD,NSD,13,6),WDep(2+NMatD,NSD*9)
 
+      ThImobO=0
       Tr=293.15
       R=8.314
       jjj=(jS-1)*16
@@ -1507,6 +1522,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
      !          ChPar(NSD*16+4,NMat),Conc(NSD,NumNP),MatNum(NumNP),
      !          Temp(NumNP),TDep(NSD*16+4),ThIm(NumNP)
 
+      ThImob=0
       jjj=(jS-1)*16
       Tr=293.15
       R=8.314
@@ -2038,6 +2054,8 @@ c     write(*,*) "r_c microns", 10000.*r_c
       parameter (ITMAX=100,EPS=3.E-8,TOL=1.e-6)
       dimension Par(NPar)
 
+      C=0
+      E=0
       A=X1
       B=X2
       FA=SolMass(A,xMass,Par,NPar)

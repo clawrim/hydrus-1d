@@ -224,6 +224,8 @@ c        read(*,*)
      !          SSorb(5),C(5),S(5),Sorb2(NSD,NumNPD)
       logical lChem,lTemp,lEquil,lScreen,lPrint,lBact,lDualNEq,lFlux
 
+      nOld = 0
+
       if(lScreen) write(*,*) 'reading nodal information'
       iVer = iGetFileVersion(32,1)
       read(32,*,err=901) n

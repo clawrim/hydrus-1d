@@ -160,6 +160,8 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
 *     SinkS(i)  - local active solute uptake
 
 *     Initialization
+      Omega1=0
+      AUptakeA=0
       Compen=1.
       nStep=1
       if(lActRSU)                  nStep=2
@@ -245,6 +247,8 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
       real function FAlfa(lMoSink,TPot,h,P0,P1,P2H,P2L,P3,r2H,r2L)
 
       logical lMoSink
+
+      P2=0
 
       if(lMoSink) then
         if(TPot.lt.r2L) P2=P2L

@@ -1,11 +1,11 @@
 FCFLAGS=-Wall -Werror -O3
 
-all: h1d
+all: h1d_calc
 
 clean:
 	$(RM) *.o
 
-h1d: \
+h1d_calc: \
 	hydrus.o \
 	hyster.o \
 	input.o \

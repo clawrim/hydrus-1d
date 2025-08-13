@@ -17,7 +17,7 @@
      !        lInitW,lVarBC,lPrint,lMeteo,lVapor,lCentrif,lSnow,lFlux,
      !        lActRSU,lDummy
       dimension iUnit(NUnitD)
-      integer*2 iValues(8)
+      integer iValues(8)
 
       iVer = iGetFileVersion(30,1)
       read(30,*,err=901)
@@ -1506,10 +1506,10 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
 *     iGetFileVersion - vrati verzi souboru
 *
 *#######################################################################
-      integer*4 function iGetFileVersion(FileUnit,iText)
+      integer function iGetFileVersion(FileUnit,iText)
       integer FileUnit, iText
       character cLine*255, cVersion*10, cPcpStr*17
-      integer*2 iVersion
+      integer iVersion
 
       call EmptyStr(cVersion)   
       call EmptyStr(cLine)   

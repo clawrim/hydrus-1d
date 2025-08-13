@@ -29,8 +29,7 @@
 
       interface
         function h_sig (signum)
-          integer(4) h_sig
-          integer(2) signum
+          integer h_sig, signum
         end function
       end interface
 *#######################################################################
@@ -56,8 +55,8 @@
      !                 tPrint1,tAtm1,tAtm2,tAtmOld,tAtmN,tAtm2O,
      !                 TPrint,tPrintInt
       character cFileName*260,cDataPath*260
-      integer*2 i2,iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
-      integer*2 iValues(8)
+      integer i,iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
+      integer iValues(8)
 
       dimension x(NumNPD),hNew(NumNPD),hOld(NumNPD),hTemp(NumNPD),
      !  MatNum(NumNPD),ParD(11,NMatD),TPrint(NPD),Sink(NumNPD),
@@ -95,8 +94,8 @@
 
       iCount = command_argument_count()
       if(iCount.gt.1) then
-        i2=1
-        call GETARG(i2, cDataPath)
+        i=1
+        call GETARG(i, cDataPath)
       else
         cFileName = 'LEVEL_01.DIR'
         open(10,file=cFileName, status='old',err=901)
@@ -850,8 +849,8 @@ c      goto 1000
      !                       lMeteo,lPrint)
 
       logical TopInF,BotInF,lChem,lScreen,lMeteo,lPrint
-      integer*2 iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
-      integer*2 iValues(8)
+      integer iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
+      integer iValues(8)
       double precision RTime1,RTime2,RTime
 
       call date_and_time(values=iValues)
@@ -888,8 +887,8 @@ c      goto 1000
 *-----------------------------------------------------------------------
 *     Signal handler routines 
 *-----------------------------------------------------------------------
-      integer(4) function h_sig (signum)
-        integer(2) signum             
+      integer function h_sig (signum)
+        integer signum             
         select case (signum)
           case (6)
             write(*,*) 'Abnormal termination !'

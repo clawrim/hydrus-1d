@@ -36,7 +36,7 @@
       double precision function RTime(iMonth,iDay,iHours,iMins,iSecs,
      !                                i100th)
       
-      integer*2 iMonth,iDay,iHours,iMins,iSecs,i100th
+      integer iMonth,iDay,iHours,iMins,iSecs,i100th
 
       NoDay=0
 

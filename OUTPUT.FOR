@@ -65,7 +65,7 @@
       if(vTop.gt.0.)               rEvap=vTop+Prec
       if(vTop.le.0..and.rSoil.gt.0.and.Prec.gt.0) rEvap=rSoil
       if(vTop.lt.0..and.WLayer.and.hNew(N).gt.0.) rEvap=rSoil
-	if(vTop.lt.0..and.KodTop.gt.0) rInfil=-vTop
+      if(vTop.lt.0..and.KodTop.gt.0) rInfil=-vTop
       CumQ(1)=CumQ(1)+rTop *dt
       CumQ(2)=CumQ(2)+rRoot*dt
       CumQ(3)=CumQ(3)+vTop *dt
@@ -193,12 +193,12 @@ c            write(71,170,err=901) t,rTop,vTopW,vTop,vTopV,vBot,(CumQ(i),
             write(71,170,err=901) t,rTop,rRoot,vTop,vRoot,vBot,(CumQ(i),
      !               i=1,5),hNew(N),hRoot,hNew(1),vRunOff,CumQ(6),
      !               Volume,CumQ(7),CumQ(8),TLevel,CumQ(11),SnowLayer
-	    else
+          else
             write(71,171,err=901) t,rTop,rRoot,vTop,vRoot,vBot,(CumQ(i),
      !               i=1,5),hNew(N),hRoot,hNew(1),vRunOff,CumQ(6),
      !               Volume,CumQ(7),CumQ(8),TLevel,CumQ(11),SnowLayer
-	    end if
-	  end if
+          end if
+        end if
         if(lChem) then
           write(70,180,err=902) TLevel,t,dt,IterW,IterC,ItCum,KodTop,
      !                          KodBot,ConvgF,Peclet,Courant
@@ -510,7 +510,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
      !                                 (1.+xNui*Sorb(jS,i)**fExpi)
                   if(Sorb(jS,j).gt.0.) S2=Sorb(jS,j)**(fExpj-1.)/
      !                                 (1.+xNuj*Sorb(jS,j)**fExpj)
-	              end if
+                end if
                 cNewiIm=dx/2.*(Sorb(jS,i)*
      !               (ThImobi+(1.-ChPar(3,Mi))*ChPar(1,Mi)*xKsi*S1)+
      !                         Sorb(jS,j)*
@@ -992,7 +992,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
      !                  vNew(Node(i)),(Conc(j,Node(i)),j=1,NS),i=1,NObs)
           if(NS.eq.12)write(77,220,err=901) t,(hNew(Node(i)),Th(i),
      !                  vNew(Node(i)),(Conc(j,Node(i)),j=1,NS),i=1,NObs)
-	  else
+        else
           if(NS.eq.1) write(77,110,err=901) t,(hNew(Node(i)),Th(i),
      !                 TempN(Node(i)),(Conc(j,Node(i)),j=1,NS),i=1,NObs)
           if(NS.eq.2) write(77,120,err=901) t,(hNew(Node(i)),Th(i),
@@ -1017,7 +1017,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
      !                 TempN(Node(i)),(Conc(j,Node(i)),j=1,NS),i=1,NObs)
           if(NS.eq.12)write(77,220,err=901) t,(hNew(Node(i)),Th(i),
      !                 TempN(Node(i)),(Conc(j,Node(i)),j=1,NS),i=1,NObs)
-	  end if
+        end if
         else
         if(lFlux) then
           if(NS.eq.1) write(77,111,err=901) t,(hNew(Node(i)),Th(i),
@@ -1044,7 +1044,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
      !                  vNew(Node(i)),(Conc(j,Node(i)),j=1,NS),i=1,NObs)
           if(NS.eq.12)write(77,221,err=901) t,(hNew(Node(i)),Th(i),
      !                  vNew(Node(i)),(Conc(j,Node(i)),j=1,NS),i=1,NObs)
-	  else
+        else
           if(NS.eq.1) write(77,111,err=901) t,(hNew(Node(i)),Th(i),
      !                 TempN(Node(i)),(Conc(j,Node(i)),j=1,NS),i=1,NObs)
           if(NS.eq.2) write(77,121,err=901) t,(hNew(Node(i)),Th(i),
@@ -1069,7 +1069,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
      !                 TempN(Node(i)),(Conc(j,Node(i)),j=1,NS),i=1,NObs)
           if(NS.eq.12)write(77,221,err=901) t,(hNew(Node(i)),Th(i),
      !                 TempN(Node(i)),(Conc(j,Node(i)),j=1,NS),i=1,NObs)
-	  end if
+        end if
         end if
       end if
 

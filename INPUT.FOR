@@ -490,11 +490,11 @@ c        read(*,*)
         end if
         if(Kappa(i).eq.-1) then
           Qe=min((hNew(i)-ParD(1,M))/(ParD(2,M)-ParD(1,M)),1.)
-	    if(Qe.lt.0.) goto 901
+          if(Qe.lt.0.) goto 901
           hNew(i)=FH(iModel,Qe,ParD(1,M))
         else
           Qe=min((hNew(i)-ParW(1,M))/(ParW(2,M)-ParW(1,M)),1.)
-	    if(Qe.lt.0.) goto 901
+          if(Qe.lt.0.) goto 901
           hNew(i)=FH(iModel,Qe,ParW(1,M))
         end if
         hOld(i)=hNew(i)
@@ -523,7 +523,7 @@ c        read(*,*)
         if(.not.lInitW) then
           if(iDualPor.eq.1) then
             Se=(Theta(i)-Par(1,M))/(Par(2,M)-Par(1,M))
-	      ThNewIm(i)=Par(7,M)+Se*(Par(8,M)-Par(7,M))
+            ThNewIm(i)=Par(7,M)+Se*(Par(8,M)-Par(7,M))
           else if(iDualPor.eq.2) then
             ThNewIm(i)=FQ(0,hNew(i),Par(7,M))
           end if
@@ -1182,7 +1182,7 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
           xRMed=(xRMax+xRMin)/2.
         end if
         rtm=tRMed-tRMin
-	  if(rtm.lt.1.e-20.or.xRMed.lt.1.e-10) then
+        if(rtm.lt.1.e-20.or.xRMed.lt.1.e-10) then
           write(*,*) 'Time(depth) Root Data must be larger then Initial 
      !Root Growth Time(depth) !!'
           goto 901
@@ -1372,7 +1372,7 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
           end if
           if(abs(ChPar(jjj+8,M)-0.0).gt.1.e-12.or.
      !       abs(ChPar(jjj+9,M)-1.0).gt.0.001) lLinear(jj)=.false.
-	    if(lBact.and.(ChPar(jjj+18,M).gt.0..or.ChPar(jjj+15,M).gt.0.))
+          if(lBact.and.(ChPar(jjj+18,M).gt.0..or.ChPar(jjj+15,M).gt.0.))
      !                                         lLinear(jj)=.false.
 12      continue
 13    continue

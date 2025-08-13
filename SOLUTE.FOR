@@ -663,16 +663,16 @@ c              ierr=1
               aa=Sorb(jS-1,i)*(ThImob*GamL1Pi+
      !                               (1.-Frac)*ro*GamS1Pi*xKsP*SConcPS)
               if(.not.lNEquil) cG=cG+aa
-	        cG1=cG1+aa    
+              cG1=cG1+aa    
               if(lDualNEq) then
                 aa=GamS1Pi*ro*Sorb2(jS-1,i)
                 if(.not.lNEquil) cG=cG+aa
-	          cG1=cG1+aa
+                cG1=cG1+aa
               end if
             else if(.not.lBact) then
               aa=GamS1Pi*ro*Sorb(jS-1,i)
               if(.not.lNEquil) cG=cG+aa
-	        cG1=cG1+aa
+              cG1=cG1+aa
             else if(lBact) then
               write(*,*) 'Attachment/dettachment model is implemented 
      !only for one solute'
@@ -1400,7 +1400,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
             end if
 
 *         two-site sorption model
-      	  else if(.not.lBact) then
+          else if(.not.lBact) then
             roi   =ChPar(1,     Mi)*exp(TDep(1)     *TTi)
             Fraci =ChPar(3,     Mi)*exp(TDep(3)     *TTi)
             xKsi  =ChPar(jjj+ 7,Mi)*exp(TDep(jjj+ 7)*TTi)
@@ -1426,7 +1426,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
      !        STrans(i)=epsi*roi*Omegai*(SorbEi-Sorb(jS,i))
 
 *         filtration model
-      	  else if(lBact) then
+          else if(lBact) then
             roi   =ChPar(1,     Mi)*exp(TDep(1)     *TTi)
             roj   =ChPar(1,     Mj)*exp(TDep(1)     *TTj)
             SMax1i=ChPar(jjj+18,Mi)*exp(TDep(jjj+18)*TTi)
@@ -1486,7 +1486,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
             if(jS.eq.1) STrans(i)=epsi*
      !                     (Conc(jS,i)*Thetai*(psi1i*rKa1i+psi2i*rKa2i)-
      !                      roi*(Sorb(jS,i)*rKd1i+Sorb2(jS,i)*rKd2i))
-       	  end if
+          end if
         end if
 10      continue
 11    continue
@@ -1755,7 +1755,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
 
 *     Mualem Water Relative Permeability
       if(sw_eff.gt.0.0) then
-      	krw=(sw_eff**xL)*(1-(1-sw_eff**(1/vgm1))**vgm1)**2.0
+        krw=(sw_eff**xL)*(1-(1-sw_eff**(1/vgm1))**vgm1)**2.0
         VelC=vNew(1)*kr_c/krw
       else
         krw=0.0

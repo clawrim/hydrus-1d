@@ -380,7 +380,7 @@ c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
      !                  RHMin,RHMinN,RHMinO,RH_A,iRelHum,EaMean,EaMeanN,
      !                  Rad,RadN,Wind,WindN,SunHours,SunHoursN,
      !                  CropHeight,CropHeightN,Albedo,AlbedoN,xLAI,
-     !                  xLAIN,xRoot,xRootN,iCrop,xConv,ierr)		 
+     !                  xLAIN,xRoot,xRootN,iCrop,xConv,ierr)
           if(ierr.ne.0) goto 901
         else
           call MeteoInt(2,t,tAtm2O,tAtm2,Rad,RadO,RadN,TMaxA,TMaxAO,
@@ -404,7 +404,7 @@ c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
      !                  RHMin,RHMinN,RHMinO,RH_A,iRelHum,EaMean,EaMeanN,
      !                  Rad,RadN,Wind,WindN,SunHours,SunHoursN,
      !                  CropHeight,CropHeightN,Albedo,AlbedoN,xLAI,
-     !                  xLAIN,xRoot,xRootN,iCrop,xConv,ierr)			     	 
+     !                  xLAIN,xRoot,xRootN,iCrop,xConv,ierr)
           if(ierr.ne.0) goto 901
           call SetDayMet(rLat,rAlt,ShWRadA,ShWRadB,rLWRadA,rLWRadB,
      !                   rLWRadA1,rLWRadB1,WindHeight,TempHeight,iCrop,
@@ -498,17 +498,17 @@ c        tMax=tAtm
       DayNo=sngl(tAtm)/TTConv                   ! Conversion to [d]
 
       if(iInit.eq.1) then                     ! Check time interval of meteo data  
-        if((tAtm-tInit).le.0.9999*TTConv) then	 ! short interval 
+        if((tAtm-tInit).le.0.9999*TTConv) then ! short interval 
           iMetHour=1
         else
-          iMetHour=0							               ! daily data
+          iMetHour=0               ! daily data
         end if
       end if
 
       if(iCrop.eq.2) then
         i=1000
         j=5
-        call Table(nGrowth,rGrowth,i,j,tAtm,CropHeight,Albedo,LAI,	
+        call Table(nGrowth,rGrowth,i,j,tAtm,CropHeight,Albedo,LAI,
      !             xRoot)
       end if
 
@@ -546,9 +546,9 @@ c        tMax=tAtm
             Cover=max(0.1,min(1.,2.330-3.330*Tt))
             n_N=1.-Cover
           end if
-          if(iRadiation.eq.1.and.iSunSh.eq.3)	then
+          if(iRadiation.eq.1.and.iSunSh.eq.3) then
             Rad_cs=Ra*(ShortWaveRadA+ShortWaveRadB*1.0)         ! solar radiation of clear-sky		 
-            if(iMetHour.gt.0) then	  ! Short term interval, calculate daily variation of Rad_cs
+            if(iMetHour.gt.0) then  ! Short term interval, calculate daily variation of Rad_cs
               Sum=0.
               do 10 k=1,24
                 sine1=xx+yy*cos(2.*PI/24.*(k-12.))
@@ -559,12 +559,12 @@ c        tMax=tAtm
               Rad_csH=max(sine*Rad_cs/Sum,0.)
               if     (Rad_csH.le.0.0001) then
                 CloudF=CloudF_Ac*0.6+CloudF_Bc                  ! average Rad/Rad_csH=0.6 in night time 	   
-              else if(Rad.ge.Rad_csH) then 				 
+              else if(Rad.ge.Rad_csH) then
                 CloudF=CloudF_Ac*1.+CloudF_Bc                   ! Equation 57	   
               else
                 CloudF=max(CloudF_Ac*Rad/Rad_csH+CloudF_Bc,0.01) ! Equation 57	        
               end if
-            else					                               ! Daily interval
+            else                               ! Daily interval
               CloudF=CloudF_Ac*Rad/Rad_cs+CloudF_Bc             ! Equation 57	   
             end if
           end if
@@ -592,9 +592,9 @@ c        tMax=tAtm
       row=1000.   !(ms) water density [kg/m3]
       row=(1.-7.37e-6*(TAver-4.)**2+3.79e-8*(TAver-4.)**3)*1000.  
       ETcomb=ETcomb/row*1000.      ! conversion from [kg/m2/d] to [mm/d]
-	
-11    if(lHargr) then	 ! Hargreaves Formula
-        ETcomb=0.0023*0.408*Ra*(TAver+17.8)*sqrt(TMax-Tmin)	![mm/d], 0.408 - conversin from MJ/m2/d to mm/d
+
+11    if(lHargr) then ! Hargreaves Formula
+        ETcomb=0.0023*0.408*Ra*(TAver+17.8)*sqrt(TMax-Tmin) ![mm/d], 0.408 - conversin from MJ/m2/d to mm/d
       end if
 
 *     Potential Evaporation and Transpirations [mm/d]
@@ -737,9 +737,9 @@ c        tMax=tAtm
 
       if(iCrop.eq.0.or.CropHeight.le.0) then
         CropHeight=0.1 ! cm
-      	lCrop=.false.
+        lCrop=.false.
       else
-      	lCrop=.true.
+        lCrop=.true.
       end if
 
       rc=0.
@@ -794,7 +794,7 @@ c        tMax=tAtm
         if(iInterc.eq.1.and.LAI.gt.0.) then
           rInterc=amin1(aInterc*LAI*(1.-1./(1+SCF*Prec/aInterc/LAI)),
      !                  Prec) ! Newly intercepted
-	    if(rInterc+ExcesInt.gt.aInterc*LAI) ! can not be more than max interception
+          if(rInterc+ExcesInt.gt.aInterc*LAI) ! can not be more than max interception
      !      rInterc=aInterc*LAI-ExcesInt
         end if
         Prec=amax1(Prec-rInterc,0.)
@@ -992,16 +992,16 @@ c        tMax=tAtm
               if(RaH.le.0.0001) then  ! night time
                 Cover=0.6             ! average value calculated from Rad/Rad_csH=0.6 	   
               else
-                Tt=min(Rad/RaH,1.)	        
+                Tt=min(Rad/RaH,1.)
                 Cover=max(0.1,min(1.,2.330-3.330*Tt))
-              end if	      
+              end if
             else                      ! daily interval radiation data 
-              Tt=Rad/Ra 		
+              Tt=Rad/Ra
               Cover=max(0.1,min(1.,2.330-3.330*Tt))
             end if
           end if
         end if
-	  if(iRadiation.eq.0.or.iMethour.eq.0)then
+        if(iRadiation.eq.0.or.iMethour.eq.0)then
           if(iSunSh.ne.2)Tt=Rad/Ra
           HourNo=24.*mod(DayNo,1.)
           sine=xx+yy*cos(2.*Pi/24.*(HourNo-12.))                ! Hourly variations eq.12.8 (Basic)
@@ -1015,7 +1015,7 @@ c        tMax=tAtm
         if(ThetaT.gt.0.25) Albedo=0.1
         if(ThetaT.gt.0.1.and.ThetaT.le.0.25) Albedo=0.35-ThetaT
 
-        if(lMetDaily) RadH=Rst	   
+        if(lMetDaily) RadH=Rst
         Rns=(1.-Albedo)*RadH                                    ! Equation 51
 
 *       Net longwave radiation
@@ -1030,8 +1030,8 @@ c        tMax=tAtm
       call AeroRes(r_v,TempHeight,WindHeight,Wind,TKelvS,TKelvA,Ca,g)
 
 *     Soil surface resistance (van de Griend and Owe, 1994)
-     	r_s=10.0
-	if(ThetaT.lt.0.15) r_s=10.0*exp(35.63*(0.15-ThetaT))
+      r_s=10.0
+      if(ThetaT.lt.0.15) r_s=10.0*exp(35.63*(0.15-ThetaT))
 
 *     Aerodynamic resistances to heat transfer
       r_h=r_v
@@ -1114,7 +1114,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
      !                      (alog((WHeight-dl)/zm))
           goto 12  
         end if
-        psim=0.0	! The atmosphere is not neutral
+        psim=0.0 ! The atmosphere is not neutral
         psih=0.0
         do 11 i=1,6
           uu=Wind*rK/(alog((WHeight-dl+zm)/zm)+psim)
@@ -1132,14 +1132,14 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
             end if
           end if
           Mo=-Ca*TKelvA*uu*uu*uu/rK/g/(Ca*(TKelvS-TKelvA)/r_v)  ! Monin-Obukhov scaling length
-          zeta=(THeight-dl)/Mo	    ! unitless height
-          if(zeta.lt.0.) then		    ! unstable
+          zeta=(THeight-dl)/Mo    ! unitless height
+          if(zeta.lt.0.) then     ! unstable
             xx=(max(0.,1.-16*zeta))**0.25
-          	psih=-2.*alog((1+xx*xx)/2.)		
+                psih=-2.*alog((1+xx*xx)/2.)
             psim=-2.*alog((1+xx)/2.)-alog((1+xx*xx)/2.)+
      !           2.*atan(xx)-pi/2.
-          else if(zeta.gt.0) then	  ! stable
-            if(zeta.lt.1) then		
+          else if(zeta.gt.0) then  ! stable
+            if(zeta.lt.1) then
               psih=5.*zeta
               psim=psih
             else if(zeta.ge.1) then
@@ -1214,7 +1214,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       return
 
 110   format(12e13.5)
-120   format(12e13.5)						
+120   format(12e13.5)
       end
 
 ************************************************************************
@@ -1312,7 +1312,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       end if
 
       if(iDaily.eq.2) return                  ! do not calculate temp and RH
-      	
+ 
 *     Calculate temperature, TempA, at the current time step
       call DailyTemp(t,dt,tInit,tEnd,tAtm,TMax,TMaxN,TMaxO,TMin,TMinN,
      !               TMinO,TempA)    
@@ -1332,7 +1332,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 *     Calculate temperature (or relative humidity) from daily max and min values
 
       subroutine DailyTemp(t,dt,tInit,tEnd,tAtm,TMax,TMaxN,TMaxO,TMin,
-     !                   	 TMinN,TMinO,TempA)
+     !                     TMinN,TMinO,TempA)
 
       implicit real(A-H,L-Z)
       double precision t,tInit,tEnd,tAtm
@@ -1345,9 +1345,9 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       minTime=1./24.
 
 *     Calculate maximum temperature, TMaxA, for current time
-      if(t.lt.tInit+maxTime) then		                        ! Initial - 13:00 of 1st day
+      if(t.lt.tInit+maxTime) then                        ! Initial - 13:00 of 1st day
         TMaxA=TMax
-      else if(t.ge.tEnd-1.+maxTime)	then                    ! 13:00 of last day - final time
+      else if(t.ge.tEnd-1.+maxTime) then                    ! 13:00 of last day - final time
         TMaxA=TMax
       else if((t.ge.tAtm-1.+maxTime).and.((t.lt.tAtm)
      !               .or.(abs(t-tAtm).le.dt*0.001))) then   ! 13:00-24:00
@@ -1358,15 +1358,15 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       end if
 
 *     Calculate minimum temperature, TMinA, for current time
-      if(t.lt.tInit+minTime) then		                        ! Initial - 1:00 of 1st day
+      if(t.lt.tInit+minTime) then                        ! Initial - 1:00 of 1st day
         TMinA=TMin
-      else if(t.ge.tEnd-1.+minTime)	then                    ! 1:00 of last day - final time
+      else if(t.ge.tEnd-1.+minTime) then                    ! 1:00 of last day - final time
         TMinA=TMin
       else if((t.ge.tAtm-1.+minTime).and.((t.lt.tAtm)
      !                .or.(abs(t-tAtm).le.dt*0.001))) then  ! 1:00-24:00
         TMinA=(TMinN-TMin)*(t-(tAtm-1.+minTime))+TMin
       else if(((t.gt.tAtm-1.).or.(abs(t-(tAtm-1.))).le.dt*0.001)
-     !              	.and.(t.lt.tAtm-1.+minTime)) then     ! 0:00-1:00
+     !        .and.(t.lt.tAtm-1.+minTime)) then     ! 0:00-1:00
         TMinA=(TMin-TMinO)*(t-(tAtm-2.+minTime))+TMinO
       end if
 
@@ -1397,9 +1397,9 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       Es_TMin=0.6108*exp((17.27*TMin)/(TMin+237.3))             ! Equation 10
 
       if(iRelHum.eq.0) then
-        RHMin=2.*RHMean*Es_TMin/(Es_TMax+Es_TMin)	
+        RHMin=2.*RHMean*Es_TMin/(Es_TMax+Es_TMin)
         RHMax=2.*RHMean*Es_TMax/(Es_TMax+Es_TMin)
-        EaMean=RHMin/100.*Es_TMax	
+        EaMean=RHMin/100.*Es_TMax
       else
         EaMean=RHMean
         RHMin=EaMean/Es_TMax*100.
@@ -1454,14 +1454,14 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       if(iCrop.eq.2) then
         i=1000
         j=5
-        call Table(nGrowth,rGrowth,i,j,t,CropHeight,Albedo,LAI,	
+        call Table(nGrowth,rGrowth,i,j,t,CropHeight,Albedo,LAI,
      !             xRoot)
       end if
 
       call CropRes(rc,iLAI,LAI,rExtinct,iCrop,CropHeight,SCF)
 
 *     Calculate vapor pressure
-      Es=0.6108*exp((17.27*TempA)/(TempA+237.3))		            ! Equation 10
+      Es=0.6108*exp((17.27*TempA)/(TempA+237.3))            ! Equation 10
       Ea=Es*RH_A/100.
 
 *     Daily Variated Net shortwave radiation, Rst
@@ -1490,7 +1490,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 *       Calculate Cloudiness Factor for net long wave radiation       
         call Cloudiness(CloudF,iSunSh,SunHours,Omega,LongWaveRadB,
      !                  LongWaveRadA,n_N,Cover,Tt)
-        if(iRadiation.eq.1.and.iSunSh.eq.3) then	      ! measured solar radiation
+        if(iRadiation.eq.1.and.iSunSh.eq.3) then      ! measured solar radiation
           Rad_cs=Ra*(ShortWaveRadA+ShortWaveRadB*1.0)   ! solar radiation of clear-sky		 
           CloudF=CloudF_Ac*Rad/Rad_cs+CloudF_Bc                 ! Equation 57
         end if
@@ -1500,7 +1500,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
 *       Net radiation
         Rn=Rns-Rnl                                              ! Equation 50
-      else	  ! Use Measured Net Radiation data
+      else  ! Use Measured Net Radiation data
         Rn=Rad
       end if
 
@@ -1516,7 +1516,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       row=1000.   !(ms) water density [kg/m3]
       row=(1.-7.37e-6*(TempA-4.)**2+3.79e-8*(TempA-4.)**3)*1000.  
       ETcomb=ETcomb/row*1000.      !(ms) conversion [kg/m2/d] to [mm/d]
-	
+
 *     Potential Evaporation and Transpirations [mm/d]
       EvapP=ETcomb*(1.-SCF)
       TransP=ETcomb*SCF

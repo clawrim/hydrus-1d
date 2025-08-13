@@ -247,7 +247,7 @@
         call RootIn(tRMin,tRHarv,xRMin,xRMax,RGR,lScreen,iver,iRootIn,
      !              nGrowth,rGrowth,tRPeriod,err)
         if(err.ne.0) goto (908,903) err
-	end if
+      end if
       if(lRoot.or.iCrop.gt.1)
      !  call SetRG(NumNP,x,Beta,t,tRMin,tRHarv,xRMin,xRMax,RGR,xRoot,
      !             lRoot,iRootIn,nGrowth,rGrowth,tRPeriod)

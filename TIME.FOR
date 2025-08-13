@@ -1560,8 +1560,8 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
       subroutine Table(n1,rTable,n,m,t,a,b,c,d)
 
-      dimension rTable(n,m),y(4)
       implicit double precision (A-H,O-Z)
+      dimension rTable(n,m),y(4)
 
       if(t.le.rTable(1,1)) then
         do 11 i=1,m-1

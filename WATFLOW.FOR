@@ -448,6 +448,14 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
      !          NTab(NMat),ConLT(NumNP),ConVT(NumNP),ConVh(NumNP),
      !          ThetaV(NumNP),Conc(NSD,NumNP)
 
+      alh1=0
+      Capi=0
+      Coni=0
+      dlh=0
+      hi1=0
+      hi2=0
+      Thei=0
+
       if(iModel.lt.nTabMod) then
         alh1=alog10(-hTab(1,1))
         dlh =(alog10(-hTab(NTab(1),1))-alh1)/(NTab(1)-1)
@@ -638,6 +646,8 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
       integer i
       real dh,zImp,dBot,pi,TotRes,x,fx,EqD,RVer,RHor,RRad
       parameter(pi=3.14159)
+
+      TotRes=0
 
 *     drainage flux calculated according to Hooghoudt or Ernst
       dh=GWL-zBotDr
@@ -981,6 +991,7 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
       data Diff0 ,   g ,   xMol  ,   R
      !    /2.12e-5, 9.81, 0.018015, 8.314/
 
+      Tau=0
       Temp=20.   
       h=hNew/xConv                       ! Conversion to m
       TKelv=Temp+273.15
@@ -1004,6 +1015,7 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
 *     Ratio of bulk densities (dynamic viscosities) at given and zero 
 *     concentrations
 
+      a2=0
       fRo=1.
 
       if(iKod.eq.1) then            ! bulk density
@@ -1031,6 +1043,7 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
       dimension MatNum(N),ThOld(N),thr(NMat),ths(NMat),ThNewIm(N),
      !          ParD(11,NMat),SinkIm(N),hNew(N),ThOldIm(N),x(N),Par(10)
 
+      DeltaTh=0
       WTransf=0.
       do 11 i=1,N
         M=MatNum(i)

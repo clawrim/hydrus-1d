@@ -38,6 +38,8 @@
       
       integer*2 iMonth,iDay,iHours,iMins,iSecs,i100th
 
+      NoDay=0
+
       if(iMonth.eq.1.or.iMonth.eq.3.or.iMonth.eq.5.or.iMonth.eq.7.or.
      !   iMonth.eq.8.or.iMonth.eq.10.or.iMonth.eq.12) then
         NoDay=31
@@ -469,6 +471,8 @@ c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
       integer nGrowth
       character*3 TheEnd
 
+      CloudF=0
+      n_N=0
       PI=3.141592654
       raa=0.
       rc=60.
@@ -733,6 +737,8 @@ c        tMax=tAtm
       implicit double precision (A-H,L-Z)
       logical lCrop
 
+      CloudF=0
+
       if(iCrop.eq.0.or.CropHeight.le.0) then
         CropHeight=0.1 ! cm
         lCrop=.false.
@@ -953,6 +959,8 @@ c        tMax=tAtm
 *     CloudF	- Cloudiness factor [-]
 *     Cover	  - Cloud cover fraction 
 
+      n_N=0
+      Tt=0
       Pi=3.141592654
       g=9.81
       xMol=0.018015
@@ -1336,6 +1344,8 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 *     maxTime	- The time of maximum temperature 13:00
 *     minTime	- The time of minimum temperature 1:00
 
+      TMinA=0
+      TMaxA=0
       PI=3.141592654
       maxTime=13./24.
       minTime=1./24.
@@ -1438,6 +1448,8 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       integer nGrowth
       double precision t,tAtm
 
+      CloudF=0
+      n_N=0
       PI=3.141592654
       raa=0.
       rc=60.
@@ -1559,6 +1571,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
       implicit double precision (A-H,O-Z)
       dimension rTable(n,m),y(4)
+      data y /0,0,0,0/
 
       if(t.le.rTable(1,1)) then
         do 11 i=1,m-1

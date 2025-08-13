@@ -6,17 +6,17 @@ clean:
 	$(RM) *.o
 
 h1d: \
-	HYDRUS.o \
-	HYSTER.o \
-	INPUT.o \
-	MATERIAL.o \
-	OUTPUT.o \
-	SINK.o \
-	SOLUTE.o \
-	TEMPER.o \
-	TIME.o \
-	WATFLOW.o
+	hydrus.o \
+	hyster.o \
+	input.o \
+	material.o \
+	output.o \
+	sink.o \
+	solute.o \
+	temper.o \
+	time.o \
+	watflow.o
 	$(FC) $(LDFLAGS) -o $@ $^
 
-%.o: %.FOR
+%.o: %.for
 	$(FC) $(FCFLAGS) -c $< -o $@

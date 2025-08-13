@@ -88,7 +88,7 @@ c            Kr=dexp(-BPar*dble(h))
 1010          format(/5x,'Parameter N is too small, not executed!')
               stop
             end if
-            Beta=Gamma(AA)*Gamma(BB)/Gamma(m+1.)
+            Beta=Gamma_h1d(AA)*Gamma_h1d(BB)/Gamma_h1d(m+1.)
             WCL=dmax1(2.d0/(2.d0+m),0.2d0)
             dlgKs=dlog10(Ks)
 *           Water content
@@ -801,28 +801,28 @@ c        xMualem=1./hhh ! for integration
 
 ************************************************************************
 
-      function Gamma(Z)
+      function Gamma_h1d(Z)
 
 *     Purpose:  To calculate the Gamma function for positive Z
 
       implicit real*8 (A-H,O-Z)
       if(Z.lt.33.) goto 11
-      Gamma=1.d36
+      Gamma_h1d=1.d36
       return
 11    X=Z
-      Gamma=1.0
+      Gamma_h1d=1.0
       if(X-2.0) 14,14,13
 12    if(X-2.0) 16,16,13
 13    X=X-1.0
-      Gamma=Gamma*X
+      Gamma_h1d=Gamma_h1d*X
       goto 12
 14    if(X-1.0) 15,17,16
-15    Gamma=Gamma/X
+15    Gamma_h1d=Gamma_h1d/X
       X=X+1.0
 16    Y=X-1.0
       FY=1.0-Y*(.5771017-Y*(.985854-Y*(.8764218-Y*(.8328212-Y*(.5684729-
      !Y*(.2548205-.0514993*Y))))))
-      Gamma=Gamma*FY
+      Gamma_h1d=Gamma_h1d*FY
 17    return
       end
 

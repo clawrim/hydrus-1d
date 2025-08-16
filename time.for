@@ -34,9 +34,9 @@
 ************************************************************************
 
       double precision function RTime(iMonth,iDay,iHours,iMins,iSecs,
-     !                                i100th)
+     !                                i1000th)
 
-      integer iMonth,iDay,iHours,iMins,iSecs,i100th
+      integer iMonth,iDay,iHours,iMins,iSecs,i1000th
 
       NoDay=0
 
@@ -51,7 +51,7 @@
       end if
       nMonth=NoDay*24*60*60
       RTime=nMonth+iDay*24.*60.*60.+iHours*60.*60.+iMins*60.+iSecs+
-     !      i100th/100.
+     !      i1000th/1000.
 
       return
       end

@@ -42,7 +42,7 @@
      !                 tPrint1,tAtm1,tAtm2,tAtmOld,tAtmN,tAtm2O,
      !                 TPrint,tPrintInt
       character cFileName*260,cDataPath*260
-      integer i,iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
+      integer i,iYear,iMonth,iDay,iHours,iMins,iSecs,i1000th
       integer iValues(8)
 
       dimension x(NumNPD),hNew(NumNPD),hOld(NumNPD),hTemp(NumNPD),
@@ -375,8 +375,8 @@
       iHours=iValues(5)
       iMins=iValues(6)
       iSecs=iValues(7)
-      i100th=iValues(8)
-      Rtime1=RTime(iMonth,iDay,iHours,iMins,iSecs,i100th)
+      i1000th=iValues(8)
+      Rtime1=RTime(iMonth,iDay,iHours,iMins,iSecs,i1000th)
 
 *     Time stepping calculations ---------------------------------------
 12    continue
@@ -837,7 +837,7 @@ c      goto 1000
      !                       lMeteo,lPrint)
 
       logical TopInF,BotInF,lChem,lScreen,lMeteo,lPrint
-      integer iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
+      integer iYear,iMonth,iDay,iHours,iMins,iSecs,i1000th
       integer iValues(8)
       double precision RTime1,RTime2,RTime
 
@@ -848,8 +848,8 @@ c      goto 1000
       iHours=iValues(5)
       iMins=iValues(6)
       iSecs=iValues(7)
-      i100th=iValues(8)
-      Rtime2=RTime(iMonth,iDay,iHours,iMins,iSecs,i100th)
+      i1000th=iValues(8)
+      Rtime2=RTime(iMonth,iDay,iHours,iMins,iSecs,i1000th)
       if(lScreen) write( *,*) 'Real time [sec]',Rtime2-RTime1
       if(lPrint) then
         write(70,'(''end'')')

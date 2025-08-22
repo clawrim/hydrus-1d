@@ -18,5 +18,5 @@ h1d_calc: \
 	watflow.o
 	$(FC) $(LDFLAGS) -o $@ $^
 
-%.o: %.for
+%.o: %.f
 	$(FC) $(FCFLAGS) -c $< -o $@

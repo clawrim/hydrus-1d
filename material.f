@@ -77,7 +77,7 @@
             if(iModel.eq.0) Kr=Qe**Bpar*(FFQ)**PPar
 *           Gardner's model {K=Ks*[exp(-a*h)]}
 c            Kr=dexp(-BPar*dble(h))
-            FK=sngl(max(Ks*Kr,1.d-37))
+            FK=max(Ks*Kr,1.d-37)
           else                              ! unbounded n and m
             mn=m*n
             mt=1.d0
@@ -144,18 +144,18 @@ c            Kr=dexp(-BPar*dble(h))
         end if
         if(dble(h).ge.Hk.and.dble(h).lt.Hs) then
           Kr=(1.d0-Kk/Ks)/(Hs-Hk)*(dble(h)-Hs)+1.d0
-          FK=sngl(Ks*Kr)
+          FK=Ks*Kr
         end if
-        if(dble(h).ge.Hs) FK=sngl(Ks)
+        if(dble(h).ge.Hs) FK=Ks
       else if(iModel.eq.2) then                  ! Brooks and Cores
 *        BPar=1.d0
         Lambda=2.d0  !  !=2 for Mualem Model, =1.5 for Burdine model
         Hs=-1.d0/Alfa
         if(h.lt.Hs) then
           Kr=1.d0/(-Alfa*h)**(n*(BPar+Lambda)+2.d0)
-          FK=sngl(max(Ks*Kr,1.d-37))
+          FK=max(Ks*Kr,1.d-37)
         else
-          FK=sngl(Ks)
+          FK=Ks
         end if
       else if(iModel.eq.4) then                  ! Log-normal model
         Hs=0.d0
@@ -163,9 +163,9 @@ c            Kr=dexp(-BPar*dble(h))
           Qee=qnorm(log(-h/Alfa)/n)
           t=qnorm(log(-h/Alfa)/n+n)
           Kr=Qee**Bpar*t*t
-          FK=sngl(max(Ks*Kr,1.d-37))
+          FK=max(Ks*Kr,1.d-37)
         else
-          FK=sngl(Ks)
+          FK=Ks
         end if
       else if(iModel.eq.5) then                  ! Dual-porosity model
         w2=Par(7)
@@ -184,14 +184,14 @@ c            Kr=dexp(-BPar*dble(h))
         rNumer=Sk1+Sk2
         rDenom=w1*Alfa+w2*Alfa2
         if(rDenom.ne.0.) Kr=Qe**BPar*(rNumer/rDenom)**2
-        FK=sngl(max(Ks*Kr,1.d-37))
+        FK=max(Ks*Kr,1.d-37)
       else if(iModel.eq.-1) then                  ! Shlomo Orr
         ha=Alfa
         D=n
         Kr=1.
         if(-h.gt.ha)
      !    Kr=(1.-(1.-(-ha/h)**(3.-D))/(1.-Qr))**(D/(3.-D))
-        FK=sngl(max(Ks*Kr,1.d-37))
+        FK=max(Ks*Kr,1.d-37)
       end if
 
       return
@@ -227,7 +227,7 @@ c        m=Par(6)
         if(dble(h).lt.Hs) then
           C1=(1.d0+(-Alfa*HH)**n)**(-m-1.d0)
           C2=(Qm-Qa)*m*n*(Alfa**n)*(-HH)**(n-1.d0)*C1
-          FC=sngl(max(C2,1.d-37))
+          FC=max(C2,1.d-37)
           return
         else
           FC=0.0
@@ -236,7 +236,7 @@ c        m=Par(6)
         Hs=-1.d0/Alfa
         if(h.lt.Hs) then
           C2=(Qs-Qr)*n*Alfa**(-n)*(-h)**(-n-1.d0)
-          FC=sngl(max(C2,1.d-37))
+          FC=max(C2,1.d-37)
         else
           FC=0.0
         end if
@@ -245,7 +245,7 @@ c        m=Par(6)
         if(h.lt.Hs) then
           t=exp(-1.d0*(log(-h/Alfa))**2.d0/(2.d0*n**2.d0))
           C2=(Qs-Qr)/(2.d0*3.141592654)**0.5d0/n/(-h)*t
-          FC=sngl(max(C2,1.d-37))
+          FC=max(C2,1.d-37)
         else
           FC=0.0
         end if
@@ -269,7 +269,7 @@ c        m=Par(6)
         else
           C1=-1.*ha**(3.-D)*(D-3.)*(-h)**(D-4.)
         end if
-        FC=sngl(max(C1,1.d-37))
+        FC=max(C1,1.d-37)
       end if
 
       return
@@ -304,26 +304,26 @@ c        m=Par(6)
         Hs=-1.d0/Alfa*(Qees**(-1.d0/m)-1.d0)**(1.d0/n)
         if(dble(h).lt.Hs) then
           Qee=(1.d0+(-Alfa*HH)**n)**(-m)
-          FQ=sngl(max(Qa+(Qm-Qa)*Qee,1.d-37))
+          FQ=max(Qa+(Qm-Qa)*Qee,1.d-37)
           return
         else
-          FQ=sngl(Qs)
+          FQ=Qs
         end if
       else if(iModel.eq.2) then
         Hs=-1.d0/Alfa
         if(h.lt.Hs) then
           Qee=(-Alfa*h)**(-n)
-          FQ=sngl(max(Qr+(Qs-Qr)*Qee,1.d-37))
+          FQ=max(Qr+(Qs-Qr)*Qee,1.d-37)
         else
-          FQ=sngl(Qs)
+          FQ=Qs
         end if
       else if(iModel.eq.4) then
         Hs=0.d0
         if(h.lt.Hs) then
           Qee=qnorm(log(-h/Alfa)/n)
-          FQ=sngl(max(Qr+(Qs-Qr)*Qee,1.d-37))
+          FQ=max(Qr+(Qs-Qr)*Qee,1.d-37)
         else
-          FQ=sngl(Qs)
+          FQ=Qs
         end if
       else if(iModel.eq.5) then
         w2=Par(7)
@@ -335,7 +335,7 @@ c        m=Par(6)
         Sw1=w1*(1.d0+(-Alfa *h)**n )**(-m )
         Sw2=w2*(1.d0+(-Alfa2*h)**n2)**(-m2)
         Qe=Sw1+Sw2
-        FQ=sngl(max(Qr+(Qs-Qr)*Qe,1.d-37))
+        FQ=max(Qr+(Qs-Qr)*Qe,1.d-37)
       else if(iModel.eq.-1) then                  ! Shlomo Orr
         ha=Alfa
         D=n
@@ -373,9 +373,9 @@ c        m=Par(6)
         HMin=-1.d300**(1.d0/n)/max(Alfa,1.d0)
         QeeM=(1.d0+(-Alfa*HMin)**n)**(-m)
         Qee=min(max(Qe*(Qs-Qa)/(Qm-Qa),QeeM),.999999999999999d0)
-        FH=sngl(max(-1.d0/Alfa*(Qee**(-1.d0/m)-1.d0)**(1.d0/n),-1.d37))
+        FH=max(-1.d0/Alfa*(Qee**(-1.d0/m)-1.d0)**(1.d0/n),-1.d37)
       else if(iModel.eq.2) then
-        FH=sngl(max(-1.d0/Alfa*max(Qe,1.e-10)**(-1.d0/n),-1.d37))
+        FH=max(-1.d0/Alfa*max(Qe,1.e-10)**(-1.d0/n),-1.d37)
       else if(iModel.eq.4) then
         if(Qe.gt.0.9999) then
           FH=0.0
@@ -388,7 +388,7 @@ c        m=Par(6)
           x=p-(1.881796+0.9425908*p+0.0546028*p**3)/
      !       (1.+2.356868*p+0.3087091*p**2+0.0937563*p**3+0.021914*p**4)
           if(y.ge.1.) x=-x
-          FH=sngl(-Alfa*exp(sqrt(2.)*n*x))
+          FH=-Alfa*exp(sqrt(2.)*n*x)
         end if
       else if(iModel.eq.5) then
         w2=Par(7)
@@ -404,7 +404,7 @@ c        m=Par(6)
           FH=-1.e+8
         else
           h=xMualem(Qee,Par,10)
-          FH=sngl(max(h,-1.d37))
+          FH=max(h,-1.d37)
         end if
       else if(iModel.eq.-1) then                  ! Shlomo Orr
         ha=Alfa
@@ -412,7 +412,7 @@ c        m=Par(6)
         th=Qr+(Qs-Qr)*Qe
         h=0.
         if(D.ne.3.) h=-ha*(1.-Qs+th)**(1./(D-3.))
-        FH=sngl(max(h,-1.d37))
+        FH=max(h,-1.d37)
       end if
 
       return
@@ -448,7 +448,7 @@ c        m=Par(6)
           HH=max(dble(h),HMin)
           Qee=(1.d0+(-Alfa*HH)**n)**(-m)
           Qe=Qee*(Qm-Qa)/(Qs-Qa)
-          FS=sngl(max(Qe,1.d-37))
+          FS=max(Qe,1.d-37)
         else
           FS=1.0
         end if
@@ -456,7 +456,7 @@ c        m=Par(6)
         Hs=-1.d0/Alfa
         if(h.lt.Hs) then
           Qe=(-Alfa*h)**(-n)
-          FS=sngl(max(Qe,1.d-37))
+          FS=max(Qe,1.d-37)
         else
           FS=1.0
         end if
@@ -464,7 +464,7 @@ c        m=Par(6)
         Hs=0.d0
         if(h.lt.Hs) then
           Qee=qnorm(log(-h/Alfa)/n)
-          FS=sngl(max(Qee,1.d-37))
+          FS=max(Qee,1.d-37)
         else
           FS=1.0
         end if
@@ -478,7 +478,7 @@ c        m=Par(6)
         Sw1=w1*(1.d0+(-Alfa *h)**n )**(-m )
         Sw2=w2*(1.d0+(-Alfa2*h)**n2)**(-m2)
         Qe=Sw1+Sw2
-        FS=sngl(max(Qe,1.d-37))
+        FS=max(Qe,1.d-37)
       else if(iModel.eq.-1) then                  ! Shlomo Orr
         ha=Alfa
         D=n
@@ -534,9 +534,9 @@ c        m=Par(6)
           FFQk=1.d0-(1.d0-Qeek**(1.d0/m))**m
           if(FFQ.le.0.d0) FFQ=m*Qee**(1.d0/m)
           Kr=(Qe/Qek)**Bpar*(FFQ/FFQk)**PPar*Kk/Ks
-          FKQ=sngl(max(Ks*Kr,1.d-37))
+          FKQ=max(Ks*Kr,1.d-37)
         end if
-        if(dble(th).ge.Qs) FKQ=sngl(Ks)
+        if(dble(th).ge.Qs) FKQ=Ks
       else if(iModel.eq.-1) then                  ! Shlomo Orr
         D=n
         Kr=1.
@@ -552,7 +552,7 @@ c        m=Par(6)
             if(Qx.gt.Qr) Kr=Kr*(th-Qr)**2/(Qx-Qr)**2
           end if
         end if
-        FKQ=sngl(max(Ks*Kr,1.d-37))
+        FKQ=max(Ks*Kr,1.d-37)
       end if
 
       return
@@ -603,9 +603,9 @@ c        m=Par(6)
           FFQk=1.d0-(1.d0-Qeek**(1.d0/m))**m
           if(FFQ.le.0.d0) FFQ=m*Qee**(1.d0/m)
           Kr=(Qe/Qek)**Bpar*(FFQ/FFQk)**PPar*Kk/Ks
-          FKS=sngl(max(Ks*Kr,1.d-37))
+          FKS=max(Ks*Kr,1.d-37)
         end if
-        if(dble(th).ge.Qs) FKS=sngl(Ks)
+        if(dble(th).ge.Qs) FKS=Ks
       else if(iModel.eq.-1) then                  ! Shlomo Orr
         D=n
         Kr=1.
@@ -622,7 +622,7 @@ c        m=Par(6)
             if(Qx.gt.Qr) Kr=Kr*(th-Qr)**2/(Qx-Qr)**2
           end if
         end if
-        FKQ=sngl(max(Ks*Kr,1.d-37))
+        FKQ=max(Ks*Kr,1.d-37)
       end if
 
       return

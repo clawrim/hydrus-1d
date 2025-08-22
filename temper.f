@@ -19,7 +19,7 @@
       Cw=TPar(9,1)
       PI=3.141592654
       tTopA=tTop
-      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/
+      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*t/tPeriod-7.*PI/
      !                                      12.)
 
 *     Upper Flux BC
@@ -53,7 +53,7 @@
 *     Solve matrix equation
       call BanSol(N,B,D,E,F)
       do 12 i=1,N
-        TempN(i)=sngl(F(i))
+        TempN(i)=F(i)
 12    continue
 
 *     Max time step

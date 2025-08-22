@@ -19,13 +19,13 @@
      !  dtOpt=min(dtMax,dMul*dtOpt)
       if(Iter.ge.ItMax)
      !  dtOpt=max(dtMin,dMul2*dtOpt)
-      dt=min(dtOpt,sngl(tFix-t))
+      dt=min(dtOpt,tFix-t)
       iStep=1
-      if(dt.gt.0.) iStep=int(anint(sngl(tFix-t)/dt))
+      if(dt.gt.0.) iStep=int(anint((tFix-t)/dt))
       if(iStep.ge.1.and.iStep.le.10)
-     !  dt=min(sngl(tFix-t)/iStep,dtMax)
+     !  dt=min((tFix-t)/iStep,dtMax)
       if(iStep.eq.1) then
-        dt=sngl(tFix-t)
+        dt=tFix-t
         if(dt-dtMax.gt.dtMin) dt=dt/2.
       end if
       if(dt.le.0.0) dt=dtMin/3.
@@ -228,9 +228,9 @@
 
       PI=3.141592654
       tPeriod=1.                 ! one day  !24.*60.*60.*tConv
-      tDay=sngl(t)/tConv/86400   ! time in day units
+      tDay=t/tConv/86400   ! time in day units
 
-c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
+c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*t/tPeriod-7.*PI/12.)
       tRemainder=dmod(tDay,tPeriod)
       if(tRemainder.le.0.264.or.tRemainder.ge.0.736) then
         rRoot=0.24*rRootD
@@ -251,9 +251,9 @@ c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
       double precision t,t1,t2
 
       PI=3.141592654
-      dt=sngl(t2-t1)
+      dt=t2-t1
       if(rPrecD.gt.0.) then
-        rPrec=rPrecD*(1.+1.*cos(2.*PI*sngl(t-t1)/dt-PI))
+        rPrec=rPrecD*(1.+1.*cos(2.*PI*(t-t1)/dt-PI))
       else
         rPrec=0.
       end if
@@ -505,7 +505,7 @@ c        tMax=tAtm
           read(33,*,err=901) tAtm,Rad,TMax,TMin,RHMean,Wind_kmd,SunHours
         end if
       end if
-      DayNo=sngl(tAtm)/TTConv                   ! Conversion to [d]
+      DayNo=tAtm/TTConv                   ! Conversion to [d]
 
       if(iInit.eq.1) then                     ! Check time interval of meteo data
         if((tAtm-tInit).le.0.9999*TTConv) then ! short interval
@@ -906,13 +906,13 @@ c        tMax=tAtm
         RHMeanO=RHMeanN
         SunHoursO=SunHoursN
       else if(i.eq.3) then
-        Rad  =RadO  +(RadN  -RadO)  *(sngl(t)-tAtm2O)/(tAtm2-tAtm2O)
+        Rad  =RadO  +(RadN  -RadO)  *(t-tAtm2O)/(tAtm2-tAtm2O)
         if(lEnBal) Rad=RadN
-        TMaxA=TMaxAO+(TMaxAN-TMaxAO)*(sngl(t)-tAtm2O)/(tAtm2-tAtm2O)
-        TMinA=TMinAO+(TMinAN-TMinAO)*(sngl(t)-tAtm2O)/(tAtm2-tAtm2O)
-        Wind =WindO +(WindN -WindO) *(sngl(t)-tAtm2O)/(tAtm2-tAtm2O)
-        RHMean=RHMeanO+(RHMeanN-RHMeanO)*(sngl(t)-tAtm2O)/(tAtm2-tAtm2O)
-        SunHours=SunHoursO+(SunHoursN-SunHoursO)*(sngl(t)-tAtm2O)/
+        TMaxA=TMaxAO+(TMaxAN-TMaxAO)*(t-tAtm2O)/(tAtm2-tAtm2O)
+        TMinA=TMinAO+(TMinAN-TMinAO)*(t-tAtm2O)/(tAtm2-tAtm2O)
+        Wind =WindO +(WindN -WindO) *(t-tAtm2O)/(tAtm2-tAtm2O)
+        RHMean=RHMeanO+(RHMeanN-RHMeanO)*(t-tAtm2O)/(tAtm2-tAtm2O)
+        SunHours=SunHoursO+(SunHoursN-SunHoursO)*(t-tAtm2O)/
      !                                           (tAtm2  -tAtm2O)
         if(lEnBal) SunHours=SunHoursN
       end if
@@ -982,7 +982,7 @@ c        tMax=tAtm
         TMean=(TMaxA+TMinA)/2.
         TempA=TMean
         if(tPeriod.gt.0.) TempA=TMean+(TMaxA-TMinA)/2.*
-     !                          sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
+     !                          sin(2.*PI*t/tPeriod-7.*PI/12.)
       end if
       TKelvS=TempS+273.15
       TKelvA=TempA+273.15
@@ -992,7 +992,7 @@ c        tMax=tAtm
 
 *     Net shortwave radiation (Cloud cover fraction to calculate Rnl)
       if(iRadiation.ne.2) then
-        DayNo=mod(sngl(t),365.)
+        DayNo=mod(t,365.)
         call RadGlobal(Ra,Latitude,DayNo,Omega,xx,yy,SC)
         call Cloudiness(CloudF,iSunSh,SunHours,Omega,LongWaveRadB,
      !                  LongWaveRadA,n_N,Cover,Tt)
@@ -1485,7 +1485,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       Ea=Es*RH_A/100.
 
 *     Daily Variated Net shortwave radiation, Rst
-      DayNo=mod(sngl(tAtm),365.)
+      DayNo=mod(tAtm,365.)
       if(iRadiation.ne.2) then
         call RadGlobal(Ra,Latitude,DayNo,Omega,xx,yy,SC)
 

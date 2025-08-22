@@ -300,7 +300,7 @@
      !    call SetChemBC(Prec,rSoil,NS,cTop,cT,WLayer,hNew(NumNP),
      !                   KodTop,kTopCh)
         if(lSnow) then
-          dtSnow=sngl(tAtm1-tInit)
+          dtSnow=tAtm1-tInit
           call Snow(Prec,dtSnow,tTop,SnowMF,SnowLayer,rSoil,xConv,
      !              lMinStep,cTop,cT,NS)
         end if
@@ -316,7 +316,7 @@
         end if
         if(lSinPrec) then
           PrecD=Prec
-          tAtmOld=sngl(tInit)
+          tAtmOld=tInit
           call SinPrec(t,tAtmOld,tAtm1,Prec,PrecD)
         end if
         if(KodTop.eq.-4) rTop=abs(rSoil)-abs(Prec)
@@ -597,7 +597,7 @@
      !    call SetChemBC(Prec,rSoil,NS,cTop,cT,WLayer,hNew(NumNP),
      !                   KodTop,kTopCh)
         if(lSnow) then
-          dtSnow=sngl(tAtm1-tAtmOld)
+          dtSnow=tAtm1-tAtmOld
           call Snow(Prec,dtSnow,tTop,SnowMF,SnowLayer,rSoil,xConv,
      !              lMinStep,cTop,cT,NS)
         if(.not.lMeteo.and.iInterc.gt.0.and.SnowLayer.le.0.)
@@ -640,7 +640,7 @@
         Iter=max0(IterW,IterC)
         dtMaxA=min(dtMaxC,dtMaxT)
         if(lSinPrec.and.PrecD.gt.0)
-     !    dtMaxA=min(dtMaxA,sngl(tAtm1-tAtmOld)/20.)
+     !    dtMaxA=min(dtMaxA,(tAtm1-tAtmOld)/20.)
         call TmCont(dt,dtMax,dtOpt,dMul,dMul2,dtMin,Iter,
      !              min(TPrint(PLevel),TPrint1),tAtm,t,tMax,dtMaxA,
      !              ItMin,ItMax,lMinStep,dtInit)

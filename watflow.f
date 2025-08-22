@@ -292,7 +292,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
         if(lWTDep) ConTA=ConTA+(ConLT(N)+ConLT(N-1))/2.
         PT=PT-ConTA*(Temp(N)-Temp(N-1))/dxA-(ThVNew(N)-ThVOld(N))*dx/dt
       end if
-      vTop=-sngl(ST)*hNew(N-1)-sngl(RT)*hNew(N)+sngl(PT)
+      vTop=-ST*hNew(N-1)-RT*hNew(N)+PT
       PT=PT-rTop
       if(WLayer) then
         if(hNew(N).gt.0.) then
@@ -339,20 +339,20 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
       if(dabs(R(N-1)).lt.rMin) R(N-1)=rMin
       if(KodTop.gt.0) then
         hNew(N)=hTop
-        hNew(N-1)=sngl(P(N-1)/R(N-1))
+        hNew(N-1)=P(N-1)/R(N-1)
       else
-        hNew(N)=sngl(P(N)/R(N))
-        hNew(N-1)=sngl((P(N-1)-S(N-1)*hNew(N))/R(N-1))
+        hNew(N)=P(N)/R(N)
+        hNew(N-1)=(P(N-1)-S(N-1)*hNew(N))/R(N-1)
       end if
       do 12 i=N-2,2,-1
         if(dabs(R(i)).lt.rMin) R(i)=rMin
-        hNew(i)=sngl((P(i)-S(i)*hNew(i+1))/R(i))
+        hNew(i)=(P(i)-S(i)*hNew(i+1))/R(i)
 12    continue
       if(KodBot.ge.0) then
         hNew(1)=hBot
       else
         if(dabs(RB).lt.rMin) RB=rMin
-        hNew(1)=sngl((PB-SB*hNew(2))/RB)
+        hNew(1)=(PB-SB*hNew(2))/RB
       end if
       return
       end

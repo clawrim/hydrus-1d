@@ -149,10 +149,10 @@
         do 16 i=1,N
           if((NS.gt.1.and.Iter.eq.1).or.lDensity) cPrevO(i)=Conc(jS,i)
           if(lLinear(jS)) then
-            Conc(jS,i)=max(sngl(F(i)),0.)
+            Conc(jS,i)=max(F(i),0.)
             if(Conc(jS,i).lt.1.e-30.and.Conc(jS,i).gt.0.) Conc(jS,i)=0.
           else
-            cNew(i)=sngl(F(i))
+            cNew(i)=F(i)
             if(cNew(i).lt.1.0e-30) cNew(i)=0.
             if(abs(cNew(i)-cTemp(i)).gt.cTolA+cTolR*Conc(jS,i))
      !        lConv=.false.

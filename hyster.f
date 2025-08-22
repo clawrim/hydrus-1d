@@ -75,8 +75,8 @@ c        SARWI=(ParD(2,m)-ParW(2,m))/ParD(2,m)
         if(iKod.eq.1.or.iKod.eq.3) call UpdateHyst(n,hW,hA)
         Theta(n)=SW*ParD(2,m)
 c        Theta(n)=SW*(ParD(2,m)-ParD(1,m))+ParD(1,m)
-        Con(n)=ParD(5,m)*sngl(PermW)
-        Cap(n)=sngl(DWW)*ParD(2,m)
+        Con(n)=ParD(5,m)*PermW
+        Cap(n)=DWW*ParD(2,m)
         if(JJH(n).eq.0) Kappa(n)=-1
         if(JJH(n).eq.1) Kappa(n)= 1
 

@@ -516,8 +516,8 @@ c      IF( IRES .GE. 1) GO TO 210
 *     Relative permeability error message
 
       IF( (PERMW.LT.0.D+0) .OR. (PERMW.GT.ONE) ) THEN
-        WRITE(*,'(A,I6)') 'ERROR: Water Relative Permeability in Subro-
-     &utine DRAIN @ Node ',N
+        WRITE(*,'(A,I6)') 'ERROR: Water Relative Permeability in Subrout
+     &ine DRAIN @ Node ',N
         STOP
       ENDIF
 

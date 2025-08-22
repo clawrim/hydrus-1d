@@ -586,7 +586,7 @@ c        read(*,*)
       end if
       if(iModel.lt.nTabMod) then
         hTab1=-amin1(abs(hTab1),abs(hTabN))
-        hTabN=-amax1(abs(hTab1),abs(hTabN))
+        hTabN=-max(abs(hTab1),abs(hTabN))
         lTable=.true.
         if((hTab1.gt.-0.00001.and.hTabN.gt.-0.00001).or.hTab1.eq.hTabN)
      !                                                         then
@@ -649,7 +649,7 @@ c        read(*,*)
         if(iHyst.eq.0) then
           read(30,*,err=901) (ParD(i,M),i=1,NPar)
           if(iModel.eq.1) then
-            ParD(7,M)=amax1(ParD(7,M),ParD(2,M))
+            ParD(7,M)=max(ParD(7,M),ParD(2,M))
             ParD(8,M)=amin1(ParD(8,M),ParD(1,M))
             ParD(9,M)=amin1(ParD(9,M),ParD(2,M))
             ParD(10,M)=amin1(ParD(10,M),ParD(5,M))
@@ -665,7 +665,7 @@ c        read(*,*)
         else  ! Hysteresis
           read(30,*,err=901) (ParD(i,M),i=1,7),ParW(2,M),ParW(3,M),
      !                        ParW(5,M)
-          ParD(7,M)=amax1(ParD(7,M),ParD(2,M))
+          ParD(7,M)=max(ParD(7,M),ParD(2,M))
           write(50,120,err=902) M,(ParD(i,M),i=1,7),ParW(2,M),
      !                          ParW(3,M),ParW(5,M)
           ParW(1,M)=ParD(1,M)
@@ -690,7 +690,7 @@ c        read(*,*)
       do 13 i=1,NumNP
         M=MatNum(i)
         if(iModel.lt.nTabMod)
-     !    hNew(i)=amax1(hNew(i),Ah(i)*FH(iModel,0.00000001d0,ParD(1,M)))
+     !    hNew(i)=max(hNew(i),Ah(i)*FH(iModel,0.00000001d0,ParD(1,M)))
         AThS(i)=1.
         AKS(i)=1.
         ThRR(i)=ParD(1,M)
@@ -794,9 +794,9 @@ c        read(*,*)
         write(50,120,err=901)
         hTab1=hTab(1,1)
         hTabN=hTab(NTab(1),1)
-        dlh=(dlog10(-hTabN)-dlog10(-hTab1))/(NTab(1)-1)
+        dlh=(log10(-hTabN)-log10(-hTab1))/(NTab(1)-1)
         do 11 i=1,NTab(1)
-          alh=dlog10(-hTab1)+(i-1)*dlh
+          alh=log10(-hTab1)+(i-1)*dlh
           hTab(i,1)=-10**alh
 11     continue
       else
@@ -822,8 +822,8 @@ c          if(ConSat(M).lt.ConSMax) ConSMax=ConSat(M)
             TheTab(i,M)=FQ(iModel,hTab(i,1),Par(1,M))
             Qe         =FS(iModel,hTab(i,1),Par(1,M))
             ConV=ConVh(hTab(i,1),TheTab(i,M),ths(M),xConv,tConv)
-            a10h=dlog10(max(-hTab(i,1),1e-30))
-            a10K=dlog10(ConTab(i,M))
+            a10h=log10(max(-hTab(i,1),1e-30))
+            a10K=log10(ConTab(i,M))
             write(50,130,err=901) TheTab(i,M),hTab(i,1),a10h,
      !                            CapTab(i,M),ConTab(i,M),a10K,Qe,ConV
 12        continue
@@ -857,8 +857,8 @@ c          if(ConSat(M).lt.ConSMax) ConSMax=ConSat(M)
               end if
             end if
             Qe  =(TheTab(i,M)-Par(1,M))/(Par(2,M)-Par(1,M))
-            a10h=dlog10(max(-hTab(i,M),1e-30))
-            a10K=dlog10(ConTab(i,M))
+            a10h=log10(max(-hTab(i,M),1e-30))
+            a10K=log10(ConTab(i,M))
             write(50,130,err=901) TheTab(i,M),hTab(i,M),a10h,
      !                            CapTab(i,M),ConTab(i,M),a10K,Qe
 16        continue
@@ -1205,7 +1205,7 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
      !Root Growth Time(depth) !!'
           goto 901
         end if
-        RGR=-(1./rtm)*dlog(amax1(.0001,(xRMin*(xRMax-xRMed)))/
+        RGR=-(1./rtm)*log(max(.0001,(xRMin*(xRMax-xRMed)))/
      !                                 (xRMed*(xRMax-xRMin)))
         write(50,110,err=902) tRMin,tRHarv,xRMin,xRMax,RGR
       end if
@@ -1346,7 +1346,7 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
         if(lMoistDep) iMoistDep=1
         if(lVar) iTort=1
       end if
-      PeCr=amax1(PeCr,0.1)
+      PeCr=max(PeCr,0.1)
       if(lUpW) then
         write(50,120,err=902)
       else

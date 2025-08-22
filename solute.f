@@ -117,8 +117,8 @@
      !               q1,lTort,sSink,lMobIm,lBact,Sorb2,SorbN2,lFiltr,
      !               iDualPor,ThOIm,ThNIm,SinkIm,iTort,xConv,tConv,
      !               iMoistDep,NMatD,DMoist,WDep,lNEquil,lDualNEq)
-          Peclet=amax1(Peclet,Pecl)
-          Courant=amax1(Courant,Cour)
+          Peclet=max(Peclet,Pecl)
+          Courant=max(Courant,Cour)
           dtMaxC=amin1(dtMaxC,dtMxC)
 
 *         Set up the matrix equation
@@ -149,7 +149,7 @@
         do 16 i=1,N
           if((NS.gt.1.and.Iter.eq.1).or.lDensity) cPrevO(i)=Conc(jS,i)
           if(lLinear(jS)) then
-            Conc(jS,i)=amax1(sngl(F(i)),0.)
+            Conc(jS,i)=max(sngl(F(i)),0.)
             if(Conc(jS,i).lt.1.e-30.and.Conc(jS,i).gt.0.) Conc(jS,i)=0.
           else
             cNew(i)=sngl(F(i))
@@ -165,7 +165,7 @@
             else if(dt.gt.dtMin.and..not.lWat) then
 c              ierr=1
               dtOld=dt
-              dt=amax1(dt/3.,dtMin)
+              dt=max(dt/3.,dtMin)
               dtOpt=dt
               t=t-dtOld+dt
               goto 10
@@ -293,11 +293,11 @@ c              ierr=1
         if(Level.eq.NLevel) then
           ThW=ThN(i)
           ThWO=ThO(i)
-          ThG=amax1(0.,thSat(M)-ThW)
+          ThG=max(0.,thSat(M)-ThW)
           if(lMobIm(M).and.iDualPor.eq.0.or.lBact) then
             ThImob=ChPar(4,M)
             ThImobO=ThImob
-            ThW=amax1(ThW-ThImob,0.001)
+            ThW=max(ThW-ThImob,0.001)
           end if
           if(iDualPor.gt.0) then
             ThImob=ThNIm(i)
@@ -308,16 +308,16 @@ c              ierr=1
             vj=vN(j)
             Thj=ThN(j)
             if(lMobIm(M).and.iDualPor.eq.0.or.lBact)
-     !                                       Thj=amax1(Thj-ThImob,0.001)
+     !                                       Thj=max(Thj-ThImob,0.001)
           end if
           TT=(TempN(i)+273.15-Tr)/R/(TempN(i)+273.15)/Tr
           if(jS.gt.1) cPrev=Conc(jS-1,i)
         else
           ThW=ThO(i)
-          ThG=amax1(0.,thSat(M)-ThW)
+          ThG=max(0.,thSat(M)-ThW)
           if(lMobIm(M).and.iDualPor.eq.0.or.lBact) then
             ThImob=ChPar(4,M)
-            ThW=amax1(ThW-ThImob,0.001)
+            ThW=max(ThW-ThImob,0.001)
           end if
           if(iDualPor.gt.0) then
             ThImob=ThOIm(i)
@@ -327,7 +327,7 @@ c              ierr=1
             vj=vO(j)
             Thj=ThO(j)
             if(lMobIm(M).and.iDualPor.eq.0.or.lBact)
-     !                                       Thj=amax1(Thj-ThImob,0.001)
+     !                                       Thj=max(Thj-ThImob,0.001)
           end if
           TT=(TempO(i)+273.15-Tr)/R/(TempO(i)+273.15)/Tr
           if(jS.gt.1) cPrev=cPrevO(i)
@@ -596,7 +596,7 @@ c              ierr=1
             dConc=fExp*cMid**(fExp-1.)/(1.+xNu*cMid**fExp)**2
             dRetard=cMid**fExp/(1.+xNu*cMid**fExp)*dKs-
      !           xKs*cMid**(2.*fExp)/(1.+xNu*cMid**fExp)**2*dNu+
-     !           xKs*dlog(cMid)*cMid**fExp/(1.+xNu*cMid**fExp)**2*ddExp
+     !           xKs*log(cMid)*cMid**fExp/(1.+xNu*cMid**fExp)**2*ddExp
           end if
           if(Level.eq.NLevel.and..not.lEquil.and.Conc(jS,i).gt.0.)
      !      SConcO=Conc(jS,i)**(fExpO-1.)/(1.+xNuO*Conc(jS,i)**fExpO)
@@ -612,7 +612,7 @@ c              ierr=1
               dConcS=fExp*sMid**(fExp-1.)/(1.+xNu*sMid**fExp)**2
               dRetardS=sMid**fExp/(1.+xNu*sMid**fExp)*dKs-
      !            xKs*sMid**(2.*fExp)/(1.+xNu*sMid**fExp)**2*dNu+
-     !            xKs*dlog(sMid)*sMid**fExp/(1.+xNu*sMid**fExp)**2*ddExp
+     !            xKs*log(sMid)*sMid**fExp/(1.+xNu*sMid**fExp)**2*ddExp
             end if
             if(Level.eq.NLevel.and..not.lEquil.and.Sorb(jS,i).gt.0.)
      !        SConcOS=Sorb(jS,i)**(fExpO-1.)/(1.+xNuO*Sorb(jS,i)**fExpO)
@@ -1001,16 +1001,16 @@ c        if(Level.eq.NLevel) g1(i)=g1(i)-ThG*dHenry-Henry*(ThWO-ThW)/dt
         if(Level.eq.NLevel) then
           Pec=99999.
           dtMax=1.e+30
-c          vMax=amax1(abs(v)/ThW,abs(vj)/Thj)
+c          vMax=max(abs(v)/ThW,abs(vj)/Thj)
           vMax=(abs(v)+abs(vj))/(ThW+Thj)
           RMin=amin1(Retard(i),Retard(j))
           if(DD.gt.0.) Pec=abs(vv)*dx/DD
           Cour=vMax*dt/dx/RMin
-          Peclet=amax1(Peclet,Pec)
-          Courant=amax1(Courant,Cour)
+          Peclet=max(Peclet,Pec)
+          Courant=max(Courant,Cour)
           Cour1=CourMax
           if(.not.lUpW.and..not.lArtD) then
-            if(Pec.ne.99999.) Cour1=amin1(1.,PeCr/amax1(0.5,Pec))
+            if(Pec.ne.99999.) Cour1=amin1(1.,PeCr/max(0.5,Pec))
           end if
           if(epsi.lt.1..and.vMax.gt.1.e-20) dtMax=Cour1*dx*RMin/vMax
 *         the von Neumann time step limit
@@ -1030,7 +1030,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
           else
             wc(i)=1./TanH(Pe2)-1./Pe2
             wc(i)=amin1( 1.,wc(i))
-            wc(i)=amax1(-1.,wc(i))
+            wc(i)=max(-1.,wc(i))
           end if
         end if
       end if
@@ -1074,11 +1074,11 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
         if(cMid.gt.0.)
      !    fi=6.*ThW*ro*xKs*cMid**(fExp-1.)*
      !         (fExp/(1.+xNu*cMid**fExp)**2-1./(1.+xNu*cMid**fExp))
-        DPom=amax1(dt/(6.*ThW*(ThW+ro*Frac*xKs*dSConc+ThG*Henry)+fi),0.)
+        DPom=max(dt/(6.*ThW*(ThW+ro*Frac*xKs*dSConc+ThG*Henry)+fi),0.)
         if(Level.ne.NLevel) then
           Disp(i)=Disp(i)+v*v*DPom
         else
-          Disp(i)=amax1(Disp(i)-v*v*DPom,Disp(i)/2.)
+          Disp(i)=max(Disp(i)-v*v*DPom,Disp(i)/2.)
         end if
       end if
       if(lArtD) then
@@ -1541,7 +1541,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
       do 11 i=1,NumNP
         M=MatNum(i)
         ThW=Theta(i)
-        ThG=amax1(0.,thSat(M)-ThW)
+        ThG=max(0.,thSat(M)-ThW)
         if(lMobIm(M)) then
           if(iDualPor.eq.0) then
             ThImob=ChPar(4,M)
@@ -2045,10 +2045,10 @@ c     write(*,*) "r_c microns", 10000.*r_c
       NB=1000
       X1O=X1
 
-      dlh=(dlog10(X2)-dlog10(X1))/(NB-1)
+      dlh=(log10(X2)-log10(X1))/(NB-1)
       FP=SolMass(X1,xMass,Par,NPar)
       do 11 i=1,NB
-        dx2=dlog10(X1O)+(i)*dlh
+        dx2=log10(X1O)+(i)*dlh
         X2=10**dx2
         FC=SolMass(X2,xMass,Par,NPar)
         if(FC*FP.lt.0.) then

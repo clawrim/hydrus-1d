@@ -441,7 +441,7 @@
      !                  SunHoursN,lEnBal)
           TempS=EpsiT*TempN(NumNP)+(1.-EpsiT)*TempO(NumNP)
           M=MatNum(NumNP)
-          rLamb=amax1(0.,TPar(4,M)+TPar(5,M)*ThNew(NumNP)+
+          rLamb=max(0.,TPar(4,M)+TPar(5,M)*ThNew(NumNP)+
      !                TPar(6,M)*sqrt(ThNew(NumNP)))
           dz=x(NumNP)-x(NumNP-1)
           call UpdateEnergy(t,vTop,rTop,HeatFl,TempS,Rns,Rnl,Rn,Evap,

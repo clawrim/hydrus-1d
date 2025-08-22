@@ -487,13 +487,13 @@ c120   format('+',f12.3,2i3,i6,4e9.2,3f6.0)  ! writing at one line
             ThWj=ThN(j)
             ThImobi=ChPar(4,Mi)
             ThImobj=ChPar(4,Mj)
-            ThGi=amax1(0.,ths(Mi)-ThWi)
-            ThGj=amax1(0.,ths(Mj)-ThWj)
+            ThGi=max(0.,ths(Mi)-ThWi)
+            ThGj=max(0.,ths(Mj)-ThWj)
             if(iDualPor.gt.0) then
               ThImobi=ThNewIm(i)
               ThImobj=ThNewIm(j)
-c              ThGi=amax1(0.,ths(Mi)-ThWi+thSIm(Mi)-ThImobi)
-c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
+c              ThGi=max(0.,ths(Mi)-ThWi+thSIm(Mi)-ThImobi)
+c              ThGj=max(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
             end if
             if(lMobIm(Mi).and.iDualPor.eq.0.or.lBact)
      !                                      ThWi=max(ThWi-ThImobi,0.001)
@@ -661,7 +661,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
           wBalT=Volume-wVolI-wCumT
           if(iDualPor.gt.0) wBalT=Volume-wVolI-wCumT+VolumeIm
           if(lPrint) write(76,230,err=901) wBalT
-          ww=amax1(DeltW,wCumA)
+          ww=max(DeltW,wCumA)
           if(ww.gt.1.e-25) then
             wBalR=abs(wBalT)/ww*100.
             if(lPrint) write(76,240,err=901) wBalR
@@ -673,7 +673,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
             if(.not.lEquil)       cBalT=cBalT+ConVolIm (jS)
             if(lBact.or.lDualNEq) cBalT=cBalT+ConVolIm2(jS)
             if(lPrint) write(76,250,err=901) jS,cBalT
-            cc=amax1(DeltC,cCumA(jS))
+            cc=max(DeltC,cCumA(jS))
             if(cc.gt.1.e-25) then
               cBalR=abs(cBalT)/cc*100.
               if(lPrint) write(76,260,err=901) jS,cBalR

@@ -26,7 +26,7 @@
       Qs=Par(2)
       Alfa=Par(3)
       n=Par(4)
-      Ks=amax1(Par(5),1.e-37)
+      Ks=max(Par(5),1.e-37)
       BPar=Par(6)
       if(iModel.eq.0.or.iModel.eq.1.or.iModel.eq.3) then    ! VG and modified VG
 *        BPar=.5d0
@@ -91,13 +91,13 @@ c            Kr=dexp(-BPar*dble(h))
             end if
             Beta=Gamma_h1d(AA)*Gamma_h1d(BB)/Gamma_h1d(m+1.)
             WCL=dmax1(2.d0/(2.d0+m),0.2d0)
-            dlgKs=dlog10(Ks)
+            dlgKs=log10(Ks)
 *           Water content
             AX=Alfa*(-h)
             if(AX.lt.1.d-20) then
               Qe=1.0d0
             else
-              EX=n*dlog10(AX)
+              EX=n*log10(AX)
               if(EX.lt.-10.d0) then
                 Qe=1.0d0
               else if(EX.lt.10.d0) then
@@ -117,13 +117,13 @@ c            Kr=dexp(-BPar*dble(h))
             else if(Qe.gt.0.999999d0) then
               FK=Ks
             else
-              dlgW=dlog10(Qe)
+              dlgW=log10(Qe)
               dlg2=3.0d0-mt+BPar+2.0d0/mn
               dlgC=dlg2*dlgW+dlgKs
               if(dlgC.gt.-37.d0.and.dlgW.gt.(-15.d0*m)) then
                 dw=Qe**(1.d0/m)
                 if(dw.lt.1.d-06) then
-                  dlg1=(3.0d0-mt)*dlog10(n/(Beta*(mn+mt)))
+                  dlg1=(3.0d0-mt)*log10(n/(Beta*(mn+mt)))
                   dlgC=dlgC+dlg1
                   FK=10.**dlgC
                   return
@@ -135,7 +135,7 @@ c            Kr=dexp(-BPar*dble(h))
                 end if
                 Kr=Qe**BPar*Term
                 if(mt.lt.1.5d0) Kr=Kr*Term
-                dlgC=dlog10(Kr)+dlgKs
+                dlgC=log10(Kr)+dlgKs
               end if
               dlgC=dmax1(-37.d0,dlgC)
               FK=10.**dlgC
@@ -160,8 +160,8 @@ c            Kr=dexp(-BPar*dble(h))
       else if(iModel.eq.4) then                  ! Log-normal model
         Hs=0.d0
         if(h.lt.Hs) then
-          Qee=qnorm(dlog(-h/Alfa)/n)
-          t=qnorm(dlog(-h/Alfa)/n+n)
+          Qee=qnorm(log(-h/Alfa)/n)
+          t=qnorm(log(-h/Alfa)/n+n)
           Kr=Qee**Bpar*t*t
           FK=sngl(max(Ks*Kr,1.d-37))
         else
@@ -243,7 +243,7 @@ c        m=Par(6)
       else if(iModel.eq.4) then
         Hs=0.d0
         if(h.lt.Hs) then
-          t=exp(-1.d0*(dlog(-h/Alfa))**2.d0/(2.d0*n**2.d0))
+          t=exp(-1.d0*(log(-h/Alfa))**2.d0/(2.d0*n**2.d0))
           C2=(Qs-Qr)/(2.d0*3.141592654)**0.5d0/n/(-h)*t
           FC=sngl(max(C2,1.d-37))
         else
@@ -320,7 +320,7 @@ c        m=Par(6)
       else if(iModel.eq.4) then
         Hs=0.d0
         if(h.lt.Hs) then
-          Qee=qnorm(dlog(-h/Alfa)/n)
+          Qee=qnorm(log(-h/Alfa)/n)
           FQ=sngl(max(Qr+(Qs-Qr)*Qee,1.d-37))
         else
           FQ=sngl(Qs)
@@ -383,8 +383,8 @@ c        m=Par(6)
           FH=-1.e+8
         else
           y=Qe*2.d0
-          if(y.lt.1.) p=sqrt(-dlog(y/2.d0))
-          if(y.ge.1.) p=sqrt(-dlog(1-y/2.d0))
+          if(y.lt.1.) p=sqrt(-log(y/2.d0))
+          if(y.ge.1.) p=sqrt(-log(1-y/2.d0))
           x=p-(1.881796+0.9425908*p+0.0546028*p**3)/
      !       (1.+2.356868*p+0.3087091*p**2+0.0937563*p**3+0.021914*p**4)
           if(y.ge.1.) x=-x
@@ -463,7 +463,7 @@ c        m=Par(6)
       else if(iModel.eq.4) then
         Hs=0.d0
         if(h.lt.Hs) then
-          Qee=qnorm(dlog(-h/Alfa)/n)
+          Qee=qnorm(log(-h/Alfa)/n)
           FS=sngl(max(Qee,1.d-37))
         else
           FS=1.0
@@ -713,10 +713,10 @@ c        xMualem=1./hhh ! for integration
       NB=0
       n=1000
 
-      dlh=(dlog10(-X2)-dlog10(-X1))/(N-1)
+      dlh=(log10(-X2)-log10(-X1))/(N-1)
       FP=DoublePor(X1,SE,Par,NPar)
       do 11 i=1,n
-        dx2=dlog10(-X1)+(i  )*dlh
+        dx2=log10(-X1)+(i  )*dlh
         X2=-10**dx2
         FC=DoublePor(X2,SE,Par,NPar)
         if(FC*FP.lt.0.) then

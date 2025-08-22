@@ -38,7 +38,7 @@
 
 *     Nonequilibrium transport [Ross and Smettem, 2001]
       Rate=1.
-      if(TauW.gt.0.) Rate=amin1(1.,amax1(0.000001,1.-exp(-dt/TauW)))
+      if(TauW.gt.0.) Rate=amin1(1.,max(0.000001,1.-exp(-dt/TauW)))
 
 *     Dual porosity mass transfer
       if(iDualPor.gt.0)
@@ -142,10 +142,10 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
 16        continue
           KodTop=KTOld
           KodBot=KBOld
-          dt=amax1(dt/3,dtMin)
+          dt=max(dt/3,dtMin)
           dtOpt=dt
           t=tOld+dt
-          if(TauW.gt.0.) Rate=amin1(1.,amax1(0.000001,1.-exp(-dt/TauW)))
+          if(TauW.gt.0.) Rate=amin1(1.,max(0.000001,1.-exp(-dt/TauW)))
           iTemp=0
           goto 11
         end if
@@ -297,9 +297,9 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
       if(WLayer) then
         if(hNew(N).gt.0.) then
           RT=RT+1./dt
-          PT=PT+amax1(hOld(N),0.)/dt
+          PT=PT+max(hOld(N),0.)/dt
         else
-          PT=PT+amax1(hOld(N),0.)/dt
+          PT=PT+max(hOld(N),0.)/dt
         end if
       end if
       return
@@ -462,8 +462,8 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
       Thei=0
 
       if(iModel.lt.nTabMod) then
-        alh1=dlog10(-hTab(1,1))
-        dlh =(dlog10(-hTab(NTab(1),1))-alh1)/(NTab(1)-1)
+        alh1=log10(-hTab(1,1))
+        dlh =(log10(-hTab(NTab(1),1))-alh1)/(NTab(1)-1)
       end if
       do 11 i=1,NumNP
         AT=1.
@@ -492,7 +492,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
             Coni=ConSat(M)
           else if(hiM.gt.hTab(NTab(1),1).and.hiM.le.hTab(1,1).and.
      !                                                      lTable) then
-            iT=int((dlog10(-hiM)-alh1)/dlh)+1
+            iT=int((log10(-hiM)-alh1)/dlh)+1
             dh=(hiM-hTab(iT,1))/(hTab(iT+1,1)-hTab(iT,1))
             Coni=ConTab(iT,M)+(ConTab(iT+1,M)-ConTab(iT,M))*dh
           else
@@ -514,8 +514,8 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
      !                                         (hTab(1,M)-hi2)/hTab(1,M)
             else if(hiM.lt.hTab(NTab(M),M)) then
               Coni=ConTab(NTab(M),M)-ConTab(NTab(M),M)*
-     !                       (dlog10(-hiM)-dlog10(-hTab(NTab(M),M)))/
-     !                                (10.-dlog10(-hTab(NTab(M),M)))
+     !                       (log10(-hiM)-log10(-hTab(NTab(M),M)))/
+     !                                (10.-log10(-hTab(NTab(M),M)))
             end if
           end if
         end if
@@ -525,7 +525,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
             Thei=ths(M)
           else if(hiM.ge.hTab(NTab(1),1).and.hiM.le.hTab(1,1).and.
      !                                                      lTable) then
-            iT=int((dlog10(-hiM)-alh1)/dlh)+1
+            iT=int((log10(-hiM)-alh1)/dlh)+1
             dh=(hiM-hTab(iT,1))/(hTab(iT+1,1)-hTab(iT,1))
             Capi=CapTab(iT,M)+(CapTab(iT+1,M)-CapTab(iT,M))*dh
             Thei=TheTab(iT,M)+(TheTab(iT+1,M)-TheTab(iT,M))*dh
@@ -552,8 +552,8 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
      !                                         (hTab(1,M)-hi2)/hTab(1,M)
             else if(hi2.lt.hTab(NTab(M),M)) then
               Capi=CapTab(NTab(M),M)-CapTab(NTab(M),M)*
-     !                       (dlog10(-hi2)-dlog10(-hTab(NTab(M),M)))/
-     !                                 (6.-dlog10(-hTab(NTab(M),M)))
+     !                       (log10(-hi2)-log10(-hTab(NTab(M),M)))/
+     !                                 (6.-log10(-hTab(NTab(M),M)))
               Thei=thr(M)+(TheTab(NTab(M),M)-thr(M))*(hi2+1.e+6)/
      !                                   (hTab(NTab(M),M)+1.e+6)
             end if

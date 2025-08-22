@@ -287,7 +287,7 @@
           read(*,*)
           stop
         end if
-        Cond(i)=amax1(0.,TPar(4,M)+TPar(5,M)*th+TPar(6,M)*sqrt(th))
+        Cond(i)=max(0.,TPar(4,M)+TPar(5,M)*th+TPar(6,M)*sqrt(th))
         if(iCampbell.eq.1) then
 *         TPar(1,M) - the volume fraction of solids
 *         TPar(4,M) - the volume fraction of quartz
@@ -296,12 +296,12 @@
           AA=(0.57+1.73*TPar(4,M)+0.93*TPar(5,M))/(1.-0.74*TPar(4,M)-
      !       0.49*TPar(5,M))-2.8*TPar(1,M)*(1.-TPar(1,M))
           BB=2.8*TPar(1,M)
-          xc=amax1(0.005,TPar(6,M))
+          xc=max(0.005,TPar(6,M))
           CC=1.+2.6/sqrt(xc)
           DD=0.03+0.7*TPar(1,M)**2
           EE=4.
           XLamb=AA+BB*th-(AA-DD)*exp(-(CC*th)**EE)
-          Cond(i)=amax1(0.,XLamb*xConv/tConv/tConv/tConv)
+          Cond(i)=max(0.,XLamb*xConv/tConv/tConv/tConv)
         end if
 
         Cond(i)=Cond(i)+TPar(9,M)*TPar(3,M)*abs(v)

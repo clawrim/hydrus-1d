@@ -18,7 +18,7 @@
       if(Iter.le.ItMin.and.(tFix-t).ge.dMul*dtOpt)
      !  dtOpt=amin1(dtMax,dMul*dtOpt)
       if(Iter.ge.ItMax)
-     !  dtOpt=amax1(dtMin,dMul2*dtOpt)
+     !  dtOpt=max(dtMin,dMul2*dtOpt)
       dt=amin1(dtOpt,sngl(tFix-t))
       iStep=1
       if(dt.gt.0.) iStep=int(anint(sngl(tFix-t)/dt))
@@ -109,7 +109,7 @@
           SC=1.
           rR=0.
           if(rLAI.gt.0.)
-     !      rR=rPET*amax1(0.,1.-exp(-amax1(rExtinct,0.1)*rLAI))*SC
+     !      rR=rPET*max(0.,1.-exp(-max(rExtinct,0.1)*rLAI))*SC
           rSoil=rPET-rR
         end if
       end if
@@ -598,7 +598,7 @@ c        tMax=tAtm
       if(ierr.eq.3) return
 
 *     Evapotranspiration
-      ETcomb=amax1(0.,RadTerm+AeroTerm)                         ! Equation 69, 31
+      ETcomb=max(0.,RadTerm+AeroTerm)                         ! Equation 69, 31
       row=1000.   !(ms) water density [kg/m3]
       row=(1.-7.37e-6*(TAver-4.)**2+3.79e-8*(TAver-4.)**3)*1000.
       ETcomb=ETcomb/row*1000.      ! conversion from [kg/m2/d] to [mm/d]
@@ -618,7 +618,7 @@ c        tMax=tAtm
      !               TransP)
 
 *     conversion from mm/d to L/T
-      rRoot=(amax1(TransP-rInterc,0.))*rConv/TTConv
+      rRoot=(max(TransP-rInterc,0.))*rConv/TTConv
       rSoil=EvapP*rConv/TTConv
       Prec=Prec*rConv/TTConv
 
@@ -647,8 +647,8 @@ c        tMax=tAtm
 
       dl0=0.667*CropHeight
       if(dl0.ge.WindHeight.or.dl0.ge.TempHeight) goto 901
-      AerDynRes=dlog((WindHeight-dl0)/(0.123*CropHeight))*
-     !          dlog((TempHeight-dl0)/(0.0123*CropHeight))/
+      AerDynRes=log((WindHeight-dl0)/(0.123*CropHeight))*
+     !          log((TempHeight-dl0)/(0.0123*CropHeight))/
      !          0.41**2                                         ! Equation 36,37,38,39
       if(Wind_ms.gt.0.) raa=AerDynRes/Wind_ms                   ! Equation 36
       AeroTCff=0.622*3.486*86400./AerDynRes/1.01                ! Equation 47b
@@ -760,16 +760,16 @@ c        tMax=tAtm
         if(iLAI.eq.1) then                    ! only clipped grass
           LAI=0.24*CropHeight                                   ! Equation 35
         else if(iLAI.eq.2) then               ! alfalfa
-          LAI=1.5*dlog(CropHeight)+5.5                          ! Equation 34
+          LAI=1.5*log(CropHeight)+5.5                          ! Equation 34
         else if(iLAI.eq.3) then               ! SCF
           if(LAI.lt.1.) then
-            LAI=-dlog(1.-LAI)/amax1(rExtinct,0.1)
+            LAI=-log(1.-LAI)/max(rExtinct,0.1)
           else
             LAI=10.
           end if
         end if
         if(LAI.gt.0) rc=200./LAI                                ! Equation 32
-        if(LAI.gt.0) SCF=amax1(0.,1.-exp(-amax1(rExtinct,0.1)*LAI))
+        if(LAI.gt.0) SCF=max(0.,1.-exp(-max(rExtinct,0.1)*LAI))
       else
         rc=0.
       end if
@@ -810,7 +810,7 @@ c        tMax=tAtm
           if(rInterc+ExcesInt.gt.aInterc*LAI) ! can not be more than max interception
      !      rInterc=aInterc*LAI-ExcesInt
         end if
-        Prec=amax1(Prec-rInterc,0.)
+        Prec=max(Prec-rInterc,0.)
         rInterc=ExcesInt+rInterc ! Old interception + new interception
         ExcesInt=0.
         if(TransP-rInterc.lt.0.) ExcesInt=-TransP+rInterc
@@ -848,7 +848,7 @@ c        tMax=tAtm
       aInterc=aInterc/rConv*TTConv ! to mm/d
 
       SCF=1.
-      if(LAI.gt.0) SCF=amax1(0.,1.-exp(-amax1(rExtinct,0.1)*LAI))
+      if(LAI.gt.0) SCF=max(0.,1.-exp(-max(rExtinct,0.1)*LAI))
 
       rInterc=0.
       if(LAI.gt.0.) then
@@ -857,13 +857,13 @@ c        tMax=tAtm
         if(rInterc+ExcesInt.gt.aInterc*LAI) ! can not be more than max interception
      !     rInterc=aInterc*LAI-ExcesInt
       end if
-      Prec=amax1(Prec-rInterc,0.)
+      Prec=max(Prec-rInterc,0.)
       rInterc=ExcesInt+rInterc ! Old interception + new interception
       ExcesInt=0.
       if(TransP-rInterc.lt.0.) ExcesInt=-TransP+rInterc
 
 *     conversion from mm/d to L/T
-      rRoot  =(amax1(TransP-rInterc,0.))*rConv/TTConv
+      rRoot  =(max(TransP-rInterc,0.))*rConv/TTConv
       Prec   =Prec                      *rConv/TTConv
       aInterc=aInterc                   *rConv/TTConv
 
@@ -1126,15 +1126,15 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
       if(Wind.gt.0.) then
         if(abs(TKelvS-TKelvA).lt.0.01) then  ! The atmosphere is neutral
-          r_v=1./Wind/rK/rK*(dlog((THeight-dl)/zh))*
-     !                      (dlog((WHeight-dl)/zm))
+          r_v=1./Wind/rK/rK*(log((THeight-dl)/zh))*
+     !                      (log((WHeight-dl)/zm))
           goto 12
         end if
         psim=0.0 ! The atmosphere is not neutral
         psih=0.0
         do 11 i=1,6
-          uu=Wind*rK/(dlog((WHeight-dl+zm)/zm)+psim)
-          r_v=1./uu/rK*(dlog((THeight-dl+zh)/zh)+psih)
+          uu=Wind*rK/(log((WHeight-dl+zm)/zm)+psim)
+          r_v=1./uu/rK*(log((THeight-dl+zh)/zh)+psih)
           if(i.eq.1) then
             rvMin= 0.1*r_v
             rvMax=10.0*r_v
@@ -1151,8 +1151,8 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
           zeta=(THeight-dl)/Mo    ! unitless height
           if(zeta.lt.0.) then     ! unstable
             xx=(max(0.,1.-16*zeta))**0.25
-                psih=-2.*dlog((1+xx*xx)/2.)
-            psim=-2.*dlog((1+xx)/2.)-dlog((1+xx*xx)/2.)+
+                psih=-2.*log((1+xx*xx)/2.)
+            psim=-2.*log((1+xx)/2.)-log((1+xx*xx)/2.)+
      !           2.*atan(xx)-pi/2.
           else if(zeta.gt.0) then  ! stable
             if(zeta.lt.1) then
@@ -1199,7 +1199,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       DeltaE=0.
       if(rTop.gt.0..and.rTop.gt.vTop) then
         row=(1.-7.37e-6*(TempS-4.)**2+3.79e-8*(TempS-4.)**3)*1000.
-        DeltaE=(rTop-amax1(0.,vTop))*Const                   ! [kg/T3]
+        DeltaE=(rTop-max(0.,vTop))*Const                   ! [kg/T3]
         DeltaE=DeltaE*tConv*tConv*tConv                      ! to [kg/s3]
         if(DeltaE.gt.0..and.abs(vTop).gt.0.) then
           Ca=1200.0     ! [J/m3/K]
@@ -1209,7 +1209,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
           DeltaSens=Ca*DeltaT/r_h                            ! [kg/s3]
           SensFlux=SensFlux+DeltaSens                        ! [kg/s3]
           HeatFl=HeatFl-(DeltaE-DeltaSens)/tConv/tConv/tConv ! [kg/T3]
-          Evap=Evap-(rTop-amax1(0.,vTop))/xConv*tConv*row
+          Evap=Evap-(rTop-max(0.,vTop))/xConv*tConv*row
         end if
       end if
 
@@ -1532,7 +1532,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       if(ierr.eq.3) return
 
 *     Evapotranspiration
-      ETcomb=amax1(0.,RadTerm+AeroTerm)                         ! Equation 69, 31
+      ETcomb=max(0.,RadTerm+AeroTerm)                         ! Equation 69, 31
       row=1000.   !(ms) water density [kg/m3]
       row=(1.-7.37e-6*(TempA-4.)**2+3.79e-8*(TempA-4.)**3)*1000.
       ETcomb=ETcomb/row*1000.      !(ms) conversion [kg/m2/d] to [mm/d]
@@ -1548,7 +1548,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
      !               TransP)
 
 *     conversion from mm/d to L/T
-      rRoot=(amax1(TransP-rInterc,0.))*rConv/TTConv
+      rRoot=(max(TransP-rInterc,0.))*rConv/TTConv
       rSoil=EvapP*rConv/TTConv
       Prec=Prec*rConv/TTConv
 

@@ -190,12 +190,12 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
             else
               dxM=(x(i+1)-x(i-1))/2.
             end if
-            cc=amax1(Conc(jS,i)-cMin,0.)
+            cc=max(Conc(jS,i)-cMin,0.)
             if(iStep.eq.1) then
-              SinkS(i)=Sink(i)*amax1(amin1(Conc(jS,i),cRootMax),0.)
+              SinkS(i)=Sink(i)*max(amin1(Conc(jS,i),cRootMax),0.)
               SPUptake=SPUptake+SinkS(i)*dxM
 *             This is needed only for the last node, but that node may not have beta
-              SAUptakeP=amax1(SPot*OmegaW-SPUptake,0.)
+              SAUptakeP=max(SPot*OmegaW-SPUptake,0.)
             else if(iStep.eq.2) then
               AUptakeA=cc/(rKM+cc)*Beta(i)*SAUptakeP
               Omega=Omega+AUptakeA*dxM
@@ -356,7 +356,7 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
           r2=rRootA/(Zm)*abs(Z0-(ZMax-z(i)))
           r2=exp(-r2)
         end if
-        Beta(i)=amax1(r1*r2,0.)
+        Beta(i)=max(r1*r2,0.)
 11    continue
 
 *     normalize uptake intensity

@@ -580,8 +580,8 @@ c        read(*,*)
       if(iModel.eq.8) then
         write(*,*) 'Dual-permeability models are implemented in differen
      !t code !!'
-        write(*,*) 'Press Enter to continue'
-        read(*,*)
+C        write(*,*) 'Press Enter to continue'
+C        read(*,*)
         stop
       end if
       if(iModel.lt.nTabMod) then
@@ -1019,8 +1019,8 @@ c          if(ConSat(M).lt.ConSMax) ConSMax=ConSat(M)
           read(33,*,err=901) iGrowth
           if(iGrowth.gt.1000) then
             write(*,*) 'Number of crop growth data is larger than 1000'
-            write(*,*) 'Press Enter to continue'
-            read(*,*)
+C            write(*,*) 'Press Enter to continue'
+C            read(*,*)
             stop
           end if
           read(33,*,err=901)
@@ -1176,8 +1176,8 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
           read(30,*,err=901) nGrowth
           if(nGrowth.gt.1000) then
             write(*,*) 'Number of crop growth data is larger than 1000'
-            write(*,*) 'Press Enter to continue'
-            read(*,*)
+C            write(*,*) 'Press Enter to continue'
+C            read(*,*)
             stop
           end if
           read(30,*,err=901)

@@ -692,8 +692,8 @@ c              ierr=1
             else if(lBact) then
               write(*,*) 'Attachment/dettachment model is implemented
      !only for one solute'
-              write(*,*)'Press Enter to continue'
-              read(*,*)
+C              write(*,*)'Press Enter to continue'
+C              read(*,*)
               stop
             end if
           end if
@@ -1638,8 +1638,8 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
       Dp=Dp1/xConv
       if(Dp.le.0.and.Dc.le.0.) then
         write(*,*) 'Both Dp and Dc are equal to zero !!!'
-        write(*,*) 'Press Enter to continue'
-        read(*,*)
+C        write(*,*) 'Press Enter to continue'
+C        read(*,*)
         stop
       end if
       PI=3.1415                ! Ludolf's number
@@ -1765,8 +1765,8 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
       vgm2=1.0-2.0/vgn2
       if(sw_c.lt.0.or.sw_c.gt.1.) then
         write(*,*) 'Problem with size exclusion!'
-        write(*,*) 'Press Enter to continue'
-        read(*,*)
+C        write(*,*) 'Press Enter to continue'
+C        read(*,*)
       end if
 
 *     Accessible Water Content to Colloid

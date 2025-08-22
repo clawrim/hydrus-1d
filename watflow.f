@@ -651,8 +651,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
       implicit double precision (A-H,O-Z)
       integer iPosDr
       double precision GWL,zBotDr,BaseGW,rSpacing,KhTop,KhBot,KvTop,
-     !                 KvBot
-      double precision Entres,WetPer,zInTF,GeoFac
+     !                 KvBot,Entres,WetPer,zInTF,GeoFac
 
 *     local variables
       integer i

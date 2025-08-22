@@ -563,8 +563,7 @@ c        m=Par(6)
       double precision function FKS(iModel,S,Par)
 
       implicit double precision (A-H,O-Z)
-      double precision n,m,Ks,Kr,Kk
-      double precision S,th,Par(10)
+      double precision n,m,Ks,Kr,Kk,S,th,Par(10)
       integer PPar
 
       FKS=0

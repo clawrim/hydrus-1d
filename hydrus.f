@@ -21,6 +21,8 @@
 
 *#######################################################################
 
+      implicit double precision (A-H,O-Z)
+
       parameter (NumNPD=1001,
      !           NMatD =20,
      !           NTabD =100,
@@ -29,7 +31,6 @@
      !           NUnitD=7,
      !           NPD   =1000)
 
-      implicit double precision (A-H,O-Z)
       integer PLevel,Alevel,TLevel,err
       logical SinkF,WLayer,qGWLF,TopInF,ShortO,lWat,lChem,lTemp,ConvgF,
      !        FreeD,SeepF,BotInF,AtmBC,lRoot,lUpW,lWTDep,lSTDep,lEquil,

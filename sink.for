@@ -6,6 +6,7 @@
      !                  lMsSink,ThNew,ParD,dt,OmegaC,iModel,Con,lOmegaW,
      !                  OmegaW,rBot)
 
+      implicit double precision (A-H,O-Z)
       logical lChem,lMoSink,lSolRed,lSolAdd,lMsSink,lHanks,lOmegaW
       dimension x(N),MatNum(N),hNew(N),POptm(NMat),Beta(N),Sink(N),
      !          Conc(NSD,N),cRoot(NS),aOsm(NS),ThNew(N),ParD(11,NMat),
@@ -138,6 +139,7 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
       subroutine SetSSnk(jS,NS,N,t,x,Beta,Sink,SinkS,NSD,Conc,OmegaW,
      !                   cRootMax,lActRSU,OmegaS,SPot,rKM,cMin)
 
+      implicit double precision (A-H,O-Z)
       double precision t
       logical lActRSU,lLast
       dimension x(N),Beta(N),Sink(N),SinkS(N),Conc(NSD,N)
@@ -225,8 +227,9 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
 
 ************************************************************************
 
-      real function FSAlfa(lMode,cRed,c50,P3c)
+      double precision function FSAlfa(lMode,cRed,c50,P3c)
 
+      implicit double precision (A-H,O-Z)
       logical lMode
 
       if(lMode) then
@@ -244,8 +247,10 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
 
 ************************************************************************
 
-      real function FAlfa(lMoSink,TPot,h,P0,P1,P2H,P2L,P3,r2H,r2L)
+      double precision function FAlfa(lMoSink,TPot,h,P0,P1,P2H,P2L,P3,
+     !                                r2H,r2L)
 
+      implicit double precision (A-H,O-Z)
       logical lMoSink
 
       P2=0
@@ -272,6 +277,7 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
       subroutine SetRG(NumNP,x,Beta,t,tRMin,tRHarv,xRMin,xRMax,RGR,
      !                 xRoot,lRoot,iRootIn,nGrowth,rGrowth,tRPeriod)
 
+      implicit double precision (A-H,O-Z)
       dimension x(NumNP),Beta(NumNP),rGrowth(1000,5)
       double precision t
       logical lRoot
@@ -283,7 +289,7 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
       end if
 
       if(lRoot.and.iRootIn.eq.2) then
-        tRoot=amod(sngl(t),tRPeriod)
+        tRoot=dmod(t,tRPeriod)
         if(tRoot.lt.tRMin.or.tRoot.gt.tRHarv) then
           do 11 i=1,NumNP
             Beta(i)=0.
@@ -329,6 +335,7 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
 
       subroutine RootInN(NumNP,Beta,z)
 
+      implicit double precision (A-H,O-Z)
       dimension Beta(NumNP),z(NumNP)
 
 *     read input

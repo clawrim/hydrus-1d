@@ -29,6 +29,7 @@
      !           NUnitD=7,
      !           NPD   =1000)
 
+      implicit double precision (A-H,O-Z)
       integer PLevel,Alevel,TLevel,err
       logical SinkF,WLayer,qGWLF,TopInF,ShortO,lWat,lChem,lTemp,ConvgF,
      !        FreeD,SeepF,BotInF,AtmBC,lRoot,lUpW,lWTDep,lSTDep,lEquil,

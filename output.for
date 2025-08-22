@@ -11,6 +11,8 @@
      !                 lCentrif,Radius,ThNewIm,WLayer,hCritS,lEnd,
      !                 lFluxOut,jPrint,vTop,vBot,lFlux,NObs,Node,vNew,
      !                 cNew,cTop)
+
+      implicit double precision (A-H,O-Z)
       integer TLevel
       double precision t
       logical ConvgF,lWat,lChem,lScreen,lPrint,lVapor,lWTDep,
@@ -295,6 +297,7 @@ c120   format('+',f12.3,2i3,i6,4e9.2,3f6.0)  ! writing at one line
 
       subroutine ALInf(t,CumQ,hNewN,hRoot,hNew1,ALevel,ierr)
 
+      implicit double precision (A-H,O-Z)
       integer ALevel
       double precision t
       dimension CumQ(12)
@@ -331,6 +334,7 @@ c120   format('+',f12.3,2i3,i6,4e9.2,3f6.0)  ! writing at one line
      !                  iDualPor,ThNewIm,ThOldIm,lDensity,lCentrif,
      !                  Radius,lDualNEq,cPrev)
 
+      implicit double precision (A-H,O-Z)
       logical lWat,lChem,lTemp,lLinear(NS),lEquil,lPrint,lMobIm(NMat),
      !        lVapor,lWTDep,lBact,lCentrif,lDensity,lDualNEq
       integer PLevel
@@ -726,6 +730,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
      !                  lDensity,lCentrif,Radius,lVaporOut,lDualNEq,
      !                  ierr)
 
+      implicit double precision (A-H,O-Z)
       dimension hNew(N),thN(N),Con(N),x(N),MatNum(N),Cap(N),Bxz(N),
      !          Sink(N),ConS(NMat),Conc(NSD,N),Temp(N),Sorb(NSD,N),
      !          Kappa(N),Sorb2(NSD,N),ConLT(N),ConVT(N),ConVh(N),
@@ -934,6 +939,7 @@ c              ThGj=amax1(0.,ths(Mj)-ThWj+thSIm(Mj)-ThImobj)
       subroutine ObsNod(t,N,NObs,NS,NSD,Node,Conc,hNew,ThNew,TempN,
      !                  lChem,ThNewIm,vNew,vVNew,lFlux,ierr)
 
+      implicit double precision (A-H,O-Z)
       dimension Node(NObs),Conc(NSD,N),ThNew(N),TempN(N),hNew(N),
      !          ThNewIm(N),ECa(10),vNew(N),vVNew(N),Th(1000)
       double precision t

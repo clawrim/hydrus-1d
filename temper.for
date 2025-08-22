@@ -8,6 +8,7 @@
      !                  vVOld,vVNew,g0,lEnBal,HeatFl,xConv,tConv,dtMaxT,
      !                  iCampbell,iTemp)
 
+      implicit double precision (A-H,O-Z)
       logical lVapor,lEnBal
       double precision B,D,E,F,t
       dimension x(N),MatNum(N),TempO(N),TempN(N),TPar(10,NMat),B(N),
@@ -78,6 +79,7 @@
      !                     dt,x,Cw,B,D,E,F,TempO,Cap,Cond,vNew,vOld,
      !                     Sink)
 
+      implicit double precision (A-H,O-Z)
       logical lEnBal
       double precision B,D,E,F
       dimension x(N),TempO(N),B(N),D(N),E(N),F(N),vOld(N),vNew(N),
@@ -181,8 +183,9 @@
      !                   kTopT,kBotT,tTopA,tBot,ThVNew,ThVOld,xConv,
      !                   tConv)
 
+      implicit double precision (A-H,O-Z)
       double precision B,D,E,F
-      real Lat
+      double precision Lat
       dimension x(N),TempN(N),TempO(N),B(N),D(N),E(N),F(N),vVOld(N),
      !          vVNew(N),ThVNew(N),ThVOld(N),g0(N)
 
@@ -269,6 +272,7 @@
       subroutine TempCap(N,NMat,MatNum,Theta,Veloc,Cap,Cond,TPar,
      !                   iCampbell,xConv,tConv)
 
+      implicit double precision (A-H,O-Z)
       dimension MatNum(N),Theta(N),Veloc(N),Cap(N),Cond(N),
      !          TPar(10,NMat)
 
@@ -307,12 +311,14 @@
 
 ************************************************************************
 
-      real function xLatent(Temp)
+      double precision function xLatent(Temp)
 
 *     Function calculating the volumetric latent heat of vaporization of
 *     water [J/m3,kg/m/s2]
 *     row   - density of soil water [kg/m3]
 *     xLw   - latent heat of vaporization of water [J/kg,ML2/T2]
+
+      implicit double precision (A-H,O-Z)
 
       row=(1.-7.37e-6*(Temp-4.)**2+3.79e-8*(Temp-4.)**3)*1000.
       xLw=2.501e+06-2369.2*Temp

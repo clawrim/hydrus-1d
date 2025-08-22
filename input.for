@@ -10,6 +10,7 @@
      !                  lInitW,lVarBC,xConv,tConv,lMeteo,lVapor,iVer,
      !                  lPrint,lCentrif,lSnow,hSeep,lFlux,lActRSU,ierr)
 
+      implicit double precision (A-H,O-Z)
       character*72 Hed
       character*5 LUnit,TUnit,MUnit
       logical TopInF,BotInF,ShortO,lWat,lChem,lTemp,SinkF,WLayer,qGWLF,
@@ -188,7 +189,9 @@ c        read(*,*)
 
 *     conversions from m and s to Hydrus units
 
+      implicit double precision (A-H,O-Z)
       character LUnit*5,TUnit*5
+
       xConv=1.
       tConv=1.
       if     (LUnit.eq."cm  ") then
@@ -216,6 +219,7 @@ c        read(*,*)
      !                  lEquil,lScreen,lBact,Sorb2,ierr,lPrint,lFlux,
      !                  lDualNEq)
 
+      implicit double precision (A-H,O-Z)
       character*30 Text1,Text2,Text3
       dimension x(NumNPD),hNew(NumNPD),hOld(NumNPD),MatNum(NumNPD),
      !          hTemp(NumNPD),LayNum(NumNPD),Beta(NumNPD),Ah(NumNPD),
@@ -483,6 +487,7 @@ c        read(*,*)
       subroutine InitW(NumNP,NMat,Matnum,Kappa,hNew,hOld,hTemp,ParD,
      !                 ParW,iModel,hTop,hBot,iDualPor,ThNewIm,ierr)
 
+      implicit double precision (A-H,O-Z)
       dimension MatNum(NumNP),Kappa(NumNP),ParD(11,NMat),ParW(11,NMat),
      !          hNew(NumNP),hOld(NumNP),hTemp(NumNP),ThNewIm(NumNP)
 
@@ -519,6 +524,7 @@ c        read(*,*)
       subroutine InitDualPor(NumNP,NMat,MatNum,Par,theta,iDualPor,
      !                       ThNewIm,ThOldIm,SinkIm,hNew,STrans,lInitW)
 
+      implicit double precision (A-H,O-Z)
       logical lInitW
       dimension MatNum(NumNP),Par(11,NMat),theta(NumNP),ThNewIm(NumNP),
      !          ThOldIm(NumNP),SinkIm(NumNP),hNew(NumNP),STrans(NumNP)
@@ -549,6 +555,7 @@ c        read(*,*)
      !                 ConR,AKS,KappaO,iModel,xConv,lTable,IKappa,
      !                 nTabMod,iDualPor)
 
+      implicit double precision (A-H,O-Z)
       dimension ParD(11,NMat),ParW(11,NMat),Ah(NumNP),AhW(NMat),
      !          AKW(NMat),AThW(NMat),MatNum(NumNP),hNew(NumNP),
      !          Kappa(NumNP),AThS(NumNP),ThRR(NumNP),ConR(NumNP),
@@ -683,7 +690,7 @@ c        read(*,*)
       do 13 i=1,NumNP
         M=MatNum(i)
         if(iModel.lt.nTabMod)
-     !    hNew(i)=amax1(hNew(i),Ah(i)*FH(iModel,0.00000001,ParD(1,M)))
+     !    hNew(i)=amax1(hNew(i),Ah(i)*FH(iModel,0.00000001d0,ParD(1,M)))
         AThS(i)=1.
         AKS(i)=1.
         ThRR(i)=ParD(1,M)
@@ -744,6 +751,7 @@ c        read(*,*)
      !                    Kappa,AThS,ThRR,ConO,ConR,AKS,KappaO,Ah,AK,
      !                    iHyst,iModel,cDataPath)
 
+      implicit double precision (A-H,O-Z)
       character cFileName*260,cDataPath*260
       dimension MatNum(NumNP),ThOld(NumNP),hOld(NumNP),ParD(11,NMat),
      !          ThNew(NumNP),Kappa(NumNP),AThS(NumNP),ThRR(NUmNP),
@@ -774,6 +782,7 @@ c        read(*,*)
      !                  CapTab,ConSat,TheTab,iModel,lScreen,nTabMod,
      !                  ConSMax,xConv,tConv,ierr)
 
+      implicit double precision (A-H,O-Z)
       dimension hTab(NTabD,NMat),ConTab(NTabD,NMat),CapTab(NTabD,NMat),
      !          Par(11,NMat),ConSat(NMat),thr(NMat),hSat(NMat),
      !          ths(NMat),TheTab(NTabD,NMat),NTab(NMat)
@@ -785,9 +794,9 @@ c        read(*,*)
         write(50,120,err=901)
         hTab1=hTab(1,1)
         hTabN=hTab(NTab(1),1)
-        dlh=(alog10(-hTabN)-alog10(-hTab1))/(NTab(1)-1)
+        dlh=(dlog10(-hTabN)-dlog10(-hTab1))/(NTab(1)-1)
         do 11 i=1,NTab(1)
-          alh=alog10(-hTab1)+(i-1)*dlh
+          alh=dlog10(-hTab1)+(i-1)*dlh
           hTab(i,1)=-10**alh
 11     continue
       else
@@ -800,7 +809,7 @@ c        read(*,*)
 c      ConSMax=1e+30
       do 13 M=1,NMat
         if(iModel.lt.nTabMod) then
-          hSat(M)  =FH(iModel,1.0,Par(1,M))
+          hSat(M)  =FH(iModel,1.0d0,Par(1,M))
           ConSat(M)=Par(5,M)
           if(ConSat(M).gt.ConSMax) ConSMax=ConSat(M)
 c          if(ConSat(M).lt.ConSMax) ConSMax=ConSat(M)
@@ -813,8 +822,8 @@ c          if(ConSat(M).lt.ConSMax) ConSMax=ConSat(M)
             TheTab(i,M)=FQ(iModel,hTab(i,1),Par(1,M))
             Qe         =FS(iModel,hTab(i,1),Par(1,M))
             ConV=ConVh(hTab(i,1),TheTab(i,M),ths(M),xConv,tConv)
-            a10h=alog10(max(-hTab(i,1),1e-30))
-            a10K=alog10(ConTab(i,M))
+            a10h=dlog10(max(-hTab(i,1),1e-30))
+            a10K=dlog10(ConTab(i,M))
             write(50,130,err=901) TheTab(i,M),hTab(i,1),a10h,
      !                            CapTab(i,M),ConTab(i,M),a10K,Qe,ConV
 12        continue
@@ -848,8 +857,8 @@ c          if(ConSat(M).lt.ConSMax) ConSMax=ConSat(M)
               end if
             end if
             Qe  =(TheTab(i,M)-Par(1,M))/(Par(2,M)-Par(1,M))
-            a10h=alog10(max(-hTab(i,M),1e-30))
-            a10K=alog10(ConTab(i,M))
+            a10h=dlog10(max(-hTab(i,M),1e-30))
+            a10K=dlog10(ConTab(i,M))
             write(50,130,err=901) TheTab(i,M),hTab(i,M),a10h,
      !                            CapTab(i,M),ConTab(i,M),a10K,Qe
 16        continue
@@ -880,6 +889,7 @@ c          if(ConSat(M).lt.ConSMax) ConSMax=ConSat(M)
      !                tPrintInt,lEnter,lDayVar,lSinPrec,lLAI,rExtinct,
      !                aInterc,ierr)
 
+      implicit double precision (A-H,O-Z)
       logical TopInF,BotInF,AtmBC,lPrintD,lEnter,lScreen,lDayVar,lLAI,
      !        lSinPrec,lBCCycles,lInterc
       double precision t,tInit,tOld,tMax,tAtm,TPrint,tPrintInt
@@ -950,7 +960,7 @@ c          if(ConSat(M).lt.ConSMax) ConSMax=ConSat(M)
      !                   lPrint,iSunSh,iRelHum,CloudF_Ac,CloudF_Bc,
      !                   lHargr,lMetDaily,xConv,ierr)
 
-      implicit real (A-H,L-Z)
+      implicit double precision (A-H,O-Z)
       logical lEnBal,lPrint,lHargr,lMetDaily
       dimension rGrowth(1000,5)
 
@@ -1083,6 +1093,7 @@ c          if(ConSat(M).lt.ConSMax) ConSMax=ConSat(M)
      !                  cRootMax,iVer,OmegaC,lActRSU,OmegaS,SPot,rKM,
      !                  cMin,lOmegaW,lScreen,ierr)
 
+      implicit double precision (A-H,O-Z)
       dimension POptm(NMat),aOsm(NS),cRootMax(NS)
       logical lChem,lMoSink,lSolRed,lSolAdd,lScreen,lMsSink,lActRSU,
      !        lOmegaW
@@ -1150,6 +1161,7 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
       subroutine RootIn(tRMin,tRHarv,xRMin,xRMax,RGR,lScreen,iver,
      !                  iRootIn,nGrowth,rGrowth,tRPeriod,ierr)
 
+      implicit double precision (A-H,O-Z)
       logical lScreen
       dimension rGrowth(1000,5)
 
@@ -1193,7 +1205,7 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
      !Root Growth Time(depth) !!'
           goto 901
         end if
-        RGR=-(1./rtm)*alog(amax1(.0001,(xRMin*(xRMax-xRMed)))/
+        RGR=-(1./rtm)*dlog(amax1(.0001,(xRMin*(xRMax-xRMed)))/
      !                                 (xRMed*(xRMax-xRMin)))
         write(50,110,err=902) tRMin,tRHarv,xRMin,xRMax,RGR
       end if
@@ -1217,6 +1229,7 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
      !                  TopInf,BotInf,iCampbell,iVer,SnowMF,lScreen,
      !                  ierr)
 
+      implicit double precision (A-H,O-Z)
       logical TopInf,BotInf,lSnowInput,lScreen
       dimension TPar(10,NMat)
 
@@ -1267,6 +1280,7 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
       subroutine Profil(N,NMat,x,MatNum,xSurf,Beta,Ah,AK,ATh,thr,thS,
      !                  ConS,hS,lScreen,ierr)
 
+      implicit double precision (A-H,O-Z)
       dimension x(N),MatNum(N),Beta(N),Ah(N),AK(N),ATh(N),
      !          thr(NMat),thS(NMat),ConS(NMat),hS(NMat)
       logical lScreen
@@ -1304,6 +1318,7 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
      !                  iModel,Par,iVer,lDualNEq,lMassIni,lEqInit,iTort,
      !                  ierr)
 
+      implicit double precision (A-H,O-Z)
       logical lUpW,lTDep,lLinear(NSD),lEquil,lArtD,lScreen,lTort,
      !        lMobIm(NMat),lBact,lFiltr,lMoistDep,lDualNEq,lMassIni,
      !        lEqInit,lVar
@@ -1475,6 +1490,7 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
       subroutine OpenSoluteFiles(NS,cDataPath,iLengthPath,cFileName,
      !                           ierr)
 
+      implicit double precision (A-H,O-Z)
       character cFileName*200,cDataPath*200,cName*12,ch1*1,cName1*13,
      !          ch2*1
 
@@ -1581,6 +1597,7 @@ c        if(lActRSU) then              ! Active uptake only for the last solute
      !                Sorb2,lActRSU,OmegaS,SPot,lOmegaW,OmegaW,
      !                lEnd,lVaporOut,lFluxOut,iInterc,aInterc)
 
+      implicit double precision (A-H,O-Z)
       integer TLevel,ALevel,PLevel,err
       logical lVarBC,lMeteo,lBact,lVapor,lEnBal,lDayVar,lEnter,lFiltr,
      !        lVaporOut,lExtrap,lPrintD,lLAI,lDensity,lMinstep,lPrint,

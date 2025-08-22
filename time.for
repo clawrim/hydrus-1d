@@ -2,6 +2,8 @@
 
       subroutine TmCont(dt,dtMaxW,dtOpt,dMul,dMul2,dtMin,Iter,tPrint,
      !                  tAtm,t,tMax,dtMaxC,ItMin,ItMax,lMinStep,dtInit)
+
+      implicit double precision (A-H,O-Z)
       logical lMinStep
       double precision t,tPrint,tAtm,tMax,tFix
 
@@ -36,6 +38,7 @@
       double precision function RTime(iMonth,iDay,iHours,iMins,iSecs,
      !                                i1000th)
 
+      implicit double precision (A-H,O-Z)
       integer iMonth,iDay,iHours,iMins,iSecs,i1000th
 
       NoDay=0
@@ -65,6 +68,7 @@
      !                 tConv,iModel,hTopN,iRootIn,xRoot,WLayer,lLinear,
      !                 lActRSU,SPot)
 
+      implicit double precision (A-H,O-Z)
       logical TopInF,BotInF,lTemp,lChem,lMinStep,lVarBC,lMeteo,lCentrif,
      !        WLayer,lLAI,lVarGr,lLinear(NS),lActRSU
       dimension cBot(NS),cT(NS),cB(11)
@@ -188,6 +192,7 @@
       subroutine SetChemBC(Prec,rSoil,NS,cTop,cT,WLayer,
      !                     hNewT,KodTop,kTopCh)
 
+      implicit double precision (A-H,O-Z)
       logical WLayer
       dimension cTop(NS),cT(NS)
 
@@ -218,6 +223,7 @@
 *     Radiation, max at noon, hourly values between 0-6 a.m. and 18-24 p.m.
 *     represent 1% of daily value, sinusoid in between
 
+      implicit double precision (A-H,O-Z)
       double precision t
 
       PI=3.141592654
@@ -225,7 +231,7 @@
       tDay=sngl(t)/tConv/86400   ! time in day units
 
 c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
-      tRemainder=amod(tDay,tPeriod)
+      tRemainder=dmod(tDay,tPeriod)
       if(tRemainder.le.0.264.or.tRemainder.ge.0.736) then
         rRoot=0.24*rRootD
       else
@@ -241,6 +247,7 @@ c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
 
 *     Cosinusoidal distribution of precipitation
 
+      implicit double precision (A-H,O-Z)
       double precision t,t1,t2
 
       PI=3.141592654
@@ -259,6 +266,7 @@ c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
       subroutine Snow(Prec,dt,Temp,SnowMF,SnowLayer,rEvap,xConv,
      !                lMinStep,cTop,cT,NS)
 
+      implicit double precision (A-H,O-Z)
       logical lMinStep
       dimension cTop(NS),cT(NS)
 
@@ -332,7 +340,7 @@ c      if(tPeriod.gt.0.) tTopA=tTop+Ampl*sin(2.*PI*sngl(t)/tPeriod-7.*PI/12.)
      !                 RHMeanO,RHMax,RHMaxN,RHMaxO,RHMin,RHMinN,RHMinO,
      !                 RH_A,EaMean,EaMeanN,rTop,ierr)
 
-      implicit double precision (A-H,L-Z)
+      implicit double precision (A-H,O-Z)
       logical lMetDaily,lDayVar,lEnBal,lPrint,lHargr
       dimension rGrowth(1000,5)
       integer nGrowth,iCrop,iRelHum
@@ -701,6 +709,7 @@ c        tMax=tAtm
      !                      LongWaveRadA,n_N,Cover,Tt)
 
       implicit double precision (A-H,L-Z)
+
       PI=3.141592654
 
       if(iSunSh.eq.0) then                ! sunshine hours
@@ -827,7 +836,8 @@ c        tMax=tAtm
       subroutine IntercepS(xConv,tConv,LAI,rExtinct,rInterc,aInterc,
      !                     Prec,rRoot,ExcesInt)
 
-      real LAI
+      implicit double precision (A-H,O-Z)
+      double precision LAI
 
 *     Conversion to mm/d from L/T
       rConv =0.001*xConv
@@ -870,7 +880,7 @@ c        tMax=tAtm
      !                    RHMean,RHMeanO,RHMeanN,SunHours,SunHoursO,
      !                    SunHoursN,lEnBal)
 
-      implicit double precision (A-H,L-Z)
+      implicit double precision (A-H,O-Z)
       logical lEnBal ! for lEnBal, there is no need to interpolate Rad and SunHours
 
       if(i.eq.1) then
@@ -1072,7 +1082,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
       subroutine RadLongNet1(Rnl,TempA,RHMean,Cover,ThetaT,TkelvA,
      !                       TkelvS)
 
-      implicit double precision (A-H,L-Z)
+      implicit double precision (A-H,O-Z)
 
       sigma=4.899e-09
       Es=0.6108*exp((17.27*TempA)/(TempA+237.3))              ! Equation 10
@@ -1180,8 +1190,9 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 *     rLamb     - Thermal conductivity of soil surface [kg/m/s3/K]
 *     dz        - Distance between 1st and 2nd lattice [L]
 
+      implicit double precision (A-H,O-Z)
       integer TLevel
-      real Lat
+      double precision Lat
       logical lPrint,lMetDaily
       double precision t
 
@@ -1235,6 +1246,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
      !                    SunHours,SunHoursN,CropHeight,CropHeightN,
      !                    Albedo,AlbedoN,LAI,LAIN,xRoot,xRootN,iCrop,
      !                    xConv,ierr)
+
       implicit double precision (A-H,L-Z)
       integer iDaily,iCrop,iRelHum
 
@@ -1389,7 +1401,7 @@ c      if(hTop.lt.0.999*hCritA.and.TempS.gt.TempS1) Hr=0.0001
 
       subroutine Humidity(TMax,TMin,RHMean,iRelHum,RHMax,RHMin,EaMean)
 
-      implicit double precision (A-H,L-Z)
+      implicit double precision (A-H,O-Z)
       integer iRelHum
 
 *     iRelHum   - =0: Input RH, =1: Input Vapor pressure for RHMean

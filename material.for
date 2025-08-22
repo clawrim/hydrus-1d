@@ -16,8 +16,7 @@
       double precision function FK(iModel,h,Par)
 
       implicit double precision (A-H,O-Z)
-      double precision n,m,Ks,Kr,Kk,Lambda,n2,m2,mn,mt
-      real h,Par(10)
+      double precision n,m,Ks,Kr,Kk,Lambda,n2,m2,mn,mt,h,Par(10)
       integer PPar
       logical lAltern,lUnBound
 
@@ -203,8 +202,7 @@ c            Kr=dexp(-BPar*dble(h))
       double precision function FC(iModel,h,Par)
 
       implicit double precision (A-H,O-Z)
-      double precision n,m,n2,m2
-      real h,Par(10)
+      double precision n,m,n2,m2,h,Par(10)
 
       FC=0
       Qr=Par(1)
@@ -282,8 +280,7 @@ c        m=Par(6)
       double precision function FQ(iModel,h,Par)
 
       implicit double precision (A-H,O-Z)
-      double precision n,m,n2,m2
-      real h,Par(10)
+      double precision n,m,n2,m2,h,Par(10)
 
       FQ=0
       Qr=Par(1)
@@ -351,11 +348,10 @@ c        m=Par(6)
 
 ************************************************************************
 
-      real function FH(iModel,Qe,Par)
+      double precision function FH(iModel,Qe,Par)
 
       implicit double precision (A-H,O-Z)
-      double precision n,m,n2,m2
-      real Qe,Par(10)
+      double precision n,m,n2,m2,Qe,Par(10)
 
       FH=0
       p=0
@@ -427,8 +423,7 @@ c        m=Par(6)
       double precision function FS(iModel,h,Par)
 
       implicit double precision (A-H,O-Z)
-      double precision n,m,n2,m2
-      real h,Par(10)
+      double precision n,m,n2,m2,h,Par(10)
 
       FS=0
       Qr=Par(1)
@@ -497,11 +492,10 @@ c        m=Par(6)
 
 ************************************************************************
 
-      real function FKQ(iModel,th,Par)
+      double precision function FKQ(iModel,th,Par)
 
       implicit double precision (A-H,O-Z)
-      double precision n,m,Ks,Kr,Kk
-      real th,Par(10)
+      double precision n,m,Ks,Kr,Kk,th,Par(10)
       integer PPar
 
       FKQ=0
@@ -659,7 +653,7 @@ c        m=Par(6)
       double precision function xMualem(SE,Par,NPar)
 
       implicit double precision (A-H,O-Z)
-      real Par
+      double precision Par
       dimension Par(NPar)
 
       x1=-1.e-6
@@ -678,12 +672,12 @@ c        xMualem=1./hhh ! for integration
 
 ************************************************************************
 
-      function DoublePor(hh,SE,Par,NPar)
+      double precision function DoublePor(hh,SE,Par,NPar)
 
 *     Double porosity function - for evaluation of h for given theta_e
 
       implicit double precision (A-H,O-Z)
-      real Par
+      double precision Par
       dimension Par(NPar)
 
       wcr=Par(1)
@@ -712,7 +706,7 @@ c        xMualem=1./hhh ! for integration
       subroutine ZBRAK(X1,X2,XB1,XB2,SE,Par,NPar)
 
       implicit double precision (A-H,O-Z)
-      real Par
+      double precision Par
       dimension Par(NPar)
 
       NB=1
@@ -748,7 +742,7 @@ c        xMualem=1./hhh ! for integration
 
       implicit double precision (A-H,O-Z)
       parameter (ITMAX=100,EPS=3.E-8,TOL=1.e-6)
-      real Par
+      double precision Par
       dimension Par(NPar)
 
       C=0
@@ -825,11 +819,12 @@ c        xMualem=1./hhh ! for integration
 
 ************************************************************************
 
-      function Gamma_h1d(Z)
+      double precision function Gamma_h1d(Z)
 
 *     Purpose:  To calculate the Gamma function for positive Z
 
       implicit double precision (A-H,O-Z)
+
       if(Z.lt.33.) goto 11
       Gamma_h1d=1.d36
       return
@@ -866,13 +861,14 @@ c        xMualem=1./hhh ! for integration
 
 ************************************************************************
 
-      function BInc(X,A,B,Beta)
+      double precision function BInc(X,A,B,Beta)
 
 *     Purpose: To calculate the incomplete Beta-function
 
       implicit double precision (A-H,O-Z)
       dimension T(200)
       data NT/10/
+
       NT1=NT+1
       T(1)=-(A+B)*X/(A+1.0)
       do 11 i=2,NT,2
@@ -893,17 +889,19 @@ c        xMualem=1./hhh ! for integration
 ************************************************************************
 
       subroutine qromb(a,b,ss,iModel,Par)
+
+      implicit double precision (A-H,O-Z)
       integer JMAX,JMAXP,K,KM,iModel
-      real a,b,ss,EPS,Par(11)
+      double precision a,b,ss,EPS,Par(11)
       parameter (eps=1.e-6, jMax=20, jMaxP=jMax+1, K=5, KM=K-1)
       integer j
-      real dss,h(JMAXP),s(JMAXP)
+      double precision dss,h(JMAXP),s(JMAXP)
 
       h(1)=1.
       do 11 j=1,jMax
         call trapzd(a,b,s(j),j,iModel,Par)
         if (j.ge.K) then
-          call polint(h(j-KM),s(j-KM),K,0.,ss,dss)
+          call polint(h(j-KM),s(j-KM),K,0.d0,ss,dss)
           if (abs(dss).le.eps*abs(ss)) return
         endif
         s(j+1)=s(j)
@@ -916,13 +914,15 @@ c        xMualem=1./hhh ! for integration
 ***********************************************************************
 
       subroutine trapzd(a,b,s,n,iModel,Par)
+
+      implicit double precision (A-H,O-Z)
       integer n
-      real a,b,s
+      double precision a,b,s
       integer it,j,iModel
-      real del,sum,tnm,x,Par(11)
+      double precision del,sum,tnm,x,Par(11)
 
       if (n.eq.1) then
-        s=0.5*(b-a)*(FH(iModel,a,Par)+FH(iModel,b,Par))
+        s=0.5d0*(b-a)*(FH(iModel,a,Par)+FH(iModel,b,Par))
       else
         it=2**(n-2)
         tnm=it
@@ -941,11 +941,13 @@ c        xMualem=1./hhh ! for integration
 ************************************************************************
 
       subroutine polint(xa,ya,n,x,y,dy)
+
+      implicit double precision (A-H,O-Z)
       integer n,NMAX
-      real dy,x,y,xa(n),ya(n)
+      double precision dy,x,y,xa(n),ya(n)
       parameter (NMAX=10)
       integer i,m,ns
-      real den,dif,dift,ho,hp,w,c(NMAX),d(NMAX)
+      double precision den,dif,dift,ho,hp,w,c(NMAX),d(NMAX)
 
       ns=1
       dif=abs(x-xa(1))

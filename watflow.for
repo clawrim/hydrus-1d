@@ -16,6 +16,7 @@
      !                   vTop,TempO,iTemp,WTransf,lDensity,Conc,NSD,
      !                   iEnhanc,lCentrif,Radius,hSeep)
 
+      implicit double precision (A-H,O-Z)
       logical ConvgF,ItCrit,FreeD,qGWLF,TopInf,WLayer,SeepF,lWTDep,
      !        qDrain,lTable,lVapor,lDensity,lCentrif
       double precision P,R,S,PB,RB,SB,PT,RT,ST,rMin,t,tOld
@@ -52,7 +53,7 @@
 *     End of ponding (works for both BC and VG)
       if(WLayer.and.hNew(NumNP).gt.0..and.hNew(NumNP).lt.0.00005*xConv.
      !   and.rTop.ge.0.) then
-        hNew(NumNP)=FH(iModel,0.9999,ParD(1,MatNum(NumNP)))
+        hNew(NumNP)=FH(iModel,0.9999d0,ParD(1,MatNum(NumNP)))
         hOld(NumNP)=hNew(NumNP)
         hTemp(NumNP)=hNew(NumNP)
       end if
@@ -179,6 +180,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
      !                 iDualPor,SinkIm,lDensity,Conc,NSD,lCentrif,
      !                 Radius)
 
+      implicit double precision (A-H,O-Z)
       logical WLayer,FreeD,qGWLF,qDrain,lVapor,lWTDep,lDensity,lCentrif,
      !        lGeom
       double precision P,R,S,PB,RB,SB,PT,RT,ST,A2,A3,B,F2
@@ -308,6 +310,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
       subroutine Gauss(N,KodTop,KodBot,hTop,hBot,hNew,P,R,S,PB,RB,SB,PT,
      !                 RT,ST,rMin)
 
+      implicit double precision (A-H,O-Z)
       double precision P,R,S,PB,RB,SB,PT,RT,ST,rMin
       dimension hNew(N),P(N),R(N),S(N)
 
@@ -362,6 +365,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
      !                 ConVT,iDualPor,SinkIm,lDensity,Conc,NSD,lCentrif,
      !                 Radius,hSeep)
 
+      implicit double precision (A-H,O-Z)
       dimension Con(N),hNew(N),x(N),ThNew(N),ThOld(N),Sink(N),ConLT(N),
      !          Temp(N),ConVh(N),ConVT(N),SinkIm(N),ConC(NSD,N)
       logical WLayer,TopInf,SeepF,lVapor,lWTDep,lDensity,lCentrif
@@ -437,6 +441,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
      !                  lTable,lVapor,ThetaV,ConLT,ConVT,ConVh,xConv,
      !                  tConv,nTabMod,hCritA,lDensity,Conc,NSD,iEnhanc)
 
+      implicit double precision (A-H,O-Z)
       logical lWTDep,lTable,lVapor,lDensity
       dimension hTab(NTabD,NMat),ConTab(NTabD,NMat),CapTab(NTabD,NMat),
      !          hNew(NumNP),MatNum(NumNP),ParD(11,NMat),Con(NumNP),
@@ -457,8 +462,8 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
       Thei=0
 
       if(iModel.lt.nTabMod) then
-        alh1=alog10(-hTab(1,1))
-        dlh =(alog10(-hTab(NTab(1),1))-alh1)/(NTab(1)-1)
+        alh1=dlog10(-hTab(1,1))
+        dlh =(dlog10(-hTab(NTab(1),1))-alh1)/(NTab(1)-1)
       end if
       do 11 i=1,NumNP
         AT=1.
@@ -487,7 +492,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
             Coni=ConSat(M)
           else if(hiM.gt.hTab(NTab(1),1).and.hiM.le.hTab(1,1).and.
      !                                                      lTable) then
-            iT=int((alog10(-hiM)-alh1)/dlh)+1
+            iT=int((dlog10(-hiM)-alh1)/dlh)+1
             dh=(hiM-hTab(iT,1))/(hTab(iT+1,1)-hTab(iT,1))
             Coni=ConTab(iT,M)+(ConTab(iT+1,M)-ConTab(iT,M))*dh
           else
@@ -509,8 +514,8 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
      !                                         (hTab(1,M)-hi2)/hTab(1,M)
             else if(hiM.lt.hTab(NTab(M),M)) then
               Coni=ConTab(NTab(M),M)-ConTab(NTab(M),M)*
-     !                       (alog10(-hiM)-alog10(-hTab(NTab(M),M)))/
-     !                                (10.-alog10(-hTab(NTab(M),M)))
+     !                       (dlog10(-hiM)-dlog10(-hTab(NTab(M),M)))/
+     !                                (10.-dlog10(-hTab(NTab(M),M)))
             end if
           end if
         end if
@@ -520,7 +525,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
             Thei=ths(M)
           else if(hiM.ge.hTab(NTab(1),1).and.hiM.le.hTab(1,1).and.
      !                                                      lTable) then
-            iT=int((alog10(-hiM)-alh1)/dlh)+1
+            iT=int((dlog10(-hiM)-alh1)/dlh)+1
             dh=(hiM-hTab(iT,1))/(hTab(iT+1,1)-hTab(iT,1))
             Capi=CapTab(iT,M)+(CapTab(iT+1,M)-CapTab(iT,M))*dh
             Thei=TheTab(iT,M)+(TheTab(iT+1,M)-TheTab(iT,M))*dh
@@ -547,8 +552,8 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
      !                                         (hTab(1,M)-hi2)/hTab(1,M)
             else if(hi2.lt.hTab(NTab(M),M)) then
               Capi=CapTab(NTab(M),M)-CapTab(NTab(M),M)*
-     !                       (alog10(-hi2)-alog10(-hTab(NTab(M),M)))/
-     !                                 (6.-alog10(-hTab(NTab(M),M)))
+     !                       (dlog10(-hi2)-dlog10(-hTab(NTab(M),M)))/
+     !                                 (6.-dlog10(-hTab(NTab(M),M)))
               Thei=thr(M)+(TheTab(NTab(M),M)-thr(M))*(hi2+1.e+6)/
      !                                   (hTab(NTab(M),M)+1.e+6)
             end if
@@ -577,15 +582,19 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
 
 ************************************************************************
 
-      real function Fqh(GWL,Aqh,Bqh)
+      double precision function Fqh(GWL,Aqh,Bqh)
+
+      implicit double precision (A-H,O-Z)
+
       Fqh=Aqh*exp(Bqh*abs(GWL))
       return
       end
 
 ************************************************************************
 
-      function FqDrain(GWL,zBotDr,BaseGW,rSpacing,iPosDr,KhTop,KhBot,
-     !                 KvTop,KvBot,Entres,WetPer,zInTF,GeoFac)
+      double precision function FqDrain(GWL,zBotDr,BaseGW,rSpacing,
+     !                                  iPosDr,KhTop,KhBot,KvTop,KvBot,
+     !                                  Entres,WetPer,zInTF,GeoFac)
 
 *    -------------------------------------------------------------------
 *     Purpose: determines the drainage flux
@@ -638,13 +647,16 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
 *     x        typical length variable
 *     ------------------------------------------------------------------
 *     global variables
+
+      implicit double precision (A-H,O-Z)
       integer iPosDr
-      real GWL,zBotDr,BaseGW,rSpacing,FqDrain,KhTop,KhBot,KvTop,KvBot
-      real Entres,WetPer,zInTF,GeoFac
+      double precision GWL,zBotDr,BaseGW,rSpacing,KhTop,KhBot,KvTop,
+     !                 KvBot
+      double precision Entres,WetPer,zInTF,GeoFac
 
 *     local variables
       integer i
-      real dh,zImp,dBot,pi,TotRes,x,fx,EqD,RVer,RHor,RRad
+      double precision dh,zImp,dBot,pi,TotRes,x,fx,EqD,RVer,RHor,RRad
       parameter(pi=3.14159)
 
       TotRes=0
@@ -728,6 +740,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
      !                 lWTDep,ConLT,ConVT,ConVh,Temp,vV,ThVNew,ThVOld,
      !                 lDensity,Conc,NSD,lCentrif,Radius)
 
+      implicit double precision (A-H,O-Z)
       logical lVapor,lWTDep,lDensity,lCentrif
       dimension hNew(N),x(N),Con(N),v(N),ConLT(N),ConVT(N),ConVh(N),
      !          Temp(N),vV(N),Conc(NSD,N),ThNew(N),ThOld(N),Sink(N),
@@ -789,7 +802,8 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
      !                  Kappa,AThS,ThRR,ConO,ConR,AKS,KappaO,Ah,AK,
      !                  iHyst,iModel,TolTh)
 
-      real KsD,KsW,Ks,KW
+      implicit double precision (A-H,O-Z)
+      double precision KsD,KsW,Ks,KW
 
       dimension MatNum(NumNP),ThOld(NumNP),hOld(NumNP),ParD(11,NMat),
      !          ThNew(NumNP),Kappa(NumNP),AThS(NumNP),ThRR(NUmNP),
@@ -878,6 +892,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
 *     fc    - mass fraction of clay in soil (0.02)
 *     T     - temperature [C]
 
+      implicit double precision (A-H,O-Z)
       logical lVapor,lLimit
       dimension hNew(N),Temp(N),Con(N),Theta(N),MatNum(N),ths(NMat),
      !          ConLT(N),ConVT(N),ConVh(N)
@@ -940,6 +955,7 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
       subroutine VaporContent(NumNP,NMat,Theta,ThetaV,Temp,hNew,MatNum,
      !                        ths,Cap,xConv)
 
+      implicit double precision (A-H,O-Z)
       dimension Theta(NumNP),ThetaV(NumNP),Temp(NumNP),hNew(NumNP),
      !          MatNum(NumNP),ths(NMat),Cap(NumNP)
 
@@ -975,7 +991,7 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
 
 *     To calculate isothermal vapor hydraulic conductivity
 
-      real function ConVh(hNew,Theta,ths,xConv,tConv)
+      double precision function ConVh(hNew,Theta,ths,xConv,tConv)
 
 *     ConVh - Conductivity for vapor phase due to gradient of h [m/s]
 *     Diff0 - diffusivity of water vapor in air [m2/s] (2.12e-5)
@@ -988,6 +1004,7 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
 *     Hr    - relative humidity [-]
 *     Temp  - temperature [C]
 
+      implicit double precision (A-H,O-Z)
       data Diff0 ,   g ,   xMol  ,   R
      !    /2.12e-5, 9.81, 0.018015, 8.314/
 
@@ -1009,11 +1026,13 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
 
 *************************************************************************
 
-      real function fRo(iKod,Conc)
+      double precision function fRo(iKod,Conc)
 
 
 *     Ratio of bulk densities (dynamic viscosities) at given and zero
 *     concentrations
+
+      implicit double precision (A-H,O-Z)
 
       a2=0
       fRo=1.
@@ -1040,6 +1059,7 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
      !                   ThOldIm,ParD,SinkIm,dt,iModel,hNew,hCritA,x,
      !                   WTransf)
 
+      implicit double precision (A-H,O-Z)
       dimension MatNum(N),ThOld(N),thr(NMat),ths(NMat),ThNewIm(N),
      !          ParD(11,NMat),SinkIm(N),hNew(N),ThOldIm(N),x(N),Par(10)
 
@@ -1094,6 +1114,7 @@ c          if(lLimit) Hr=0.000001           ! ##runs fast
      !                  ThVOld,ThVNew,vVOld,vVNew,ThOldIm,ThNewIm,TempO,
      !                  TempN,rTop,xConv,ConSMax,KodTop,KodBot)
 
+      implicit double precision (A-H,O-Z)
       logical lWat,lChem,lTemp,lVapor,lExtrap,lSat
       dimension hTemp(NumNP),hNew(NumNP),hOld(NumNP),ThOld(NumNP),
      !          ThNew(NumNP),vOld(NumNP),vNew(NumNP),ThVOld(NumNP),

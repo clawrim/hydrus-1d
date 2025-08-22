@@ -17,6 +17,7 @@
      !                  lDualNEq,AtmBC,SinkF,lActRSU,OmegaS,OmegaW,SPot,
      !                  rKM,cMin,lDensity)
 
+      implicit double precision (A-H,O-Z)
       logical lUpW,lConv,lLinear(NSD),lEquil,lArtD,lTort,lMobIm(NMat),
      !        lBact,lWat,lFiltr,lVapor,SinkF,lNEquil,lDualNEq,AtmBC,
      !        lActRSU,lDensity
@@ -247,6 +248,7 @@ c              ierr=1
      !                 iTort,xConv,tConv,iMoistDep,NMatD,DMoist,WDep,
      !                 lNEquil,lDualNEq)
 
+      implicit double precision (A-H,O-Z)
       logical lUpW,lLinear(NSD),lEquil,lArtD,lTort,lMobIm(NMat),lBact,
      !        lFiltr,lNEquil,
      !        lDualNEq
@@ -594,7 +596,7 @@ c              ierr=1
             dConc=fExp*cMid**(fExp-1.)/(1.+xNu*cMid**fExp)**2
             dRetard=cMid**fExp/(1.+xNu*cMid**fExp)*dKs-
      !           xKs*cMid**(2.*fExp)/(1.+xNu*cMid**fExp)**2*dNu+
-     !           xKs*alog(cMid)*cMid**fExp/(1.+xNu*cMid**fExp)**2*ddExp
+     !           xKs*dlog(cMid)*cMid**fExp/(1.+xNu*cMid**fExp)**2*ddExp
           end if
           if(Level.eq.NLevel.and..not.lEquil.and.Conc(jS,i).gt.0.)
      !      SConcO=Conc(jS,i)**(fExpO-1.)/(1.+xNuO*Conc(jS,i)**fExpO)
@@ -610,7 +612,7 @@ c              ierr=1
               dConcS=fExp*sMid**(fExp-1.)/(1.+xNu*sMid**fExp)**2
               dRetardS=sMid**fExp/(1.+xNu*sMid**fExp)*dKs-
      !            xKs*sMid**(2.*fExp)/(1.+xNu*sMid**fExp)**2*dNu+
-     !            xKs*alog(sMid)*sMid**fExp/(1.+xNu*sMid**fExp)**2*ddExp
+     !            xKs*dlog(sMid)*sMid**fExp/(1.+xNu*sMid**fExp)**2*ddExp
             end if
             if(Level.eq.NLevel.and..not.lEquil.and.Sorb(jS,i).gt.0.)
      !        SConcOS=Sorb(jS,i)**(fExpO-1.)/(1.+xNuO*Sorb(jS,i)**fExpO)
@@ -772,6 +774,7 @@ c        if(Level.eq.NLevel) g1(i)=g1(i)-ThG*dHenry-Henry*(ThWO-ThW)/dt
      !                  TempO,TempN,TDep,dSurf,cAtm,MatNum,lMobIm,
      !                  iDualPor,lVapor,rBot,lBact)
 
+      implicit double precision (A-H,O-Z)
       logical lMobIm(NMat),lVapor,lBact
       double precision B,D,E,F
       dimension cBot(NS),cTop(NS),x(N),thO(N),thN(N),vO(N),vN(N),
@@ -957,6 +960,8 @@ c        if(Level.eq.NLevel) g1(i)=g1(i)-ThG*dHenry-Henry*(ThWO-ThW)/dt
 *     Solve matrix equation
 
       subroutine BanSol(N,A,B,C,F)
+
+      implicit double precision (A-H,O-Z)
       double precision A,B,C,F
       dimension A(N),B(N),C(N),F(N)
 
@@ -980,6 +985,7 @@ c        if(Level.eq.NLevel) g1(i)=g1(i)-ThG*dHenry-Henry*(ThWO-ThW)/dt
      !                  vj,Thj,Disp,Retard,Peclet,Courant,CourMax,PeCr,
      !                  dtMaxC,Iter,epsi)
 
+      implicit double precision (A-H,O-Z)
       logical lUpW,lArtD
       dimension x(NumNP),Disp(NumNP),Retard(NumNP),wc(NumNP)
 
@@ -1041,6 +1047,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
      !                  ThImob,ThW,ThG,v,Dw,Dg,Henry,ro,Frac,xKs,fExp,
      !                  xNu,cMid,dSConc,PeCr,TauG,iTort,lBact)
 
+      implicit double precision (A-H,O-Z)
       logical lTort,lMobIm(NMat),lArtD,lUpW,lBact
       dimension thSat(NMat),ChPar(NSD*16+4,NMat),Disp(NumNP),
      !          Retard(NumNP)
@@ -1100,6 +1107,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
      !                  SinkIm,FlMacro,lNEquil,GamL1Pi,GamS1Pi,xKsP,
      !                  SConcPS,lDualNEq,f_em,OmegaS)
 
+      implicit double precision (A-H,O-Z)
       logical lMobIm(NMat),lLinear(NSD),lBact,lNEquil,lDualNEq
       dimension Conc(NSD,NumNP),Sorb(NSD,NumNP),Sorb2(NSD,NumNP),
      !          SinkIm(NumNP),cNew(NumNP),SorbN(NumNP),SorbN2(NumNP)
@@ -1228,6 +1236,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
      !                    iDualPor,ThIm,ThOIm,SinkIm,STrans,iMoistDep,
      !                    NMatD,DMoist,WDep,xConv,tConv,lDualNEq)
 
+      implicit double precision (A-H,O-Z)
       logical lMobIm(NMat),lBact,lFiltr,lDualNEq
       dimension MatNum(N),Temp(N),ChPar(NSD*16+4,NMat),TDep(NSD*16+4),
      !          Conc(NSD,N),Sorb(NSD,N),ThW(N),Sorb2(NSD,N),Veloc(N),
@@ -1337,6 +1346,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
      !                    lFiltr,Veloc,iDualPor,SinkIm,xConv,tConv,
      !                    lDualNEq,STrans,lLinear)
 
+      implicit double precision (A-H,O-Z)
       logical lEquil,lMobIm(NMat),lBact,lFiltr,lDualNEq,lLinear(NS)
       dimension x(N),ChPar(NSD*16+4,NMat),MatNum(N),Conc(NSD,N),
      !          cvCh0(NS),cvCh1(NS),Temp(N),TDep(NSD*16+4),sSink(N),
@@ -1517,6 +1527,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
      !                    Temp,TDep,Conc,ConcF,lTort,lMobIm,iDualPor,
      !                    ThIm,jS)
 
+      implicit double precision (A-H,O-Z)
       logical lTort,lMobIm(NMat)
       dimension x(NumNP),v(NumNP),theta(NumNP),thSat(NMat),ConcF(NumNP),
      !          ChPar(NSD*16+4,NMat),Conc(NSD,NumNP),MatNum(NumNP),
@@ -1576,7 +1587,8 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
 
       subroutine Blocking(iPsi,SMax,psi,x,ss,Dc,SMax2)
 
-      real Minf
+      implicit double precision (A-H,O-Z)
+      double precision Minf
 
       psi=1.
       if     (iPsi.eq.1) then
@@ -1611,7 +1623,8 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
       subroutine Deposit(Ka1,Ka2,Dc1,Dp1,Alfa1,Alfa2,Theta,q,Temp,xConv,
      !                   tConv)
 
-      real Ka1,Ka2,mu,N_Pe,N_Lo,N_R,N_G
+      implicit double precision (A-H,O-Z)
+      double precision Ka1,Ka2,mu,N_Pe,N_Lo,N_R,N_G
 
 *     Ka       - deposition coefficient (output) [1/T]
 *     Dc       - diameter of the sand grains (m)
@@ -1678,6 +1691,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
      !                     Conc,Sorb,lLinear,lMobIm,iDualPor,lBact,
      !                     Sorb2,Theta)
 
+      implicit double precision (A-H,O-Z)
       logical lLinear(NSD),lMobIm(NMat),lBact
       dimension ChPar(NSD*16+4,NMat),MatNum(NumNP),TDep(NSD*16+4),
      !          Conc(NSD,NumNP),Sorb(NSD,NumNP),Sorb2(NSD,NumNP),
@@ -1728,8 +1742,8 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
 
       subroutine Exclusion(NumNP,NMat,NSD,Par,ChPar,ThNew,vNew,ThOld,
      !                      vOld)
-      implicit double precision (A-H,O-Z)
 
+      implicit double precision (A-H,O-Z)
       double precision thr,ths,swr,alpha,vgn1,vgn2,vgm1,vgm2,Pc_c,
      !                 sw_c_eff,sw_c,sw,sw_eff,kr_c,krw,r_c
       dimension Par(11,NMat),ChPar(NSD*16+4,NMat),ThNew(NumNP),
@@ -1803,6 +1817,7 @@ c     write(*,*) "r_c microns", 10000.*r_c
       subroutine MoistDepIn(cDataPath,cFileName,NMat,NMatD,NS,NSD,
      !                      DMoist,iMoistDep)
 
+      implicit double precision (A-H,O-Z)
       character cFileName*260,cDataPath*260
       dimension DMoist(NMatD,NSD,13,6)
 
@@ -1835,8 +1850,8 @@ c     write(*,*) "r_c microns", 10000.*r_c
 
 ************************************************************************
 
-      real function rMD(NMatD,NSD,M,jS,jReact,DMoist,iReact,WDep,Theta,
-     !                  iMoistDep)
+      double precision function rMD(NMatD,NSD,M,jS,jReact,DMoist,iReact,
+     !                              WDep,Theta,iMoistDep)
 
 *     Function expressing reaction rate dependence on the water content
 *     ReacMin0  - relative minimum rate of reaction at low water contents
@@ -1849,6 +1864,7 @@ c     write(*,*) "r_c microns", 10000.*r_c
 *     If theta0=theta1=0      -> Aerobic process
 *     If theta2=0 -> no reduction
 
+      implicit double precision (A-H,O-Z)
       dimension DMoist(NMatD,NSD,13,6),WDep(2+NMatD,NSD*9)
 
       rMD=1.
@@ -1883,7 +1899,7 @@ c     write(*,*) "r_c microns", 10000.*r_c
 
 ************************************************************************
 
-      real function rMD1(NMatD,NSD,M,jS,jReact,DMoist,Theta)
+      double precision function rMD1(NMatD,NSD,M,jS,jReact,DMoist,Theta)
 
 *     Function expressing reaction rate dependence on the water content
 *     Type  =1 or -1: Rate increases or decreases with water content, respectively)
@@ -1891,6 +1907,7 @@ c     write(*,*) "r_c microns", 10000.*r_c
 *     Theta1 - water content at which reaction rate stops increasing or decreasing
 *     ReacMin- relative minimum rate of reaction
 
+      implicit double precision (A-H,O-Z)
       dimension DMoist(NMatD,NSD,9,4)
 
       rType  =DMoist(M,jS,jReact,1)
@@ -1929,6 +1946,7 @@ c     write(*,*) "r_c microns", 10000.*r_c
       subroutine MassInit(NumNP,NSD,NS,NMat,MatNum,TDep,Temp,ChPar,
      !                    Conc,Theta,ThetaIm,ThSat,lLinear,lBact)
 
+      implicit double precision (A-H,O-Z)
       logical lLinear(NS),lBact
       dimension ChPar(NSD*16+4,NMat),MatNum(NumNP),TDep(NSD*16+4),
      !          Conc(NSD,NumNP),Temp(NumNP),Theta(NumNP),ThSat(NMat),
@@ -1976,8 +1994,9 @@ c     write(*,*) "r_c microns", 10000.*r_c
 
 *     Evaluate Liquid concentration from the total solute mass
 
-      real function cInit(xMass,Par,NPar)
+      double precision function cInit(xMass,Par,NPar)
 
+      implicit double precision (A-H,O-Z)
       dimension Par(NPar)
 
       x1=1.e-3
@@ -1990,10 +2009,11 @@ c     write(*,*) "r_c microns", 10000.*r_c
 
 ************************************************************************
 
-      function SolMass(Conc,xMass,Par,NPar)
+      double precision function SolMass(Conc,xMass,Par,NPar)
 
 *     Calculate total solute mass for concentration Conc
 
+      implicit double precision (A-H,O-Z)
       dimension Par(NPar)
 
       ro=Par(1)
@@ -2018,16 +2038,17 @@ c     write(*,*) "r_c microns", 10000.*r_c
 
       subroutine ZBRAK1(X1,X2,XB1,XB2,xMass,Par,NPar)
 
+      implicit double precision (A-H,O-Z)
       dimension Par(NPar)
 
       NBB=1
       NB=1000
       X1O=X1
 
-      dlh=(alog10(X2)-alog10(X1))/(NB-1)
+      dlh=(dlog10(X2)-dlog10(X1))/(NB-1)
       FP=SolMass(X1,xMass,Par,NPar)
       do 11 i=1,NB
-        dx2=alog10(X1O)+(i)*dlh
+        dx2=dlog10(X1O)+(i)*dlh
         X2=10**dx2
         FC=SolMass(X2,xMass,Par,NPar)
         if(FC*FP.lt.0.) then
@@ -2049,8 +2070,9 @@ c     write(*,*) "r_c microns", 10000.*r_c
 *     Brent method of finding root that lies between x1 and x2,
 *     Numerical recepies (354)
 
-      function ZBRENT1(X1,X2,xMass,Par,NPar)
+      double precision function ZBRENT1(X1,X2,xMass,Par,NPar)
 
+      implicit double precision (A-H,O-Z)
       parameter (ITMAX=100,EPS=3.E-8,TOL=1.e-6)
       dimension Par(NPar)
 

@@ -61,8 +61,8 @@
         end if
         HMin=-1.d300**(1.d0/n)/max(Alfa,1.d0)
         HH=max(dble(h),HMin)
-        Qees=dmin1((Qs-Qa)/(Qm-Qa),.999999999999999d0)
-        Qeek=dmin1((Qk-Qa)/(Qm-Qa),Qees)
+        Qees=min((Qs-Qa)/(Qm-Qa),.999999999999999d0)
+        Qeek=min((Qk-Qa)/(Qm-Qa),Qees)
         Hs=-1.d0/Alfa*(Qees**(-1.d0/m)-1.d0)**(1.d0/n)
         Hk=-1.d0/Alfa*(Qeek**(-1.d0/m)-1.d0)**(1.d0/n)
         if(dble(h).lt.Hk) then
@@ -90,7 +90,7 @@ c            Kr=dexp(-BPar*dble(h))
               stop
             end if
             Beta=Gamma_h1d(AA)*Gamma_h1d(BB)/Gamma_h1d(m+1.)
-            WCL=dmax1(2.d0/(2.d0+m),0.2d0)
+            WCL=max(2.d0/(2.d0+m),0.2d0)
             dlgKs=log10(Ks)
 *           Water content
             AX=Alfa*(-h)
@@ -137,7 +137,7 @@ c            Kr=dexp(-BPar*dble(h))
                 if(mt.lt.1.5d0) Kr=Kr*Term
                 dlgC=log10(Kr)+dlgKs
               end if
-              dlgC=dmax1(-37.d0,dlgC)
+              dlgC=max(-37.d0,dlgC)
               FK=10.**dlgC
             end if
           end if
@@ -222,7 +222,7 @@ c            Kr=dexp(-BPar*dble(h))
 c        m=Par(6)
         HMin=-1.d300**(1.d0/n)/max(Alfa,1.d0)
         HH=max(dble(h),HMin)
-        Qees=dmin1((Qs-Qa)/(Qm-Qa),.999999999999999d0)
+        Qees=min((Qs-Qa)/(Qm-Qa),.999999999999999d0)
         Hs=-1.d0/Alfa*(Qees**(-1.d0/m)-1.d0)**(1.d0/n)
         if(dble(h).lt.Hs) then
           C1=(1.d0+(-Alfa*HH)**n)**(-m-1.d0)
@@ -300,7 +300,7 @@ c        m=Par(6)
 c        m=Par(6)
         HMin=-1.d300**(1.d0/n)/max(Alfa,1.d0)
         HH=max(dble(h),HMin)
-        Qees=dmin1((Qs-Qa)/(Qm-Qa),.999999999999999d0)
+        Qees=min((Qs-Qa)/(Qm-Qa),.999999999999999d0)
         Hs=-1.d0/Alfa*(Qees**(-1.d0/m)-1.d0)**(1.d0/n)
         if(dble(h).lt.Hs) then
           Qee=(1.d0+(-Alfa*HH)**n)**(-m)
@@ -372,7 +372,7 @@ c        m=Par(6)
 c        m=Par(6)
         HMin=-1.d300**(1.d0/n)/max(Alfa,1.d0)
         QeeM=(1.d0+(-Alfa*HMin)**n)**(-m)
-        Qee=dmin1(dmax1(Qe*(Qs-Qa)/(Qm-Qa),QeeM),.999999999999999d0)
+        Qee=min(max(Qe*(Qs-Qa)/(Qm-Qa),QeeM),.999999999999999d0)
         FH=sngl(max(-1.d0/Alfa*(Qee**(-1.d0/m)-1.d0)**(1.d0/n),-1.d37))
       else if(iModel.eq.2) then
         FH=sngl(max(-1.d0/Alfa*max(Qe,1.e-10)**(-1.d0/n),-1.d37))
@@ -441,7 +441,7 @@ c        m=Par(6)
         if(iModel.eq.3) Qm=Par(7)
         m=1.d0-1.d0/n
 c        m=Par(6)
-        Qees=dmin1((Qs-Qa)/(Qm-Qa),.999999999999999d0)
+        Qees=min((Qs-Qa)/(Qm-Qa),.999999999999999d0)
         Hs=-1.d0/Alfa*(Qees**(-1.d0/m)-1.d0)**(1.d0/n)
         if(h.lt.Hs) then
           HMin=-1.d300**(1./n)/max(Alfa,1.d0)
@@ -524,8 +524,8 @@ c        m=Par(6)
         end if
         if(iModel.eq.3) Qm=Par(7)
         m=1.d0-1.d0/n
-        Qees=dmin1((Qs-Qa)/(Qm-Qa),.999999999999999d0)
-        Qeek=dmin1((Qk-Qa)/(Qm-Qa),Qees)
+        Qees=min((Qs-Qa)/(Qm-Qa),.999999999999999d0)
+        Qeek=min((Qk-Qa)/(Qm-Qa),Qees)
         if(dble(th).lt.Qk) then
           Qee=(dble(th)-Qa)/(Qm-Qa)
           Qe =(Qm-Qa)/(Qs-Qa)*Qee
@@ -592,8 +592,8 @@ c        m=Par(6)
         end if
         if(iModel.eq.3) Qm=Par(7)
         m=1.d0-1.d0/n
-        Qees=dmin1((Qs-Qa)/(Qm-Qa),.999999999999999d0)
-        Qeek=dmin1((Qk-Qa)/(Qm-Qa),Qees)
+        Qees=min((Qs-Qa)/(Qm-Qa),.999999999999999d0)
+        Qeek=min((Qk-Qa)/(Qm-Qa),Qees)
         th=S*(Qs-Qr)+Qr
         if(dble(th).lt.Qk) then
           Qee=(dble(th)-Qa)/(Qm-Qa)

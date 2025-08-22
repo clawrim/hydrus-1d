@@ -585,7 +585,7 @@ C        read(*,*)
         stop
       end if
       if(iModel.lt.nTabMod) then
-        hTab1=-amin1(abs(hTab1),abs(hTabN))
+        hTab1=-min(abs(hTab1),abs(hTabN))
         hTabN=-max(abs(hTab1),abs(hTabN))
         lTable=.true.
         if((hTab1.gt.-0.00001.and.hTabN.gt.-0.00001).or.hTab1.eq.hTabN)
@@ -650,9 +650,9 @@ C        read(*,*)
           read(30,*,err=901) (ParD(i,M),i=1,NPar)
           if(iModel.eq.1) then
             ParD(7,M)=max(ParD(7,M),ParD(2,M))
-            ParD(8,M)=amin1(ParD(8,M),ParD(1,M))
-            ParD(9,M)=amin1(ParD(9,M),ParD(2,M))
-            ParD(10,M)=amin1(ParD(10,M),ParD(5,M))
+            ParD(8,M)=min(ParD(8,M),ParD(1,M))
+            ParD(9,M)=min(ParD(9,M),ParD(2,M))
+            ParD(10,M)=min(ParD(10,M),ParD(5,M))
           else if(iModel.eq.3) then
             ParD(7,M)=ParD(1,M)+(ParD(2,M)-ParD(1,M))*
      !            (1.+(ParD(3,M)*rHEntry)**ParD(4,M))**(1.-1./ParD(4,M))

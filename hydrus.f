@@ -307,7 +307,7 @@
         if(.not.lMeteo.and.iInterc.gt.0.and.SnowLayer.le.0.)
      !    call IntercepS(xConv,tConv,xLAI,rExtinct,rInterc,aInterc,
      !                   Prec,rRoot,ExcesInt)
-        tAtm=dmin1(tAtm1,tAtm2)
+        tAtm=min(tAtm1,tAtm2)
         if(lDayVar) then
           rRootD=rRoot
           rSoilD=rSoil
@@ -592,7 +592,7 @@
      !               RH_A,EaMean,EaMeanN,rTop,err)
           if(err.ne.0) goto (932,913,933) err
         end if
-        tAtm=dmin1(tAtm1,tAtm2)
+        tAtm=min(tAtm1,tAtm2)
         if(lChem.and.SnowLayer.le.0)
      !    call SetChemBC(Prec,rSoil,NS,cTop,cT,WLayer,hNew(NumNP),
      !                   KodTop,kTopCh)

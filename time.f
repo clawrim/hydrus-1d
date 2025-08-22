@@ -8,22 +8,22 @@
       double precision t,tPrint,tAtm,tMax,tFix
 
       if(lMinStep) then
-        dtMax=amin1(dtMaxW,dtMaxC,dtInit,dtOpt)
+        dtMax=min(dtMaxW,dtMaxC,dtInit,dtOpt)
         dtOpt=dtMax
         lMinStep=.false.
       else
-        dtMax=amin1(dtMaxW,dtMaxC)
+        dtMax=min(dtMaxW,dtMaxC)
       end if
-      tFix=dmin1(tPrint,tAtm,tMax)
+      tFix=min(tPrint,tAtm,tMax)
       if(Iter.le.ItMin.and.(tFix-t).ge.dMul*dtOpt)
-     !  dtOpt=amin1(dtMax,dMul*dtOpt)
+     !  dtOpt=min(dtMax,dMul*dtOpt)
       if(Iter.ge.ItMax)
      !  dtOpt=max(dtMin,dMul2*dtOpt)
-      dt=amin1(dtOpt,sngl(tFix-t))
+      dt=min(dtOpt,sngl(tFix-t))
       iStep=1
       if(dt.gt.0.) iStep=int(anint(sngl(tFix-t)/dt))
       if(iStep.ge.1.and.iStep.le.10)
-     !  dt=amin1(sngl(tFix-t)/iStep,dtMax)
+     !  dt=min(sngl(tFix-t)/iStep,dtMax)
       if(iStep.eq.1) then
         dt=sngl(tFix-t)
         if(dt-dtMax.gt.dtMin) dt=dt/2.
@@ -805,7 +805,7 @@ c        tMax=tAtm
       rInterc=0.
       if(iInterc.gt.0) then
         if(iInterc.eq.1.and.LAI.gt.0.) then
-          rInterc=amin1(aInterc*LAI*(1.-1./(1+SCF*Prec/aInterc/LAI)),
+          rInterc=min(aInterc*LAI*(1.-1./(1+SCF*Prec/aInterc/LAI)),
      !                  Prec) ! Newly intercepted
           if(rInterc+ExcesInt.gt.aInterc*LAI) ! can not be more than max interception
      !      rInterc=aInterc*LAI-ExcesInt
@@ -852,7 +852,7 @@ c        tMax=tAtm
 
       rInterc=0.
       if(LAI.gt.0.) then
-        rInterc=amin1(aInterc*LAI*(1.-1./(1.+SCF*Prec/aInterc/LAI)),
+        rInterc=min(aInterc*LAI*(1.-1./(1.+SCF*Prec/aInterc/LAI)),
      !                Prec) ! Newly intercepted
         if(rInterc+ExcesInt.gt.aInterc*LAI) ! can not be more than max interception
      !     rInterc=aInterc*LAI-ExcesInt

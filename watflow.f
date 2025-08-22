@@ -38,7 +38,7 @@
 
 *     Nonequilibrium transport [Ross and Smettem, 2001]
       Rate=1.
-      if(TauW.gt.0.) Rate=amin1(1.,max(0.000001,1.-exp(-dt/TauW)))
+      if(TauW.gt.0.) Rate=min(1.,max(0.000001,1.-exp(-dt/TauW)))
 
 *     Dual porosity mass transfer
       if(iDualPor.gt.0)
@@ -145,7 +145,7 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
           dt=max(dt/3,dtMin)
           dtOpt=dt
           t=tOld+dt
-          if(TauW.gt.0.) Rate=amin1(1.,max(0.000001,1.-exp(-dt/TauW)))
+          if(TauW.gt.0.) Rate=min(1.,max(0.000001,1.-exp(-dt/TauW)))
           iTemp=0
           goto 11
         end if
@@ -480,11 +480,11 @@ c          if(TauW.gt.0) EpsH=abs(hNew(i)-hTemp(i))-abs(0.05*hNew(i))
         if(lDensity) BT=BT*fRo(1,Conc(1,i))/fRo(2,Conc(1,i))        ! Bulk density/dynamic viscosity
         M=MatNum(i)
         if(Kappa(i).eq.-1) then
-          hi1=amin1(hSat(M),hTemp(i)/Ah(i)/AT)
-          hi2=amin1(hSat(M), hNew(i)/Ah(i)/AT)
+          hi1=min(hSat(M),hTemp(i)/Ah(i)/AT)
+          hi2=min(hSat(M), hNew(i)/Ah(i)/AT)
         else if(Kappa(i).eq.+1) then
-          hi1=amin1(hSat(M),hTemp(i)/Ah(i)/AhW(M)/AT)
-          hi2=amin1(hSat(M), hNew(i)/Ah(i)/AhW(M)/AT)
+          hi1=min(hSat(M),hTemp(i)/Ah(i)/AhW(M)/AT)
+          hi2=min(hSat(M), hNew(i)/Ah(i)/AhW(M)/AT)
         end if
         hiM=0.1*hi1+0.9*hi2
         if(iModel.lt.nTabMod) then          ! Conductivity

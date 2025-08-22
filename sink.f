@@ -192,7 +192,7 @@ c            Sink(i)=min(Sink(i),0.5*(ThNew(i)-ParD(1,MatNum(i)))/dt)
             end if
             cc=max(Conc(jS,i)-cMin,0.)
             if(iStep.eq.1) then
-              SinkS(i)=Sink(i)*max(amin1(Conc(jS,i),cRootMax),0.)
+              SinkS(i)=Sink(i)*max(min(Conc(jS,i),cRootMax),0.)
               SPUptake=SPUptake+SinkS(i)*dxM
 *             This is needed only for the last node, but that node may not have beta
               SAUptakeP=max(SPot*OmegaW-SPUptake,0.)

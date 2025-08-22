@@ -119,7 +119,7 @@
      !               iMoistDep,NMatD,DMoist,WDep,lNEquil,lDualNEq)
           Peclet=max(Peclet,Pecl)
           Courant=max(Courant,Cour)
-          dtMaxC=amin1(dtMaxC,dtMxC)
+          dtMaxC=min(dtMaxC,dtMxC)
 
 *         Set up the matrix equation
           call MatSet(jS,N,NS,NSD,Level,epsi,alf,dt,kBotCh,kTopCh,cBot,
@@ -1003,20 +1003,20 @@ c        if(Level.eq.NLevel) g1(i)=g1(i)-ThG*dHenry-Henry*(ThWO-ThW)/dt
           dtMax=1.e+30
 c          vMax=max(abs(v)/ThW,abs(vj)/Thj)
           vMax=(abs(v)+abs(vj))/(ThW+Thj)
-          RMin=amin1(Retard(i),Retard(j))
+          RMin=min(Retard(i),Retard(j))
           if(DD.gt.0.) Pec=abs(vv)*dx/DD
           Cour=vMax*dt/dx/RMin
           Peclet=max(Peclet,Pec)
           Courant=max(Courant,Cour)
           Cour1=CourMax
           if(.not.lUpW.and..not.lArtD) then
-            if(Pec.ne.99999.) Cour1=amin1(1.,PeCr/max(0.5,Pec))
+            if(Pec.ne.99999.) Cour1=min(1.,PeCr/max(0.5,Pec))
           end if
           if(epsi.lt.1..and.vMax.gt.1.e-20) dtMax=Cour1*dx*RMin/vMax
 *         the von Neumann time step limit
 c          RThE=(ThW+thj)/2.*RMin
-c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
-          dtMaxC=amin1(dtMaxC,dtMax)
+c          if(abs(DD).gt.1.e-20)dtMax=min(dtMax,10.*RThE*dx*dx/2./DD)
+          dtMaxC=min(dtMaxC,dtMax)
 
 *       Calculate upstream weighting factors
         else if(lUpW.and.Iter.eq.1) then
@@ -1029,7 +1029,7 @@ c          if(abs(DD).gt.1.e-20)dtMax=amin1(dtMax,10.*RThE*dx*dx/2./DD)
             if(vv1.lt.0.) wc(i)=-1
           else
             wc(i)=1./TanH(Pe2)-1./Pe2
-            wc(i)=amin1( 1.,wc(i))
+            wc(i)=min( 1.,wc(i))
             wc(i)=max(-1.,wc(i))
           end if
         end if

@@ -92,7 +92,7 @@
       end if
       iLengthPath = Len_Trim(cDataPath)
       if(iLengthPath.gt.260-13) goto 930
-      cFileName = cDataPath(1:iLengthPath)//'/Options.in'
+      cFileName = cDataPath(1:iLengthPath)//'/OPTIONS.IN'
       open(35,file=cFileName, status='old',err=998)
 998   continue
 
@@ -110,9 +110,9 @@
      !          OmegaW,lEnd,lVaporOut,lFluxOut,iInterc,aInterc)
       data iUnit /50,70,71,75,76,77,78/
 
-      cFileName = cDataPath(1:iLengthPath)//'/Selector.in'
+      cFileName = cDataPath(1:iLengthPath)//'/SELECTOR.IN'
       open(30,file=cFileName, status='old',err=901)
-      cFileName = cDataPath(1:iLengthPath)//'/Profile.dat'
+      cFileName = cDataPath(1:iLengthPath)//'/PROFILE.DAT'
       open(32,file=cFileName, status='old',err=901)
       cFileName = cDataPath(1:iLengthPath)//'/I_CHECK.OUT'
       open(50,file=cFileName, status='unknown',err=902)
@@ -773,24 +773,24 @@ c      goto 1000
       cErr( 2)='File already exists or hard disk is full ! Open file err
      !or in output file : '
       cErr( 3)='Error when writing to an output file !'
-      cErr( 4)='Error when reading from an input file Level_01.dir data
+      cErr( 4)='Error when reading from an input file LEVEL_01.DIR data
      !pathway !'
-      cErr( 5)='Error when reading from an input file Selector.in Basic
+      cErr( 5)='Error when reading from an input file SELECTOR.IN Basic
      !Informations !'
-      cErr( 6)='Error when reading from an input file Selector.in Water
+      cErr( 6)='Error when reading from an input file SELECTOR.IN Water
      !Flow Informations !'
-      cErr( 7)='Error when reading from an input file Selector.in Time I
+      cErr( 7)='Error when reading from an input file SELECTOR.IN Time I
      !nformations !'
-      cErr( 8)='Error when reading from an input file Selector.in Root G
+      cErr( 8)='Error when reading from an input file SELECTOR.IN Root G
      !rowth Informations !'
-      cErr( 9)='Error when reading from an input file Selector.in Sink I
+      cErr( 9)='Error when reading from an input file SELECTOR.IN Sink I
      !nformations !'
-      cErr(10)='Error when reading from an input file Selector.in Heat T
+      cErr(10)='Error when reading from an input file SELECTOR.IN Heat T
      !ransport Informations !'
-      cErr(11)='Error when reading from an input file Selector.in Solute
+      cErr(11)='Error when reading from an input file SELECTOR.IN Solute
      ! Transport Informations !'
-      cErr(12)='Error when reading from an input file Profile.dat !'
-      cErr(13)='Error when reading from an input file Atmosph.in !'
+      cErr(12)='Error when reading from an input file PROFILE.DAT !'
+      cErr(13)='Error when reading from an input file ATMOSPH.IN !'
       cErr(14)='Dimension in NumNPD is exceeded !'
       cErr(15)='Dimension in NObsD is exceeded !'
       cErr(16)='Dimension in NMatD or NLay is exceeded !'
